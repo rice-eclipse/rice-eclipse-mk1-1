@@ -107,8 +107,8 @@
 </symbols>
 <devicesets>
 <deviceset name="AP2210N-3.3TRG1" prefix="D">
-<description>&lt;b&gt;Schottky Diodes&lt;/b&gt;&lt;p&gt;
-Source: Fairchild .. BAT54.pdf</description>
+<description>&lt;b&gt;3.3V regulator&lt;/b&gt;&lt;p&gt;
+300mA rating.</description>
 <gates>
 <gate name="G$1" symbol="AP2210N-3.3TRG1" x="0" y="0"/>
 </gates>
