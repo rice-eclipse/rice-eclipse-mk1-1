@@ -8221,6 +8221,32 @@ Source: AVX .. aphvc.pdf</description>
 <text x="-5.0292" y="-8.8646" size="1.27" layer="21" ratio="6" rot="SR0">*</text>
 <text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
 </package>
+<package name="TSSOP8">
+<description>&lt;b&gt;Plastic Small Outline&lt;/b&gt;</description>
+<wire x1="-2.15" y1="-1.4" x2="2.15" y2="-1.4" width="0.2032" layer="21"/>
+<wire x1="2.15" y1="-1.4" x2="2.15" y2="1.4" width="0.2032" layer="21"/>
+<wire x1="2.15" y1="1.4" x2="-2.15" y2="1.4" width="0.2032" layer="21"/>
+<wire x1="-2.15" y1="1.4" x2="-2.15" y2="-1.4" width="0.2032" layer="21"/>
+<circle x="-1.625" y="0.65" radius="0.325" width="0" layer="21"/>
+<smd name="1" x="-2.925" y="0.975" dx="1.2" dy="0.35" layer="1"/>
+<smd name="2" x="-2.925" y="0.325" dx="1.2" dy="0.35" layer="1"/>
+<smd name="3" x="-2.925" y="-0.325" dx="1.2" dy="0.35" layer="1"/>
+<smd name="4" x="-2.925" y="-0.975" dx="1.2" dy="0.35" layer="1"/>
+<smd name="5" x="2.925" y="-0.975" dx="1.2" dy="0.35" layer="1"/>
+<smd name="6" x="2.925" y="-0.325" dx="1.2" dy="0.35" layer="1"/>
+<smd name="7" x="2.925" y="0.325" dx="1.2" dy="0.35" layer="1"/>
+<smd name="8" x="2.925" y="0.975" dx="1.2" dy="0.35" layer="1"/>
+<text x="-2.925" y="1.625" size="1.27" layer="25">&gt;NAME</text>
+<text x="-3.25" y="-2.925" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-3.2" y1="0.85" x2="-2.2" y2="1.1" layer="51"/>
+<rectangle x1="-3.2" y1="0.2" x2="-2.2" y2="0.45" layer="51"/>
+<rectangle x1="-3.2" y1="-0.45" x2="-2.2" y2="-0.2" layer="51"/>
+<rectangle x1="-3.2" y1="-1.1" x2="-2.2" y2="-0.85" layer="51"/>
+<rectangle x1="2.2" y1="-1.1" x2="3.2" y2="-0.85" layer="51"/>
+<rectangle x1="2.2" y1="-0.45" x2="3.2" y2="-0.2" layer="51"/>
+<rectangle x1="2.2" y1="0.2" x2="3.2" y2="0.45" layer="51"/>
+<rectangle x1="2.2" y1="0.85" x2="3.2" y2="1.1" layer="51"/>
+</package>
 </packages>
 <symbols>
 <symbol name="LM1084IS-5.0">
@@ -8234,6 +8260,22 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="27.94" y1="2.54" x2="5.08" y2="2.54" width="0.1524" layer="94"/>
 <text x="15.5956" y="-3.5814" size="2.0828" layer="95" ratio="6" rot="SR0">&gt;Name</text>
 <text x="14.9606" y="-8.6614" size="2.0828" layer="96" ratio="6" rot="SR0">&gt;Value</text>
+</symbol>
+<symbol name="LM7705">
+<wire x1="-7.62" y1="10.16" x2="7.62" y2="10.16" width="0.254" layer="94"/>
+<wire x1="7.62" y1="10.16" x2="7.62" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="7.62" y1="-10.16" x2="-7.62" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="-10.16" x2="-7.62" y2="10.16" width="0.254" layer="94"/>
+<text x="-2.54" y="10.922" size="1.778" layer="95">&gt;NAME</text>
+<text x="-2.54" y="-12.446" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="VOUT" x="10.16" y="-2.54" length="short" direction="in" rot="R180"/>
+<pin name="VSS" x="-10.16" y="2.54" length="short" direction="in"/>
+<pin name="VDD" x="-10.16" y="-7.62" length="short" direction="in"/>
+<pin name="CRES" x="10.16" y="2.54" length="short" direction="in" rot="R180"/>
+<pin name="CF-" x="10.16" y="7.62" length="short" direction="in" rot="R180"/>
+<pin name="CF+" x="-10.16" y="7.62" length="short" direction="in"/>
+<pin name="SD" x="-10.16" y="-2.54" length="short" direction="in"/>
+<pin name="VSS2" x="10.16" y="-7.62" length="short" direction="in" rot="R180"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -8281,6 +8323,34 @@ Source: AVX .. aphvc.pdf</description>
 <technology name="">
 <attribute name="MANUFACTURER_PART_NUMBER" value="LM1084ISX5.0NOPB" constant="no"/>
 <attribute name="VENDOR" value="Texas Instruments" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="LM7705" prefix="IC">
+<description>&lt;b&gt;CHARGE MANAGEMENT IC&lt;/b&gt;</description>
+<gates>
+<gate name="G$1" symbol="LM7705" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="TSSOP8">
+<connects>
+<connect gate="G$1" pin="CF+" pad="1"/>
+<connect gate="G$1" pin="CF-" pad="8"/>
+<connect gate="G$1" pin="CRES" pad="7"/>
+<connect gate="G$1" pin="SD" pad="3"/>
+<connect gate="G$1" pin="VDD" pad="4"/>
+<connect gate="G$1" pin="VOUT" pad="6"/>
+<connect gate="G$1" pin="VSS" pad="2"/>
+<connect gate="G$1" pin="VSS2" pad="5"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+<attribute name="OC_FARNELL" value="unknown" constant="no"/>
+<attribute name="OC_NEWARK" value="unknown" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -8378,6 +8448,11 @@ Source: AVX .. aphvc.pdf</description>
 <part name="FRAME1" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
 <part name="FRAME7" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
 <part name="FRAME8" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
+<part name="IC1" library="texas-extra" deviceset="LM7705" device=""/>
+<part name="C1" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="5UF"/>
+<part name="C2" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="5UF"/>
+<part name="C8" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="22UF"/>
+<part name="C9" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="10UF"/>
 </parts>
 <sheets>
 <sheet>
@@ -8404,6 +8479,11 @@ A sheet for all the voltage regulators in use.</description>
 <attribute name="LAST_DATE_TIME" x="217.17" y="10.16" size="2.286" layer="94"/>
 <attribute name="SHEET" x="230.505" y="5.08" size="2.54" layer="94"/>
 </instance>
+<instance part="IC1" gate="G$1" x="157.48" y="50.8"/>
+<instance part="C1" gate="G$1" x="154.94" y="68.58" rot="R90"/>
+<instance part="C2" gate="G$1" x="185.42" y="50.8"/>
+<instance part="C8" gate="G$1" x="177.8" y="35.56"/>
+<instance part="C9" gate="G$1" x="132.08" y="40.64"/>
 </instances>
 <busses>
 </busses>
@@ -8420,7 +8500,8 @@ A sheet for all the voltage regulators in use.</description>
 <wire x1="127" y1="86.36" x2="119.38" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="C5" gate="G$1" pin="2"/>
 <junction x="127" y="86.36"/>
-<wire x1="119.38" y1="86.36" x2="78.74" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="119.38" y1="86.36" x2="86.36" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="86.36" x2="78.74" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="127" y1="86.36" x2="127" y2="76.2" width="0.1524" layer="91"/>
 <pinref part="C4" gate="G$1" pin="2"/>
 <wire x1="127" y1="76.2" x2="172.72" y2="76.2" width="0.1524" layer="91"/>
@@ -8435,6 +8516,34 @@ A sheet for all the voltage regulators in use.</description>
 <wire x1="119.38" y1="104.14" x2="119.38" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="170.18" y1="104.14" x2="119.38" y2="104.14" width="0.1524" layer="91"/>
 <junction x="119.38" y="104.14"/>
+<pinref part="IC1" gate="G$1" pin="VSS"/>
+<wire x1="147.32" y1="53.34" x2="142.24" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="53.34" x2="86.36" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="53.34" x2="86.36" y2="86.36" width="0.1524" layer="91"/>
+<junction x="86.36" y="86.36"/>
+<pinref part="IC1" gate="G$1" pin="SD"/>
+<wire x1="147.32" y1="48.26" x2="142.24" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="48.26" x2="142.24" y2="53.34" width="0.1524" layer="91"/>
+<junction x="142.24" y="53.34"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="G$1" pin="VSS2"/>
+<wire x1="167.64" y1="43.18" x2="172.72" y2="43.18" width="0.1524" layer="91"/>
+<label x="193.04" y="43.18" size="1.778" layer="95"/>
+<pinref part="C9" gate="G$1" pin="2"/>
+<wire x1="172.72" y1="43.18" x2="185.42" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="43.18" x2="190.5" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="43.18" x2="193.04" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="35.56" x2="172.72" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="35.56" x2="172.72" y2="43.18" width="0.1524" layer="91"/>
+<junction x="172.72" y="43.18"/>
+<pinref part="C2" gate="G$1" pin="2"/>
+<wire x1="185.42" y1="45.72" x2="185.42" y2="43.18" width="0.1524" layer="91"/>
+<junction x="185.42" y="43.18"/>
+<pinref part="C8" gate="G$1" pin="2"/>
+<wire x1="177.8" y1="30.48" x2="190.5" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="30.48" x2="190.5" y2="43.18" width="0.1524" layer="91"/>
+<junction x="190.5" y="43.18"/>
 </segment>
 </net>
 <net name="+12V" class="0">
@@ -8477,17 +8586,57 @@ A sheet for all the voltage regulators in use.</description>
 <wire x1="170.18" y1="111.76" x2="213.36" y2="111.76" width="0.1524" layer="91"/>
 <junction x="170.18" y="111.76"/>
 </segment>
+<segment>
+<pinref part="IC1" gate="G$1" pin="VDD"/>
+<pinref part="C9" gate="G$1" pin="1"/>
+<wire x1="147.32" y1="43.18" x2="132.08" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="43.18" x2="114.3" y2="43.18" width="0.1524" layer="91"/>
+<junction x="132.08" y="43.18"/>
+<label x="114.3" y="43.18" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="-0V23" class="0">
 <segment>
 <wire x1="195.58" y1="58.42" x2="213.36" y2="58.42" width="0.1524" layer="91"/>
 <label x="213.36" y="58.42" size="1.778" layer="95"/>
+<pinref part="IC1" gate="G$1" pin="VOUT"/>
+<pinref part="C8" gate="G$1" pin="1"/>
+<wire x1="167.64" y1="48.26" x2="177.8" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="48.26" x2="177.8" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="48.26" x2="195.58" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="48.26" x2="195.58" y2="58.42" width="0.1524" layer="91"/>
+<junction x="167.64" y="48.26"/>
 </segment>
 </net>
 <net name="+10V" class="0">
 <segment>
 <wire x1="193.04" y1="137.16" x2="218.44" y2="137.16" width="0.1524" layer="91"/>
 <label x="218.44" y="137.16" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="C1" gate="G$1" pin="1"/>
+<wire x1="152.4" y1="68.58" x2="139.7" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="68.58" x2="139.7" y2="58.42" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="G$1" pin="CF+"/>
+<wire x1="139.7" y1="58.42" x2="147.32" y2="58.42" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="C1" gate="G$1" pin="2"/>
+<wire x1="160.02" y1="68.58" x2="172.72" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="68.58" x2="172.72" y2="58.42" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="G$1" pin="CF-"/>
+<wire x1="172.72" y1="58.42" x2="167.64" y2="58.42" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$3" class="0">
+<segment>
+<pinref part="IC1" gate="G$1" pin="CRES"/>
+<pinref part="C2" gate="G$1" pin="1"/>
+<wire x1="167.64" y1="53.34" x2="185.42" y2="53.34" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
