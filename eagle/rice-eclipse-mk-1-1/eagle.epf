@@ -1,6 +1,6 @@
 [Eagle]
 Version="08 03 01"
-Platform="Mac OS X"
+Platform="Linux"
 Globals="Globals"
 Desktop="Desktop"
 
@@ -346,12 +346,6 @@ UsedLibraryUrn="urn:adsk.eagle:library:174"
 UsedLibraryUrn="urn:adsk.eagle:library:175"
 UsedLibraryUrn="urn:adsk.eagle:library:176"
 UsedLibraryUrn="urn:adsk.eagle:library:177"
-UsedLibrary="/Users/patrickhan/Documents/ECLIPSE/rice-eclipse-mk1-1/eagle/rice-eclipse-mk1-1-lib/analog-devices-extra-AD7124-8BCPZ.lbr"
-UsedLibrary="/Users/patrickhan/Documents/ECLIPSE/rice-eclipse-mk1-1/eagle/rice-eclipse-mk1-1-lib/con-phoenix-500-extra.lbr"
-UsedLibrary="/Users/patrickhan/Documents/ECLIPSE/rice-eclipse-mk1-1/eagle/rice-eclipse-mk1-1-lib/diodes-extra.lbr"
-UsedLibrary="/Users/patrickhan/Documents/ECLIPSE/rice-eclipse-mk1-1/eagle/rice-eclipse-mk1-1-lib/microchip-extra.lbr"
-UsedLibrary="/Users/patrickhan/Documents/ECLIPSE/rice-eclipse-mk1-1/eagle/rice-eclipse-mk1-1-lib/shorts.lbr"
-UsedLibrary="/Users/patrickhan/Documents/ECLIPSE/rice-eclipse-mk1-1/eagle/rice-eclipse-mk1-1-lib/texas-extra.lbr"
 
 [Win_1]
 Type="Control Panel"
@@ -360,5 +354,5 @@ State=2
 Number=0
 
 [Desktop]
-Screen="1440 900"
+Screen="1920 1080"
 Window="Win_1"
