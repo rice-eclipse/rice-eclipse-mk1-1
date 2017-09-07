@@ -51,4 +51,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# Files related to CLion
+# Don't add the build folder's contents.
+build/*
+!build/.gitignore
