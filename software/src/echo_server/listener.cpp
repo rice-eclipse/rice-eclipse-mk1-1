@@ -52,6 +52,9 @@ open_listen(int port)
 
     }
 
+    #ifdef DEBUG_LISTENER
+        fprintf(stderr, "Opened listening fd on %d\n", listenfd);
+    #endif /*DEBUG_LISTENER*/
     return listenfd;
 }
 
@@ -75,6 +78,9 @@ wait_for_connection(int port, sockaddr *sa) {
     connfd = accept(listenfd, sa,
                     &clientlen);
 
+    #ifdef DEBUG_LISTENER
+        fprintf(stderr, "Received request on connfd on %d\n", connfd);
+    #endif /*DEBUG_LISTENER*/
 
     return connfd;
 
