@@ -82,6 +82,6 @@ wait_for_connection(int port, sockaddr *sa) {
         fprintf(stderr, "Received request on connfd on %d\n", connfd);
     #endif /*DEBUG_LISTENER*/
 
+    //TODO I think we need to close listenfd.
     return connfd;
-
 }
