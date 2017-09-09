@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.2.2">
+<eagle version="8.3.1">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
+<setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
@@ -7361,6 +7362,349 @@ Source: AVX .. aphvc.pdf</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="con-3m" urn="urn:adsk.eagle:library:119">
+<description>&lt;b&gt;3M Connectors&lt;/b&gt;&lt;p&gt;
+PCMCIA-CompactFlash Connectors&lt;p&gt;
+Zero Insertion Force Socked&lt;p&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="PAK100/2500-40" urn="urn:adsk.eagle:footprint:5527/1" library_version="1">
+<description>&lt;b&gt;3M (TM) Pak 100 4-Wall Header&lt;/b&gt; Straight&lt;p&gt;
+Source: 3M</description>
+<wire x1="-29.05" y1="4.2" x2="-23.473" y2="4.2" width="0.2032" layer="21"/>
+<wire x1="-23.473" y1="4.2" x2="-19.707" y2="4.2" width="0.2032" layer="21"/>
+<wire x1="-19.707" y1="4.2" x2="19.707" y2="4.2" width="0.2032" layer="21"/>
+<wire x1="19.707" y1="4.2" x2="23.473" y2="4.2" width="0.2032" layer="21"/>
+<wire x1="23.473" y1="4.2" x2="29.05" y2="4.2" width="0.2032" layer="21"/>
+<wire x1="29.05" y1="4.2" x2="29.05" y2="-4.2" width="0.2032" layer="21"/>
+<wire x1="29.05" y1="-4.2" x2="23.718" y2="-4.2" width="0.2032" layer="21"/>
+<wire x1="23.718" y1="-4.2" x2="23.718" y2="-3.9" width="0.2032" layer="21"/>
+<wire x1="23.718" y1="-3.9" x2="22.239" y2="-3.9" width="0.2032" layer="21"/>
+<wire x1="22.239" y1="-3.9" x2="22.239" y2="-4.2" width="0.2032" layer="21"/>
+<wire x1="22.239" y1="-4.2" x2="1.883" y2="-4.2" width="0.2032" layer="21"/>
+<wire x1="1.883" y1="-4.2" x2="1.883" y2="-2.65" width="0.2032" layer="21"/>
+<wire x1="1.883" y1="-2.65" x2="-1.883" y2="-2.65" width="0.2032" layer="21"/>
+<wire x1="-1.883" y1="-2.65" x2="-1.883" y2="-4.2" width="0.2032" layer="21"/>
+<wire x1="1.883" y1="-4.2" x2="-1.883" y2="-4.2" width="0.2032" layer="21"/>
+<wire x1="-1.883" y1="-4.2" x2="-22.002" y2="-4.2" width="0.2032" layer="21"/>
+<wire x1="-23.481" y1="-4.2" x2="-29.05" y2="-4.2" width="0.2032" layer="21"/>
+<wire x1="-29.05" y1="-4.2" x2="-29.05" y2="4.2" width="0.2032" layer="21"/>
+<wire x1="-27.925" y1="3.275" x2="-23.48" y2="3.275" width="0.2032" layer="21"/>
+<wire x1="-19.705" y1="3.275" x2="19.705" y2="3.275" width="0.2032" layer="21"/>
+<wire x1="23.48" y1="3.275" x2="27.925" y2="3.275" width="0.2032" layer="21"/>
+<wire x1="27.925" y1="3.275" x2="27.925" y2="-3.275" width="0.2032" layer="21"/>
+<wire x1="27.925" y1="-3.275" x2="1.883" y2="-3.275" width="0.2032" layer="21"/>
+<wire x1="-1.883" y1="-3.275" x2="-27.925" y2="-3.275" width="0.2032" layer="21"/>
+<wire x1="-27.925" y1="-3.275" x2="-27.925" y2="3.275" width="0.2032" layer="21"/>
+<wire x1="-22.002" y1="-4.2" x2="-22.002" y2="-3.9" width="0.2032" layer="21"/>
+<wire x1="-22.002" y1="-3.9" x2="-23.481" y2="-3.9" width="0.2032" layer="21"/>
+<wire x1="-23.481" y1="-3.9" x2="-23.481" y2="-4.2" width="0.2032" layer="21"/>
+<wire x1="-23.473" y1="4.2" x2="-23.473" y2="2.65" width="0.2032" layer="21"/>
+<wire x1="-23.473" y1="2.65" x2="-19.707" y2="2.65" width="0.2032" layer="21"/>
+<wire x1="-19.707" y1="2.65" x2="-19.707" y2="4.2" width="0.2032" layer="21"/>
+<wire x1="19.707" y1="4.2" x2="19.707" y2="2.65" width="0.2032" layer="21"/>
+<wire x1="19.707" y1="2.65" x2="23.473" y2="2.65" width="0.2032" layer="21"/>
+<wire x1="23.473" y1="2.65" x2="23.473" y2="4.2" width="0.2032" layer="21"/>
+<pad name="1" x="-24.13" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="2" x="-24.13" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="3" x="-21.59" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="4" x="-21.59" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="5" x="-19.05" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="6" x="-19.05" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="7" x="-16.51" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="8" x="-16.51" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="9" x="-13.97" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="10" x="-13.97" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="11" x="-11.43" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="12" x="-11.43" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="13" x="-8.89" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="14" x="-8.89" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="15" x="-6.35" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="16" x="-6.35" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="17" x="-3.81" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="18" x="-3.81" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="19" x="-1.27" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="20" x="-1.27" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="21" x="1.27" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="22" x="1.27" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="23" x="3.81" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="24" x="3.81" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="25" x="6.35" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="26" x="6.35" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="27" x="8.89" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="28" x="8.89" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="29" x="11.43" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="30" x="11.43" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="31" x="13.97" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="32" x="13.97" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="33" x="16.51" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="34" x="16.51" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="35" x="19.05" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="36" x="19.05" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="37" x="21.59" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="38" x="21.59" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="39" x="24.13" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="40" x="24.13" y="1.27" drill="1" diameter="1.4224"/>
+<text x="-29.21" y="4.572" size="1.27" layer="25">&gt;NAME</text>
+<text x="-21.59" y="4.572" size="1.27" layer="27">&gt;VALUE</text>
+</package>
+<package name="PAK100/2500-5-40" urn="urn:adsk.eagle:footprint:5526/1" library_version="1">
+<description>&lt;b&gt;3M (TM) Pak 100 4-Wall Header&lt;/b&gt; Right Angle&lt;p&gt;
+Source: 3M</description>
+<wire x1="29.05" y1="1.875" x2="29.05" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="29.05" y1="11.075" x2="23.718" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="22.239" y1="11.075" x2="23.718" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="23.718" y1="11.075" x2="23.718" y2="10.105" width="0.2032" layer="21"/>
+<wire x1="23.718" y1="10.105" x2="22.239" y2="10.105" width="0.2032" layer="21"/>
+<wire x1="22.239" y1="10.105" x2="22.239" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="22.239" y1="11.075" x2="1.883" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="1.883" y1="11.075" x2="1.883" y2="4.01" width="0.2032" layer="21"/>
+<wire x1="1.883" y1="4.01" x2="-1.883" y2="4.01" width="0.2032" layer="21"/>
+<wire x1="-1.883" y1="4.01" x2="-1.883" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="1.883" y1="11.075" x2="-1.883" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="-1.883" y1="11.075" x2="-19.462" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="-20.941" y1="11.075" x2="-19.462" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="-20.941" y1="11.075" x2="-29.05" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="-29.05" y1="11.075" x2="-29.05" y2="1.875" width="0.2032" layer="21"/>
+<wire x1="-19.462" y1="11.075" x2="-19.462" y2="10.105" width="0.2032" layer="21"/>
+<wire x1="-19.462" y1="10.105" x2="-20.941" y2="10.105" width="0.2032" layer="21"/>
+<wire x1="-20.941" y1="10.105" x2="-20.941" y2="11.075" width="0.2032" layer="21"/>
+<wire x1="-25.506" y1="1.875" x2="-29.05" y2="1.875" width="0.2032" layer="21"/>
+<wire x1="25.489" y1="1.875" x2="-25.502" y2="1.875" width="0.2032" layer="51"/>
+<wire x1="29.05" y1="1.875" x2="25.493" y2="1.875" width="0.2032" layer="21"/>
+<pad name="1" x="-24.13" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="2" x="-24.13" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="3" x="-21.59" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="4" x="-21.59" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="5" x="-19.05" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="6" x="-19.05" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="7" x="-16.51" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="8" x="-16.51" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="9" x="-13.97" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="10" x="-13.97" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="11" x="-11.43" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="12" x="-11.43" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="13" x="-8.89" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="14" x="-8.89" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="15" x="-6.35" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="16" x="-6.35" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="17" x="-3.81" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="18" x="-3.81" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="19" x="-1.27" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="20" x="-1.27" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="21" x="1.27" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="22" x="1.27" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="23" x="3.81" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="24" x="3.81" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="25" x="6.35" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="26" x="6.35" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="27" x="8.89" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="28" x="8.89" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="29" x="11.43" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="30" x="11.43" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="31" x="13.97" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="32" x="13.97" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="33" x="16.51" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="34" x="16.51" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="35" x="19.05" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="36" x="19.05" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="37" x="21.59" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="38" x="21.59" y="1.27" drill="1" diameter="1.4224"/>
+<pad name="39" x="24.13" y="-1.27" drill="1" diameter="1.4224"/>
+<pad name="40" x="24.13" y="1.27" drill="1" diameter="1.4224"/>
+<text x="-29.21" y="-3.81" size="1.27" layer="25">&gt;NAME</text>
+<text x="-21.59" y="-3.81" size="1.27" layer="27">&gt;VALUE</text>
+<polygon width="0.2032" layer="21">
+<vertex x="-25.41" y="10.945"/>
+<vertex x="-22.86" y="10.945"/>
+<vertex x="-24.135" y="8.37"/>
+</polygon>
+</package>
+</packages>
+<packages3d>
+<package3d name="PAK100/2500-40" urn="urn:adsk.eagle:package:5589/1" type="box" library_version="1">
+<description>3M (TM) Pak 100 4-Wall Header Straight
+Source: 3M</description>
+</package3d>
+<package3d name="PAK100/2500-5-40" urn="urn:adsk.eagle:package:5588/1" type="box" library_version="1">
+<description>3M (TM) Pak 100 4-Wall Header Right Angle
+Source: 3M</description>
+</package3d>
+</packages3d>
+<symbols>
+<symbol name="PINV" urn="urn:adsk.eagle:symbol:5508/1" library_version="1">
+<text x="-1.27" y="0.889" size="1.778" layer="95" rot="R180">&gt;NAME</text>
+<text x="-3.81" y="2.667" size="1.778" layer="96">&gt;VALUE</text>
+<rectangle x1="0" y1="-0.254" x2="2.794" y2="0.254" layer="94"/>
+<pin name="KL" x="5.08" y="0" visible="off" length="short" direction="pas" rot="R180"/>
+</symbol>
+<symbol name="PIN" urn="urn:adsk.eagle:symbol:5509/1" library_version="1">
+<text x="-1.27" y="0.889" size="1.778" layer="95" rot="R180">&gt;NAME</text>
+<rectangle x1="0" y1="-0.254" x2="2.794" y2="0.254" layer="94"/>
+<pin name="KL" x="5.08" y="0" visible="off" length="short" direction="pas" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="2540-" urn="urn:adsk.eagle:component:5620/1" prefix="X" library_version="1">
+<description>&lt;b&gt;3M (TM) Pak 100 4-Wall Header&lt;/b&gt;&lt;p&gt;
+Source: 3M</description>
+<gates>
+<gate name="-1" symbol="PINV" x="0" y="0" addlevel="always"/>
+<gate name="-2" symbol="PIN" x="0" y="-2.54" addlevel="always"/>
+<gate name="-3" symbol="PIN" x="0" y="-5.08" addlevel="always"/>
+<gate name="-4" symbol="PIN" x="0" y="-7.62" addlevel="always"/>
+<gate name="-5" symbol="PIN" x="0" y="-10.16" addlevel="always"/>
+<gate name="-6" symbol="PIN" x="0" y="-12.7" addlevel="always"/>
+<gate name="-7" symbol="PIN" x="0" y="-15.24" addlevel="always"/>
+<gate name="-8" symbol="PIN" x="0" y="-17.78" addlevel="always"/>
+<gate name="-9" symbol="PIN" x="0" y="-20.32" addlevel="always"/>
+<gate name="-10" symbol="PIN" x="0" y="-22.86" addlevel="always"/>
+<gate name="-11" symbol="PIN" x="0" y="-25.4" addlevel="always"/>
+<gate name="-12" symbol="PIN" x="0" y="-27.94" addlevel="always"/>
+<gate name="-13" symbol="PIN" x="0" y="-30.48" addlevel="always"/>
+<gate name="-14" symbol="PIN" x="0" y="-33.02" addlevel="always"/>
+<gate name="-15" symbol="PIN" x="0" y="-35.56" addlevel="always"/>
+<gate name="-16" symbol="PIN" x="0" y="-38.1" addlevel="always"/>
+<gate name="-17" symbol="PIN" x="0" y="-40.64" addlevel="always"/>
+<gate name="-18" symbol="PIN" x="0" y="-43.18" addlevel="always"/>
+<gate name="-19" symbol="PIN" x="0" y="-45.72" addlevel="always"/>
+<gate name="-20" symbol="PIN" x="0" y="-48.26" addlevel="always"/>
+<gate name="-21" symbol="PIN" x="0" y="-50.8" addlevel="always"/>
+<gate name="-22" symbol="PIN" x="0" y="-53.34" addlevel="always"/>
+<gate name="-23" symbol="PIN" x="0" y="-55.88" addlevel="always"/>
+<gate name="-24" symbol="PIN" x="0" y="-58.42" addlevel="always"/>
+<gate name="-25" symbol="PIN" x="0" y="-60.96" addlevel="always"/>
+<gate name="-26" symbol="PIN" x="0" y="-63.5" addlevel="always"/>
+<gate name="-27" symbol="PIN" x="0" y="-66.04" addlevel="always"/>
+<gate name="-28" symbol="PIN" x="0" y="-68.58" addlevel="always"/>
+<gate name="-29" symbol="PIN" x="0" y="-71.12" addlevel="always"/>
+<gate name="-30" symbol="PIN" x="0" y="-73.66" addlevel="always"/>
+<gate name="-31" symbol="PIN" x="0" y="-76.2" addlevel="always"/>
+<gate name="-32" symbol="PIN" x="0" y="-78.74" addlevel="always"/>
+<gate name="-33" symbol="PIN" x="0" y="-81.28" addlevel="always"/>
+<gate name="-34" symbol="PIN" x="0" y="-83.82" addlevel="always"/>
+<gate name="-35" symbol="PIN" x="0" y="-86.36" addlevel="always"/>
+<gate name="-36" symbol="PIN" x="0" y="-88.9" addlevel="always"/>
+<gate name="-37" symbol="PIN" x="0" y="-91.44" addlevel="always"/>
+<gate name="-38" symbol="PIN" x="0" y="-93.98" addlevel="always"/>
+<gate name="-39" symbol="PIN" x="0" y="-96.52" addlevel="always"/>
+<gate name="-40" symbol="PIN" x="0" y="-99.06" addlevel="always"/>
+</gates>
+<devices>
+<device name="" package="PAK100/2500-40">
+<connects>
+<connect gate="-1" pin="KL" pad="1"/>
+<connect gate="-10" pin="KL" pad="10"/>
+<connect gate="-11" pin="KL" pad="11"/>
+<connect gate="-12" pin="KL" pad="12"/>
+<connect gate="-13" pin="KL" pad="13"/>
+<connect gate="-14" pin="KL" pad="14"/>
+<connect gate="-15" pin="KL" pad="15"/>
+<connect gate="-16" pin="KL" pad="16"/>
+<connect gate="-17" pin="KL" pad="17"/>
+<connect gate="-18" pin="KL" pad="18"/>
+<connect gate="-19" pin="KL" pad="19"/>
+<connect gate="-2" pin="KL" pad="2"/>
+<connect gate="-20" pin="KL" pad="20"/>
+<connect gate="-21" pin="KL" pad="21"/>
+<connect gate="-22" pin="KL" pad="22"/>
+<connect gate="-23" pin="KL" pad="23"/>
+<connect gate="-24" pin="KL" pad="24"/>
+<connect gate="-25" pin="KL" pad="25"/>
+<connect gate="-26" pin="KL" pad="26"/>
+<connect gate="-27" pin="KL" pad="27"/>
+<connect gate="-28" pin="KL" pad="28"/>
+<connect gate="-29" pin="KL" pad="29"/>
+<connect gate="-3" pin="KL" pad="3"/>
+<connect gate="-30" pin="KL" pad="30"/>
+<connect gate="-31" pin="KL" pad="31"/>
+<connect gate="-32" pin="KL" pad="32"/>
+<connect gate="-33" pin="KL" pad="33"/>
+<connect gate="-34" pin="KL" pad="34"/>
+<connect gate="-35" pin="KL" pad="35"/>
+<connect gate="-36" pin="KL" pad="36"/>
+<connect gate="-37" pin="KL" pad="37"/>
+<connect gate="-38" pin="KL" pad="38"/>
+<connect gate="-39" pin="KL" pad="39"/>
+<connect gate="-4" pin="KL" pad="4"/>
+<connect gate="-40" pin="KL" pad="40"/>
+<connect gate="-5" pin="KL" pad="5"/>
+<connect gate="-6" pin="KL" pad="6"/>
+<connect gate="-7" pin="KL" pad="7"/>
+<connect gate="-8" pin="KL" pad="8"/>
+<connect gate="-9" pin="KL" pad="9"/>
+</connects>
+<package3dinstances>
+<package3dinstance package3d_urn="urn:adsk.eagle:package:5589/1"/>
+</package3dinstances>
+<technologies>
+<technology name="">
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+<attribute name="OC_FARNELL" value="unknown" constant="no"/>
+<attribute name="OC_NEWARK" value="unknown" constant="no"/>
+</technology>
+</technologies>
+</device>
+<device name="5" package="PAK100/2500-5-40">
+<connects>
+<connect gate="-1" pin="KL" pad="1"/>
+<connect gate="-10" pin="KL" pad="10"/>
+<connect gate="-11" pin="KL" pad="11"/>
+<connect gate="-12" pin="KL" pad="12"/>
+<connect gate="-13" pin="KL" pad="13"/>
+<connect gate="-14" pin="KL" pad="14"/>
+<connect gate="-15" pin="KL" pad="15"/>
+<connect gate="-16" pin="KL" pad="16"/>
+<connect gate="-17" pin="KL" pad="17"/>
+<connect gate="-18" pin="KL" pad="18"/>
+<connect gate="-19" pin="KL" pad="19"/>
+<connect gate="-2" pin="KL" pad="2"/>
+<connect gate="-20" pin="KL" pad="20"/>
+<connect gate="-21" pin="KL" pad="21"/>
+<connect gate="-22" pin="KL" pad="22"/>
+<connect gate="-23" pin="KL" pad="23"/>
+<connect gate="-24" pin="KL" pad="24"/>
+<connect gate="-25" pin="KL" pad="25"/>
+<connect gate="-26" pin="KL" pad="26"/>
+<connect gate="-27" pin="KL" pad="27"/>
+<connect gate="-28" pin="KL" pad="28"/>
+<connect gate="-29" pin="KL" pad="29"/>
+<connect gate="-3" pin="KL" pad="3"/>
+<connect gate="-30" pin="KL" pad="30"/>
+<connect gate="-31" pin="KL" pad="31"/>
+<connect gate="-32" pin="KL" pad="32"/>
+<connect gate="-33" pin="KL" pad="33"/>
+<connect gate="-34" pin="KL" pad="34"/>
+<connect gate="-35" pin="KL" pad="35"/>
+<connect gate="-36" pin="KL" pad="36"/>
+<connect gate="-37" pin="KL" pad="37"/>
+<connect gate="-38" pin="KL" pad="38"/>
+<connect gate="-39" pin="KL" pad="39"/>
+<connect gate="-4" pin="KL" pad="4"/>
+<connect gate="-40" pin="KL" pad="40"/>
+<connect gate="-5" pin="KL" pad="5"/>
+<connect gate="-6" pin="KL" pad="6"/>
+<connect gate="-7" pin="KL" pad="7"/>
+<connect gate="-8" pin="KL" pad="8"/>
+<connect gate="-9" pin="KL" pad="9"/>
+</connects>
+<package3dinstances>
+<package3dinstance package3d_urn="urn:adsk.eagle:package:5588/1"/>
+</package3dinstances>
+<technologies>
+<technology name="">
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+<attribute name="OC_FARNELL" value="9838414" constant="no"/>
+<attribute name="OC_NEWARK" value="unknown" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 <attribute name="CNAME" value="RJ Cunningham"/>
@@ -7395,6 +7739,8 @@ Source: AVX .. aphvc.pdf</description>
 <part name="C2" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" value="5UF"/>
 <part name="C8" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" value="22UF"/>
 <part name="C9" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" value="10UF"/>
+<part name="FRAME9" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
+<part name="X1" library="con-3m" library_urn="urn:adsk.eagle:library:119" deviceset="2540-" device="5" package3d_urn="urn:adsk.eagle:package:5588/1"/>
 </parts>
 <sheets>
 <sheet>
@@ -7799,6 +8145,316 @@ Circuits used for anti-aliasing all sampled signals. May need to be split across
 </nets>
 </sheet>
 <sheet>
+<description>&lt;b&gt;External Connectors&lt;\b&gt;&lt;br&gt;
+All the external connectors used on the board.</description>
+<plain>
+<text x="195.58" y="154.94" size="1.778" layer="91">RPI GPIO</text>
+<wire x1="190.5" y1="160.02" x2="210.82" y2="160.02" width="0.1524" layer="94"/>
+<wire x1="210.82" y1="160.02" x2="210.82" y2="45.72" width="0.1524" layer="94"/>
+<wire x1="210.82" y1="45.72" x2="190.5" y2="45.72" width="0.1524" layer="94"/>
+<wire x1="190.5" y1="45.72" x2="190.5" y2="160.02" width="0.1524" layer="94"/>
+</plain>
+<instances>
+<instance part="FRAME9" gate="G$1" x="0" y="0" smashed="yes">
+<attribute name="DRAWING_NAME" x="217.17" y="15.24" size="2.54" layer="94"/>
+<attribute name="LAST_DATE_TIME" x="217.17" y="10.16" size="2.286" layer="94"/>
+<attribute name="SHEET" x="230.505" y="5.08" size="2.54" layer="94"/>
+</instance>
+<instance part="X1" gate="-1" x="200.66" y="50.8" rot="R180"/>
+<instance part="X1" gate="-2" x="200.66" y="53.34" rot="R180"/>
+<instance part="X1" gate="-3" x="200.66" y="55.88" rot="R180"/>
+<instance part="X1" gate="-4" x="200.66" y="58.42" rot="R180"/>
+<instance part="X1" gate="-5" x="200.66" y="60.96" rot="R180"/>
+<instance part="X1" gate="-6" x="200.66" y="63.5" rot="R180"/>
+<instance part="X1" gate="-7" x="200.66" y="66.04" rot="R180"/>
+<instance part="X1" gate="-8" x="200.66" y="68.58" rot="R180"/>
+<instance part="X1" gate="-9" x="200.66" y="71.12" rot="R180"/>
+<instance part="X1" gate="-10" x="200.66" y="73.66" rot="R180"/>
+<instance part="X1" gate="-11" x="200.66" y="76.2" rot="R180"/>
+<instance part="X1" gate="-12" x="200.66" y="78.74" rot="R180"/>
+<instance part="X1" gate="-13" x="200.66" y="81.28" rot="R180"/>
+<instance part="X1" gate="-14" x="200.66" y="83.82" rot="R180"/>
+<instance part="X1" gate="-15" x="200.66" y="86.36" rot="R180"/>
+<instance part="X1" gate="-16" x="200.66" y="88.9" rot="R180"/>
+<instance part="X1" gate="-17" x="200.66" y="91.44" rot="R180"/>
+<instance part="X1" gate="-18" x="200.66" y="93.98" rot="R180"/>
+<instance part="X1" gate="-19" x="200.66" y="96.52" rot="R180"/>
+<instance part="X1" gate="-20" x="200.66" y="99.06" rot="R180"/>
+<instance part="X1" gate="-21" x="200.66" y="101.6" rot="R180"/>
+<instance part="X1" gate="-22" x="200.66" y="104.14" rot="R180"/>
+<instance part="X1" gate="-23" x="200.66" y="106.68" rot="R180"/>
+<instance part="X1" gate="-24" x="200.66" y="109.22" rot="R180"/>
+<instance part="X1" gate="-25" x="200.66" y="111.76" rot="R180"/>
+<instance part="X1" gate="-26" x="200.66" y="114.3" rot="R180"/>
+<instance part="X1" gate="-27" x="200.66" y="116.84" rot="R180"/>
+<instance part="X1" gate="-28" x="200.66" y="119.38" rot="R180"/>
+<instance part="X1" gate="-29" x="200.66" y="121.92" rot="R180"/>
+<instance part="X1" gate="-30" x="200.66" y="124.46" rot="R180"/>
+<instance part="X1" gate="-31" x="200.66" y="127" rot="R180"/>
+<instance part="X1" gate="-32" x="200.66" y="129.54" rot="R180"/>
+<instance part="X1" gate="-33" x="200.66" y="132.08" rot="R180"/>
+<instance part="X1" gate="-34" x="200.66" y="134.62" rot="R180"/>
+<instance part="X1" gate="-35" x="200.66" y="137.16" rot="R180"/>
+<instance part="X1" gate="-36" x="200.66" y="139.7" rot="R180"/>
+<instance part="X1" gate="-37" x="200.66" y="142.24" rot="R180"/>
+<instance part="X1" gate="-38" x="200.66" y="144.78" rot="R180"/>
+<instance part="X1" gate="-39" x="200.66" y="147.32" rot="R180"/>
+<instance part="X1" gate="-40" x="200.66" y="149.86" rot="R180"/>
+</instances>
+<busses>
+<bus name="RPI_GPIO_[1..40]">
+<segment>
+<wire x1="185.42" y1="149.86" x2="185.42" y2="33.02" width="0.762" layer="92"/>
+<wire x1="185.42" y1="30.48" x2="185.42" y2="33.02" width="0.762" layer="92"/>
+<label x="167.64" y="152.4" size="1.778" layer="95"/>
+</segment>
+</bus>
+</busses>
+<nets>
+<net name="RPI_GPIO_1" class="0">
+<segment>
+<pinref part="X1" gate="-1" pin="KL"/>
+<wire x1="195.58" y1="50.8" x2="185.42" y2="50.8" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_2" class="0">
+<segment>
+<pinref part="X1" gate="-2" pin="KL"/>
+<wire x1="195.58" y1="53.34" x2="185.42" y2="53.34" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_3" class="0">
+<segment>
+<pinref part="X1" gate="-3" pin="KL"/>
+<wire x1="195.58" y1="55.88" x2="185.42" y2="55.88" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_4" class="0">
+<segment>
+<pinref part="X1" gate="-4" pin="KL"/>
+<wire x1="195.58" y1="58.42" x2="185.42" y2="58.42" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_5" class="0">
+<segment>
+<pinref part="X1" gate="-5" pin="KL"/>
+<wire x1="195.58" y1="60.96" x2="185.42" y2="60.96" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_6" class="0">
+<segment>
+<pinref part="X1" gate="-6" pin="KL"/>
+<wire x1="195.58" y1="63.5" x2="185.42" y2="63.5" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_7" class="0">
+<segment>
+<pinref part="X1" gate="-7" pin="KL"/>
+<wire x1="195.58" y1="66.04" x2="185.42" y2="66.04" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_8" class="0">
+<segment>
+<pinref part="X1" gate="-8" pin="KL"/>
+<wire x1="195.58" y1="68.58" x2="185.42" y2="68.58" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_40" class="0">
+<segment>
+<pinref part="X1" gate="-40" pin="KL"/>
+<wire x1="195.58" y1="149.86" x2="185.42" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="149.86" x2="185.42" y2="147.32" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_39" class="0">
+<segment>
+<pinref part="X1" gate="-39" pin="KL"/>
+<wire x1="195.58" y1="147.32" x2="185.42" y2="147.32" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_38" class="0">
+<segment>
+<pinref part="X1" gate="-38" pin="KL"/>
+<wire x1="195.58" y1="144.78" x2="185.42" y2="144.78" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_37" class="0">
+<segment>
+<pinref part="X1" gate="-37" pin="KL"/>
+<wire x1="195.58" y1="142.24" x2="185.42" y2="142.24" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_36" class="0">
+<segment>
+<pinref part="X1" gate="-36" pin="KL"/>
+<wire x1="195.58" y1="139.7" x2="185.42" y2="139.7" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_35" class="0">
+<segment>
+<pinref part="X1" gate="-35" pin="KL"/>
+<wire x1="195.58" y1="137.16" x2="185.42" y2="137.16" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_34" class="0">
+<segment>
+<pinref part="X1" gate="-34" pin="KL"/>
+<wire x1="195.58" y1="134.62" x2="185.42" y2="134.62" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_33" class="0">
+<segment>
+<pinref part="X1" gate="-33" pin="KL"/>
+<wire x1="195.58" y1="132.08" x2="185.42" y2="132.08" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_32" class="0">
+<segment>
+<pinref part="X1" gate="-32" pin="KL"/>
+<wire x1="195.58" y1="129.54" x2="185.42" y2="129.54" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_31" class="0">
+<segment>
+<pinref part="X1" gate="-31" pin="KL"/>
+<wire x1="195.58" y1="127" x2="185.42" y2="127" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_30" class="0">
+<segment>
+<pinref part="X1" gate="-30" pin="KL"/>
+<wire x1="195.58" y1="124.46" x2="185.42" y2="124.46" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_29" class="0">
+<segment>
+<pinref part="X1" gate="-29" pin="KL"/>
+<wire x1="195.58" y1="121.92" x2="185.42" y2="121.92" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_28" class="0">
+<segment>
+<pinref part="X1" gate="-28" pin="KL"/>
+<wire x1="195.58" y1="119.38" x2="185.42" y2="119.38" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_27" class="0">
+<segment>
+<pinref part="X1" gate="-27" pin="KL"/>
+<wire x1="195.58" y1="116.84" x2="185.42" y2="116.84" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_26" class="0">
+<segment>
+<pinref part="X1" gate="-26" pin="KL"/>
+<wire x1="195.58" y1="114.3" x2="185.42" y2="114.3" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_25" class="0">
+<segment>
+<pinref part="X1" gate="-25" pin="KL"/>
+<wire x1="195.58" y1="111.76" x2="185.42" y2="111.76" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_24" class="0">
+<segment>
+<pinref part="X1" gate="-24" pin="KL"/>
+<wire x1="195.58" y1="109.22" x2="185.42" y2="109.22" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_23" class="0">
+<segment>
+<pinref part="X1" gate="-23" pin="KL"/>
+<wire x1="195.58" y1="106.68" x2="185.42" y2="106.68" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_22" class="0">
+<segment>
+<pinref part="X1" gate="-22" pin="KL"/>
+<wire x1="195.58" y1="104.14" x2="185.42" y2="104.14" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_21" class="0">
+<segment>
+<pinref part="X1" gate="-21" pin="KL"/>
+<wire x1="195.58" y1="101.6" x2="185.42" y2="101.6" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_20" class="0">
+<segment>
+<pinref part="X1" gate="-20" pin="KL"/>
+<wire x1="195.58" y1="99.06" x2="185.42" y2="99.06" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_19" class="0">
+<segment>
+<pinref part="X1" gate="-19" pin="KL"/>
+<wire x1="195.58" y1="96.52" x2="185.42" y2="96.52" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_18" class="0">
+<segment>
+<pinref part="X1" gate="-18" pin="KL"/>
+<wire x1="195.58" y1="93.98" x2="185.42" y2="93.98" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_17" class="0">
+<segment>
+<pinref part="X1" gate="-17" pin="KL"/>
+<wire x1="195.58" y1="91.44" x2="185.42" y2="91.44" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_16" class="0">
+<segment>
+<pinref part="X1" gate="-16" pin="KL"/>
+<wire x1="195.58" y1="88.9" x2="185.42" y2="88.9" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_15" class="0">
+<segment>
+<pinref part="X1" gate="-15" pin="KL"/>
+<wire x1="195.58" y1="86.36" x2="185.42" y2="86.36" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_14" class="0">
+<segment>
+<pinref part="X1" gate="-14" pin="KL"/>
+<wire x1="195.58" y1="83.82" x2="185.42" y2="83.82" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_12" class="0">
+<segment>
+<pinref part="X1" gate="-12" pin="KL"/>
+<wire x1="195.58" y1="78.74" x2="185.42" y2="78.74" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_13" class="0">
+<segment>
+<pinref part="X1" gate="-13" pin="KL"/>
+<wire x1="195.58" y1="81.28" x2="185.42" y2="81.28" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_11" class="0">
+<segment>
+<pinref part="X1" gate="-11" pin="KL"/>
+<wire x1="195.58" y1="76.2" x2="185.42" y2="76.2" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_10" class="0">
+<segment>
+<pinref part="X1" gate="-10" pin="KL"/>
+<wire x1="195.58" y1="73.66" x2="185.42" y2="73.66" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RPI_GPIO_9" class="0">
+<segment>
+<pinref part="X1" gate="-9" pin="KL"/>
+<wire x1="195.58" y1="71.12" x2="185.42" y2="71.12" width="0.1524" layer="91"/>
+</segment>
+</net>
+</nets>
+</sheet>
+<sheet>
 <description>&lt;b&gt;Pin Assignments&lt;/b&gt;&lt;br&gt;
 This sheet will be used to connect nets that are named such as ADC1_1 to LC1+ using junctions and shorts. For now it does not have a sheet border. I am unsure if it should have such a border.</description>
 <plain>
@@ -7830,9 +8486,19 @@ This sheet will be used to connect nets that are named such as ADC1_1 to LC1+ us
 </drawing>
 <compatibility>
 <note version="8.2" severity="warning">
-Since Version 8.2, Eagle supports online libraries. The ids
+Since Version 8.2, EAGLE supports online libraries. The ids
 of those online libraries will not be understood (or retained)
 with this version.
+</note>
+<note version="8.3" severity="warning">
+Since Version 8.3, EAGLE supports URNs for individual library
+assets (packages, symbols, and devices). The URNs of those assets
+will not be understood (or retained) with this version.
+</note>
+<note version="8.3" severity="warning">
+Since Version 8.3, EAGLE supports the association of 3D packages
+with devices in libraries, schematics, and board files. Those 3D
+packages will not be understood (or retained) with this version.
 </note>
 </compatibility>
 </eagle>
