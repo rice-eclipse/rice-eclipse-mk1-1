@@ -10774,7 +10774,7 @@ A circuit that controls the driver for the solenoid.</description>
 <junction x="139.7" y="88.9"/>
 </segment>
 </net>
-<net name="IGNITION_SOLENOID" class="0">
+<net name="CTRL_SOLENOID_1" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="1"/>
 <wire x1="109.22" y1="109.22" x2="101.6" y2="109.22" width="0.1524" layer="91"/>
