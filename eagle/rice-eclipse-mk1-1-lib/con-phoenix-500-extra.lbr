@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.3.0">
+<eagle version="8.3.1">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -84,28 +84,24 @@ A two pin 5mm connector.</description>
 <symbols>
 <symbol name="STP1">
 <description>A two piece through hole 5mm connector</description>
-<pin name="A1" x="0" y="0" length="middle" rot="R180"/>
-<pin name="B1" x="2.54" y="0" length="middle" rot="R180"/>
+<pin name="1" x="0" y="0" length="middle" rot="R180"/>
 </symbol>
 <symbol name="STP2">
-<pin name="A2" x="0" y="-5.08" length="middle" rot="R180"/>
-<pin name="B2" x="2.54" y="-5.08" length="middle" rot="R180"/>
-<text x="-5.08" y="-7.62" size="1.27" layer="96">&gt;VALUE</text>
+<pin name="2" x="0" y="0" length="middle" rot="R180"/>
+<text x="-5.08" y="-2.54" size="1.27" layer="96">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
 <deviceset name="1991095">
 <gates>
 <gate name="G$1" symbol="STP1" x="0" y="2.54"/>
-<gate name="G$2" symbol="STP2" x="0" y="2.54"/>
+<gate name="G$2" symbol="STP2" x="0" y="-2.54"/>
 </gates>
 <devices>
 <device name="" package="1991095">
 <connects>
-<connect gate="G$1" pin="A1" pad="A1"/>
-<connect gate="G$1" pin="B1" pad="B1"/>
-<connect gate="G$2" pin="A2" pad="A2"/>
-<connect gate="G$2" pin="B2" pad="B2"/>
+<connect gate="G$1" pin="1" pad="A1 B1"/>
+<connect gate="G$2" pin="2" pad="A2 B2"/>
 </connects>
 <technologies>
 <technology name=""/>
