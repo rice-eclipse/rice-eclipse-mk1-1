@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     // If you call this, it will not actually access the GPIO
 // Use for testing
 //        bcm2835_set_debug(1);
-    char writeb[4] = {0x06,0xc0,0, 0}; //Write to pick the first channel.
+    char writeb[4] = {(char) 0x06,(char) 0xc0, 0, 0}; //Write to pick the first channel.
     char readb[4] = {0,0,0, 0};
     uint16_t out_value = 0;
     if (!bcm2835_init())
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);      // The default
     bcm2835_spi_setDataMode(BCM2835_SPI_MODE3);                   // The MCP... uses this.
     //bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_256); // Just under 1MHz
-    bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_1024); // Just under 1MHz
+    bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_1024); // Seems like 1Mhz is too fast to charge internal cap.
     bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);      // the default
     while (1) { 
         // Send 3 bytes to the slave and simultaneously read bytes back from the slave
