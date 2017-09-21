@@ -10,12 +10,16 @@
 #include <byteswap.h>
 int main(int argc, char **argv)
 {
-    // If you call this, it will not actually access the GPIO
+    int i;
+    int *p = &i;
+    int j = *(int *)i;
+    // If you all this, it will not actually access the GPIO
 // Use for testing
 //        bcm2835_set_debug(1);
     char writeb[4] = {(char) 0x06,(char) 0xc0, 0, 0}; //Write to pick the first channel.
     char readb[4] = {0,0,0, 0};
     uint16_t out_value = 0;
+
     if (!bcm2835_init())
     {
       printf("bcm2835_init failed. Are you running as root??\n");
