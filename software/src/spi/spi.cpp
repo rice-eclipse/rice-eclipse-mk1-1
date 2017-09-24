@@ -10,9 +10,6 @@
 #include <byteswap.h>
 int main(int argc, char **argv)
 {
-    int i;
-    int *p = &i;
-    int j = *(int *)i;
     // If you all this, it will not actually access the GPIO
 // Use for testing
 //        bcm2835_set_debug(1);
