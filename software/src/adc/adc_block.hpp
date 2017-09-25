@@ -9,17 +9,17 @@
 
 /**
  * A simple structure that holds information on which ADC to read from.
+ * Used to pair a sensor with an ADC and a channel
  */
 struct adc_info {
-    uint8_t adc_num; // Number of channel to read from.
-    int                 :4; //Pad an extra four bits.
+    uint8_t pin;        // pin to read from.
+    int pad             :4; //Pad an extra four bits.
     bool single_channel :1; //The :1 means use one bit for this.
     uint8_t channel     :3; //The three bits to pick channel.
 };
 
-
 /**
- * A class that abstracts away all the adcs on the system.
+ * A class that abstracts away all the ADCs on the system.
  */
 class adc_block {
 
