@@ -11,9 +11,9 @@
 adc_block::adc_block(uint8_t num_adcs) {
     //these adc_infos need to be initialized
     //Add a default initialiation header file?
-    struct adc_info adcs[num_adcs];
+    RPiGPIOPin adcs[num_adcs];
     for (int i = 0; i < num_adcs; i++) {
-        adcs[i] = {0x00, 0, 1, 0x00};
+        adcs[i] = RPI_BPLUS_GPIO_J8_24;
     }
 }
 
@@ -22,7 +22,7 @@ adc_block::~adc_block() {
 
     printf("deleting adc_block with\n");
     for (int i = 0; i < num_adcs; i++) {
-        printf("pin %d is now free\n", adcs[i].pin);
+        printf("pin %d is now free\n", adcs[i]);
     }
     delete [] adcs;
 }
@@ -34,7 +34,7 @@ uint16_t adc_block::read_item(adc_info idx) {
     //adapted from spi.cpp example from bcm2835 library
     char channel = (char)idx.single_channel << 3 | (char)idx.channel;
     char writeb[3] = {channel, 0, 0}; //Write to pick CH in idx
-    volatile char readb[3] = {0,0,0};
+    char readb[3] = {0,0,0};
     uint16_t out_value = 0;
 
     if (!bcm2835_init()) {
@@ -45,6 +45,7 @@ uint16_t adc_block::read_item(adc_info idx) {
         printf("bcm2835_spi_begin failed. Are you running as root??\n");
         return 1;
     }
+
     bcm2835_spi_chipSelect(BCM2835_SPI_CS0);                      // TODO
     bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);      // The default
     bcm2835_spi_setDataMode(BCM2835_SPI_MODE3);                   // The MCP... uses this.
@@ -71,14 +72,19 @@ uint16_t adc_block::read_item(adc_info idx) {
 
 //same as the other read_item except the data isn't contained in an adc_info struct
 //just use the other one
-uint16_t adc_block::read_item(uint8_t adc_num, bool single_channel, uint8_t channel) {
-    //TODO
+uint16_t adc_block::read_item(RPiGPIOPin pin, bool single_channel, uint8_t channel) {
+    struct adc_info info {};
+    info.pin = pin;
+    info.pad = 0;
+    info.single_channel = single_channel;
+    info.channel = channel;
+    return read_item(info);
 }
 
 //Updates the chip select pin of the adc corresponding to adc_num
-void adc_block::register_pin(uint8_t adc_num, uint8_t pin_num) {
+void adc_block::register_pin(uint8_t adc_num, RPiGPIOPin pin_num) {
     //there is probably a better way to do this
     //maybe adcs[adc_num] = adcs[adc_num].setPin(pin_num)? But structs don't have methods.
-    adcs[adc_num] = {pin_num, adcs[adc_num].pad, adcs[adc_num].single_channel, adcs[adc_num].channel};
+    adcs[adc_num] = pin_num;
     //also, is the adcs array defined in the adc_block initializer accessible from this method?
 }
