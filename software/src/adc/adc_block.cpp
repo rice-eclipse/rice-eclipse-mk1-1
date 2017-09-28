@@ -57,8 +57,8 @@ uint16_t adc_block::read_item(adc_info idx) {
     // If you tie MISO to MOSI, you should read back what was sent
     bcm2835_spi_transfernb(writeb, readb, 3);
     //Copy the middle two bytes into out_value:
-    readb[2] = ((readb[2] >> 2) | readb[1] << 6) & 0xFF; //Since we left shifted writeb earlier
-    readb[1] = (readb[1] >> 2) & 0x0F;
+    readb[2] = (char)(((readb[2] >> 2) | ((readb[1] & 0x03) << 6)) & 0xFF); //Since we left shifted writeb earlier
+    readb[1] = (char)((readb[1] >> 2) & 0x0F);
 
     out_value = *((uint16_t *)(readb + 1)); //read the last two bytes in readb
     // Next swap endianness because it's backwards for us.

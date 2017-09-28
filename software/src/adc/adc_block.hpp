@@ -13,7 +13,7 @@
  * Used to pair a sensor with an ADC and a channel
  */
 struct adc_info {
-    RPiGPIOPin pin;        // pin to read from.
+    RPiGPIOPin pin;         // pin to read from.
     int pad             :4; //Pad an extra four bits.
     bool single_channel :1; //The :1 means use one bit for this.
     uint8_t channel     :3; //The three bits to pick channel.
