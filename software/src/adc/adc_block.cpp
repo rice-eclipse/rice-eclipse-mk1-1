@@ -37,22 +37,13 @@ uint16_t adc_block::read_item(adc_info idx) {
     char readb[3] = {0,0,0};
     uint16_t out_value = 0;
 
-    if (!bcm2835_init()) {
-        printf("bcm2835_init failed. Are you running as root??\n");
-        return 1;
-    }
-    if (!bcm2835_spi_begin()) {
-        printf("bcm2835_spi_begin failed. Are you running as root??\n");
-        return 1;
-    }
-
     bcm2835_spi_chipSelect(BCM2835_SPI_CS0);                      // TODO
     bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);      // The default
     bcm2835_spi_setDataMode(BCM2835_SPI_MODE3);                   // The MCP... uses this.
     //bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_256); // Just under 1MHz
     bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_1024); // Seems like 1Mhz is too fast to charge internal cap.
     bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);      // the default
-    //while (1) {
+
     // Send 3 bytes to the slave and simultaneously read bytes back from the slave
     // If you tie MISO to MOSI, you should read back what was sent
     bcm2835_spi_transfernb(writeb, readb, 3);
@@ -63,18 +54,15 @@ uint16_t adc_block::read_item(adc_info idx) {
     out_value = *((uint16_t *)(readb + 1)); //read the last two bytes in readb
     // Next swap endianness because it's backwards for us.
     out_value = __bswap_16(out_value);
-    printf("Sent to SPI: 0x%01X. Read back from SPI: 0x%03X.\n", 0x0c, out_value);
-    bcm2835_spi_end();
-    bcm2835_close();
+    //printf("Sent to SPI: 0x%01X. Read back from SPI: 0x%03X.\n", 0x0c, out_value);
     return out_value;
-    //}
 }
 
 //same as the other read_item except the data isn't contained in an adc_info struct
 //just use the other one
-uint16_t adc_block::read_item(RPiGPIOPin pin, bool single_channel, uint8_t channel) {
+uint16_t adc_block::read_item(uint8_t adc_num, bool single_channel, uint8_t channel) {
     struct adc_info info {};
-    info.pin = pin;
+    info.adc_num = adc_num;
     info.pad = 0;
     info.single_channel = single_channel;
     info.channel = channel;

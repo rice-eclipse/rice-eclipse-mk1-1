@@ -13,7 +13,7 @@
  * Used to pair a sensor with an ADC and a channel
  */
 struct adc_info {
-    RPiGPIOPin pin;         // pin to read from.
+    uint8_t adc_num;         //ADC to use
     int pad             :4; //Pad an extra four bits.
     bool single_channel :1; //The :1 means use one bit for this.
     uint8_t channel     :3; //The three bits to pick channel.
@@ -34,7 +34,7 @@ class adc_block {
      * pins.hpp option.
      */
 private:
-    RPiGPIOPin adcs[];
+    RPiGPIOPin *adcs;
     uint8_t num_adcs;
 
 
@@ -44,7 +44,7 @@ public :
      * Creates this with a set number of adcs to use.
      * @param num_adcs The number of adcs to use.
      */
-    adc_block adc_block(uint8_t num_adcs);
+    adc_block(uint8_t num_adcs);
 
     /**
      * The destructor for the adc_block. Frees memory used to store pin assignments.
@@ -65,7 +65,7 @@ public :
      * @param channel
      * @return
      */
-    uint16_t read_item(RPiGPIOPin adc_num, bool single_channel, uint8_t channel);
+    uint16_t read_item(uint8_t adc_num, bool single_channel, uint8_t channel);
 
 
     /**
