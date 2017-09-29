@@ -5,7 +5,7 @@
 #ifndef SOFTWARE_ADC_BLOCK_HPP
 #define SOFTWARE_ADC_BLOCK_HPP
 
-#include <cstdint>
+#include <stdint.h>
 #include <bcm2835.h>
 
 /**
