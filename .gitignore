@@ -1,6 +1,7 @@
 *.DS_Store
 *.lnk
 *.lck
+*.idea
 
 #Conflict resolution files.
 *.orig
