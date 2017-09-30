@@ -2,6 +2,8 @@
 // Created by rjcunningham on 9/7/17.
 //
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "listener.hpp"
 
 /*
@@ -82,6 +84,6 @@ wait_for_connection(int port, sockaddr *sa) {
         fprintf(stderr, "Received request on connfd on %d\n", connfd);
     #endif /*DEBUG_LISTENER*/
 
+    //TODO I think we need to close listenfd.
     return connfd;
-
 }

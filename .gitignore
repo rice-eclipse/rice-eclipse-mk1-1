@@ -2,3 +2,6 @@
 *.lnk
 *.lck
 *.idea
+
+#Conflict resolution files.
+*.orig
