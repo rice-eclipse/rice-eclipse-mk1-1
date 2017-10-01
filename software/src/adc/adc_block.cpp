@@ -32,7 +32,8 @@ adc_block::~adc_block() {
 //if we're going to call this for each item we read.
 uint16_t adc_block::read_item(adc_info idx) {
     //adapted from spi.cpp example from bcm2835 library
-    char channel = (char)idx.single_channel << 3 | (char)idx.channel;
+    //Send following : start_bit, sngl_channel, channel number,
+    char channel = (char) 1 << 4 | (char)idx.single_channel << 3 | (char)idx.channel;
     char writeb[3] = {channel, 0, 0}; //Write to pick CH in idx
     char readb[3] = {0,0,0};
     uint16_t out_value = 0;
