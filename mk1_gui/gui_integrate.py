@@ -16,7 +16,7 @@ from  matplotlib import style
 s = socket.socket()
 
 #make it configurable in the gui (text input box and button)
-host = "169.254.54.102"
+host = "127.0.0.1" #Currently set to use loopback.
 port = 1234
 s.connect((host, port))
 
@@ -58,7 +58,8 @@ def animate(i):
 # called serialread, actually socket read though. rename if you want (be sure to change the name in other locations)
 def serialread(s, q):
     while 1:
-        data = s.recv(2)
+        data = s.recv(1)
+        #print(data)
         if len(data) != 0:
             q.put(data)
 

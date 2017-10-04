@@ -57,7 +57,7 @@ void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_ite
                 std::cout << c; //Write the byte.
 
                 //Send c back over the socket.
-                nqi.type = nq_recv;
+                nqi.type = nq_send;
                 nqi.data = (uint8_t) c;
                 qn.enqueue(nqi);
             }
@@ -90,8 +90,10 @@ void network_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_it
             }
             case (nq_send): {
                 c = nqi.data;
+                //std::cout << "sending\n";
                 if (write(connfd, &c, 1) != 1) {
-                    std::cerr << "didn't send";
+                    std::cerr << "Connection Closed" << std::endl;
+                    exit(0);
                 }
                 nqi.type = nq_recv;
                 qn.enqueue(nqi); //Start the read again.
