@@ -19,6 +19,8 @@ add_library(adc_lib.a src/adc/adc_block.cpp src/adc/adc_test.cpp)
 add_executable(adc_test ${SOURCE_FILES_ADC_TEST})
 add_executable(blink ${SOURCE_FILES_BLINK}) #A simple blink file to test stuff.
 add_executable(dummy ${SOURCE_FILES_DUMMY}) #A hello world program.
+add_executable(simple_echo_server src/comm/simple_server.cpp src/echo_server/listener.cpp)
+add_executable(simple_send_server src/comm/simple_sender_server.cpp src/echo_server/listener.cpp)
 add_executable(spi_adc_test ${SOURCE_FILES_SPI_ADC_TEST}) #A simple test to run the adc on a single channel.
 add_executable(threaded_echo_server ${SOURCE_FILES_THREADED_ECHO_SERVER}) #A simple example echo server for dev later.
 ###########################################################################
