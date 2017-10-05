@@ -9,22 +9,28 @@
 using namespace std;
 
 enum nqi_type {
+    nq_none,
     nq_send,
     nq_recv
 };
 
 struct network_queue_item {
     nqi_type type;
-    uint8_t data;
+    size_t nbytes; //The number of bytes to send.
+    size_t total_bytes; //The total number of bytes written into the relevant buffer at this point.
 };
 
 enum wqi_type {
-    wq_process
+    wq_none,
+    wq_process,
+    wq_start,
+    wq_stop
 };
 
 struct work_queue_item {
     wqi_type action;
-    uint8_t data;
+    size_t nbytes; //The size of memory at nbytes.
+    void *datap; //A pointer to the relevant data.
 };
 
 #endif //SOFTWARE_QUEUE_ITEMS_HPP

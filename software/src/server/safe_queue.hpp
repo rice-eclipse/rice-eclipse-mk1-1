@@ -14,11 +14,15 @@
 template <class T>
 class safe_queue {
     public:
-        safe_queue(void)
+        T null_item;
+
+        safe_queue(T null_item)
                 : q()
                 , m()
                 , c()
-        {}
+        {
+            this->null_item = null_item;
+        }
 
         ~safe_queue(void)
         {}
@@ -40,6 +44,22 @@ class safe_queue {
             {
                 // release lock as long as the wait and reaquire it afterwards.
                 c.wait(lock);
+            }
+            T val = q.front();
+            q.pop();
+            return val;
+        }
+
+        // Get the "front"-element.
+        // If the queue is empty, return the null item we got during initialization.
+        T poll(void)
+        {
+            std::unique_lock<std::mutex> lock(m);
+            if (q.empty()) {
+                /*
+                 * Return immediately with the null item instead of waiting for a new insert.
+                 */
+                return this->null_item;
             }
             T val = q.front();
             q.pop();

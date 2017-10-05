@@ -10,7 +10,7 @@ set(SOURCE_FILES_SPI_ADC_TEST src/spi/spi.cpp)
 set(SOURCE_FILES_ADC_TEST src/adc/adc_test.cpp)
 set(SOURCE_FILES_THREADED_ECHO_SERVER src/echo_server/echo_server.cpp
         src/echo_server/listener.cpp src/echo_server/listener.hpp
-        src/server/safe_queue.hpp src/server/queue_items.hpp)
+        src/server/safe_queue.hpp src/server/queue_items.hpp src/util/circular_buffer.cpp src/util/circular_buffer.hpp)
 ###########################################################################
 
 #LISTS OF BUILD TARGETS####################################################
