@@ -4,6 +4,7 @@
 
 #include "timestamps.hpp"
 timestamp_t get_time() {
+    //We could just return tv, but whatever.
     struct timeval tv;
     gettimeofday(&tv, nullptr); //Use a magic unix syscall.
 

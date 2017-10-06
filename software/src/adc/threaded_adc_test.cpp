@@ -110,9 +110,11 @@ void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_ite
                  * Nothing in the work queue so do some work, such as reading sensors.
                  */
                 if (sending) {
+
+                    adc_value.t = get_time();
                     //Read the ADC (num = 0, use dual channel, use channel 0 (pin 0=+, pin 1 =-))
                     adc_value.value = block->read_item(0, 0, 0);
-                    adc_value.t = get_time();
+
 
                     buff.add_data(&adc_value, sizeof(adc_value));
                     //Check if it's been a while since we sent some data:
