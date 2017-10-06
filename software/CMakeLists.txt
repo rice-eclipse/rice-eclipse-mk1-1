@@ -3,6 +3,12 @@ project(software)
 
 set(CMAKE_CXX_STANDARD 11)
 
+set(CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED on)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+
 #LISTS OF SOURCE FILES FOR TARGETS##########################################
 set(SOURCE_FILES_DUMMY src/main.cpp)
 set(SOURCE_FILES_BLINK src/blink/blink.cpp src/blink/blink.cpp)
