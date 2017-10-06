@@ -16,7 +16,7 @@ from  matplotlib import style
 s = socket.socket()
 
 #make it configurable in the gui (text input box and button)
-host = "127.0.0.1" #Currently set to use loopback.
+host = "192.168.1.150" #Currently set to use loopback.
 port = 1234
 s.connect((host, port))
 
@@ -152,6 +152,6 @@ gui1=gui()
 #put the thread run in a button binded function in order to control when it would run
 thread1 = myThread1(1, "Thread-1", 1)
 thread1.start()
-ani=animation.FuncAnimation(f,animate,interval=500)
+ani=animation.FuncAnimation(f,animate,interval=2)
 
 gui1.run()

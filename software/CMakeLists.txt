@@ -16,15 +16,18 @@ set(SOURCE_FILES_SPI_ADC_TEST src/spi/spi.cpp)
 set(SOURCE_FILES_ADC_TEST src/adc/adc_test.cpp)
 set(SOURCE_FILES_THREADED_ECHO_SERVER src/echo_server/echo_server.cpp
         src/echo_server/listener.cpp src/echo_server/listener.hpp
-        src/server/safe_queue.hpp src/server/queue_items.hpp src/util/circular_buffer.cpp src/util/circular_buffer.hpp)
+        src/server/safe_queue.hpp src/server/queue_items.hpp)
 set(SOURCE_FILES_THREADED_ADC_TEST src/adc/threaded_adc_test.cpp
         src/echo_server/listener.cpp src/echo_server/listener.hpp
-        src/server/safe_queue.hpp src/server/queue_items.hpp src/util/circular_buffer.cpp src/util/circular_buffer.hpp)
+        src/server/safe_queue.hpp src/server/queue_items.hpp)
 ###########################################################################
 
 #LISTS OF BUILD TARGETS####################################################
 #A static library we can use to run more useful adc code.
-add_library(adc_lib.a src/adc/adc_block.cpp src/adc/adc_test.cpp)
+add_library(adc_lib.a src/adc/adc_block.cpp)
+add_library(circ_buff.a src/util/circular_buffer.cpp)
+add_library(timestamps.a src/util/timestamps.cpp)
+
 add_executable(adc_test ${SOURCE_FILES_ADC_TEST})
 add_executable(blink ${SOURCE_FILES_BLINK}) #A simple blink file to test stuff.
 add_executable(dummy ${SOURCE_FILES_DUMMY}) #A hello world program.
@@ -38,8 +41,8 @@ add_executable(threaded_adc_test ${SOURCE_FILES_THREADED_ADC_TEST}) #A simple ex
 
 #DEPENDENCIES##############################################################
 
-add_dependencies(adc_test adc_lib.a)
-add_dependencies(threaded_adc_test adc_lib.a)
+add_dependencies(adc_test adc_lib.a circ_buff.a)
+add_dependencies(threaded_adc_test adc_lib.a circ_buff.a)
 
 ###########################################################################
 
@@ -47,6 +50,6 @@ add_dependencies(threaded_adc_test adc_lib.a)
 target_link_libraries(adc_test bcm2835 adc_lib.a)
 target_link_libraries(blink bcm2835)
 target_link_libraries(spi_adc_test bcm2835)
-target_link_libraries(threaded_adc_test bcm2835 adc_lib.a pthread)
-target_link_libraries(threaded_echo_server pthread)
+target_link_libraries(threaded_adc_test bcm2835 adc_lib.a pthread circ_buff.a)
+target_link_libraries(threaded_echo_server pthread circ_buff.a)
 ###########################################################################

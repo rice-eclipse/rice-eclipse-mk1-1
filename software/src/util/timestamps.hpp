@@ -1,0 +1,19 @@
+//
+// Created by rjcunningham on 10/6/17.
+//
+
+#ifndef SOFTWARE_TIMESTAMPS_HPP
+#define SOFTWARE_TIMESTAMPS_HPP
+
+#include <cstdint>
+#include <bits/types/struct_timeval.h>
+#include <event.h>
+
+/*
+ * A way to generate microsecond timestamps for stuff.
+ */
+typedef uint64_t timestamp_t;
+
+timestamp_t get_time();
+
+#endif //SOFTWARE_TIMESTAMPS_HPP

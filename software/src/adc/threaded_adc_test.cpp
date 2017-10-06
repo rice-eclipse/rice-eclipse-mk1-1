@@ -7,9 +7,14 @@
 #include "../util/circular_buffer.hpp"
 #include "../echo_server/listener.hpp"
 #include "adc_block.hpp"
+#include "../util/timestamps.hpp"
 #include <thread>
 #include <poll.h>
-#include <bcm2835.h>
+
+struct adc_reading {
+    uint16_t value;
+    timestamp_t t;
+};
 
 network_queue_item null_nqi = {nq_none}; //An item for null args to
 
@@ -65,7 +70,7 @@ void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_ite
     char c;
     bool sending = false;
     size_t last_send = 0;
-    uint16_t adc_value = 0;
+    adc_reading adc_value = {};
 
     adc_block *block = new adc_block(1);
 
@@ -106,7 +111,8 @@ void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_ite
                  */
                 if (sending) {
                     //Read the ADC (num = 0, use dual channel, use channel 0 (pin 0=+, pin 1 =-))
-                    adc_value = block->read_item(0, 0, 0);
+                    adc_value.value = block->read_item(0, 0, 0);
+                    adc_value.t = get_time();
 
                     buff.add_data(&adc_value, sizeof(adc_value));
                     //Check if it's been a while since we sent some data:
