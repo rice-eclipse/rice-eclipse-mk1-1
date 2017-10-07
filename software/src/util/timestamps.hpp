@@ -6,8 +6,7 @@
 #define SOFTWARE_TIMESTAMPS_HPP
 
 #include <cstdint>
-#include <bits/types/struct_timeval.h>
-#include <event.h>
+#include <sys/time.h>
 
 /*
  * A way to generate microsecond timestamps for stuff.
