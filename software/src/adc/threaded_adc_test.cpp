@@ -11,6 +11,8 @@
 #include <thread>
 #include <poll.h>
 
+#define DEBUG_ADC_TEST
+
 struct adc_reading {
     uint16_t value;
     timestamp_t t;
@@ -44,6 +46,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    set_base_time();
 
     int port = 1234; //TODO set this from inputs.
 
@@ -115,7 +118,9 @@ void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_ite
                     //Read the ADC (num = 0, use dual channel, use channel 0 (pin 0=+, pin 1 =-))
                     adc_value.value = block->read_item(0, 0, 0);
 
-
+                    #ifdef DEBUG_ADC_TEST
+                        fprintf(stderr, "ADC reading: %u. Time: %llu \n", adc_value.value, adc_value.t);
+                    #endif
                     buff.add_data(&adc_value, sizeof(adc_value));
                     //Check if it's been a while since we sent some data:
                     size_t bw = buff.bytes_written.load();
