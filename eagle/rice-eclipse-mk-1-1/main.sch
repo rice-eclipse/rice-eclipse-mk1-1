@@ -12439,9 +12439,9 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 <instance part="R10" gate="/2" x="60.96" y="162.56"/>
 <instance part="R11" gate="G$1" x="101.6" y="142.24" rot="R270"/>
 <instance part="R14" gate="G$1" x="10.16" y="139.7" rot="R270"/>
-<instance part="C10" gate="G$1" x="40.64" y="106.68" smashed="yes" rot="R270">
-<attribute name="NAME" x="41.275" y="103.124" size="1.778" layer="95" rot="R270"/>
-<attribute name="VALUE" x="38.989" y="103.124" size="1.778" layer="96" rot="R270"/>
+<instance part="C10" gate="G$1" x="40.64" y="106.68" smashed="yes" rot="R90">
+<attribute name="NAME" x="40.005" y="110.236" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="42.291" y="110.236" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="U3" gate="A" x="127" y="147.32"/>
 <instance part="R12" gate="G$1" x="180.34" y="144.78"/>
@@ -12449,9 +12449,9 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 <instance part="R13" gate="/2" x="162.56" y="162.56"/>
 <instance part="R15" gate="G$1" x="203.2" y="144.78" rot="R270"/>
 <instance part="R16" gate="G$1" x="111.76" y="142.24" rot="R270"/>
-<instance part="C11" gate="G$1" x="142.24" y="109.22" smashed="yes" rot="R270">
-<attribute name="NAME" x="142.875" y="105.664" size="1.778" layer="95" rot="R270"/>
-<attribute name="VALUE" x="140.589" y="105.664" size="1.778" layer="96" rot="R270"/>
+<instance part="C11" gate="G$1" x="142.24" y="109.22" smashed="yes" rot="R90">
+<attribute name="NAME" x="141.605" y="112.776" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="143.891" y="112.776" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="U4" gate="A" x="22.86" y="66.04"/>
 <instance part="R17" gate="G$1" x="76.2" y="63.5"/>
@@ -12459,9 +12459,9 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 <instance part="R18" gate="/2" x="58.42" y="83.82"/>
 <instance part="R19" gate="G$1" x="99.06" y="63.5" rot="R270"/>
 <instance part="R20" gate="G$1" x="7.62" y="60.96" rot="R270"/>
-<instance part="C12" gate="G$1" x="38.1" y="27.94" smashed="yes" rot="R270">
-<attribute name="NAME" x="38.735" y="24.384" size="1.778" layer="95" rot="R270"/>
-<attribute name="VALUE" x="36.449" y="24.384" size="1.778" layer="96" rot="R270"/>
+<instance part="C12" gate="G$1" x="38.1" y="27.94" smashed="yes" rot="R90">
+<attribute name="NAME" x="37.465" y="31.496" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="39.751" y="31.496" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="U5" gate="A" x="129.54" y="68.58"/>
 <instance part="R21" gate="G$1" x="182.88" y="66.04"/>
@@ -12469,9 +12469,9 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 <instance part="R22" gate="/2" x="165.1" y="86.36"/>
 <instance part="R23" gate="G$1" x="205.74" y="66.04" rot="R270"/>
 <instance part="R24" gate="G$1" x="114.3" y="63.5" rot="R270"/>
-<instance part="C13" gate="G$1" x="144.78" y="30.48" smashed="yes" rot="R270">
-<attribute name="NAME" x="145.415" y="26.924" size="1.778" layer="95" rot="R270"/>
-<attribute name="VALUE" x="143.129" y="26.924" size="1.778" layer="96" rot="R270"/>
+<instance part="C13" gate="G$1" x="144.78" y="30.48" smashed="yes" rot="R90">
+<attribute name="NAME" x="144.145" y="34.036" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="146.431" y="34.036" size="1.778" layer="96" rot="R90"/>
 </instance>
 </instances>
 <busses>
@@ -12480,7 +12480,7 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 <net name="-0V23" class="0">
 <segment>
 <pinref part="C10" gate="G$1" pin="2"/>
-<wire x1="35.56" y1="106.68" x2="63.5" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="106.68" x2="63.5" y2="106.68" width="0.1524" layer="91"/>
 <pinref part="U2" gate="A" pin="VS-"/>
 <wire x1="55.88" y1="139.7" x2="63.5" y2="139.7" width="0.1524" layer="91"/>
 <label x="63.5" y="139.7" size="1.778" layer="95"/>
@@ -12488,7 +12488,7 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 </segment>
 <segment>
 <pinref part="C11" gate="G$1" pin="2"/>
-<wire x1="137.16" y1="109.22" x2="165.1" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="109.22" x2="165.1" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="U3" gate="A" pin="VS-"/>
 <wire x1="157.48" y1="142.24" x2="165.1" y2="142.24" width="0.1524" layer="91"/>
 <label x="165.1" y="142.24" size="1.778" layer="95"/>
@@ -12496,7 +12496,7 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 </segment>
 <segment>
 <pinref part="C12" gate="G$1" pin="2"/>
-<wire x1="33.02" y1="27.94" x2="60.96" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="27.94" x2="60.96" y2="27.94" width="0.1524" layer="91"/>
 <pinref part="U4" gate="A" pin="VS-"/>
 <wire x1="53.34" y1="60.96" x2="60.96" y2="60.96" width="0.1524" layer="91"/>
 <label x="60.96" y="60.96" size="1.778" layer="95"/>
@@ -12504,7 +12504,7 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 </segment>
 <segment>
 <pinref part="C13" gate="G$1" pin="2"/>
-<wire x1="139.7" y1="30.48" x2="167.64" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="149.86" y1="30.48" x2="167.64" y2="30.48" width="0.1524" layer="91"/>
 <pinref part="U5" gate="A" pin="VS-"/>
 <wire x1="160.02" y1="63.5" x2="167.64" y2="63.5" width="0.1524" layer="91"/>
 <label x="167.64" y="63.5" size="1.778" layer="95"/>
@@ -12514,7 +12514,7 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 <net name="+3V3" class="0">
 <segment>
 <pinref part="C10" gate="G$1" pin="1"/>
-<wire x1="43.18" y1="106.68" x2="15.24" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="106.68" x2="15.24" y2="106.68" width="0.1524" layer="91"/>
 <pinref part="U2" gate="A" pin="VS+"/>
 <wire x1="25.4" y1="139.7" x2="15.24" y2="139.7" width="0.1524" layer="91"/>
 <label x="15.24" y="139.7" size="1.778" layer="95"/>
@@ -12527,7 +12527,7 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 </segment>
 <segment>
 <pinref part="C11" gate="G$1" pin="1"/>
-<wire x1="144.78" y1="109.22" x2="116.84" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="109.22" x2="116.84" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="U3" gate="A" pin="VS+"/>
 <wire x1="127" y1="142.24" x2="116.84" y2="142.24" width="0.1524" layer="91"/>
 <label x="116.84" y="142.24" size="1.778" layer="95"/>
@@ -12540,7 +12540,7 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 </segment>
 <segment>
 <pinref part="C12" gate="G$1" pin="1"/>
-<wire x1="40.64" y1="27.94" x2="12.7" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="27.94" x2="12.7" y2="27.94" width="0.1524" layer="91"/>
 <pinref part="U4" gate="A" pin="VS+"/>
 <wire x1="22.86" y1="60.96" x2="12.7" y2="60.96" width="0.1524" layer="91"/>
 <label x="12.7" y="60.96" size="1.778" layer="95"/>
@@ -12553,7 +12553,7 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 </segment>
 <segment>
 <pinref part="C13" gate="G$1" pin="1"/>
-<wire x1="147.32" y1="30.48" x2="119.38" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="30.48" x2="119.38" y2="30.48" width="0.1524" layer="91"/>
 <pinref part="U5" gate="A" pin="VS+"/>
 <wire x1="129.54" y1="63.5" x2="119.38" y2="63.5" width="0.1524" layer="91"/>
 <label x="119.38" y="63.5" size="1.778" layer="95"/>
