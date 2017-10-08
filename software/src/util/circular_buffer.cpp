@@ -7,6 +7,8 @@
 #include <iostream>
 #include "circular_buffer.hpp"
 
+#define DEBUG_CIRC_SEND
+
 circular_buffer::circular_buffer(size_t size) : bytes_written(0) {
     this->nbytes = size;
     this->data = new char[size];
@@ -42,4 +44,9 @@ ssize_t circular_buffer::write_data(int fd, size_t n, size_t offset) {
         //Need to send slightly less data now:
         return write_data(fd, n - result, offset + result);
     }
+}
+
+void circular_buffer::zero() {
+    bzero(data, nbytes);
+    bytes_written = 0;
 }

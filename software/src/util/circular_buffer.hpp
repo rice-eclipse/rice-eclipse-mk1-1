@@ -39,6 +39,7 @@ class circular_buffer {
          */
         ssize_t write_data(int fd, size_t n, size_t offset);
 
+        void zero();
 };
 
 
