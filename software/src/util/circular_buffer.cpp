@@ -36,6 +36,17 @@ ssize_t circular_buffer::write_data(int fd, size_t n, size_t offset) {
     }
     size_t to_send = nbytes - offset % this->nbytes; // The distance between start and the end of the buffer.
     to_send = to_send > n ? n : to_send; //Take the minimum value of n and to_send.
+#ifdef DEBUG_CIRC_SEND
+    if (to_send > 40) {
+        size_t temp_offset = offset % this->nbytes;
+        fprintf(stdout, "Offset %u \n", temp_offset);
+        fprintf(stdout, "Sending Bytes: %u %llu %u %llu %u %llu %u %llu \n", 
+            *((uint16_t *)(data + temp_offset)), *((uint64_t *)(data + temp_offset + 2)),
+            *((uint16_t *)(data + temp_offset + 10)), *((uint64_t *)(data + temp_offset + 12)),
+            *((uint16_t *)(data + temp_offset + 20)), *((uint64_t *)(data + temp_offset + 22)),
+            *((uint16_t *)(data + temp_offset + 30)), *((uint64_t *)(data + temp_offset + 32)));
+    }
+#endif
     ssize_t result;
     result = write(fd, data + offset % this->nbytes, to_send);
     if (result <= 0) {

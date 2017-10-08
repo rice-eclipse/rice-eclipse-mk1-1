@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
+SET(CMAKE_CXX_COMPILER g++)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 
@@ -46,7 +47,7 @@ add_executable(threaded_adc_test ${SOURCE_FILES_THREADED_ADC_TEST}) #A simple ex
 #DEPENDENCIES##############################################################
 
 add_dependencies(adc_test adc_lib.a circ_buff.a)
-add_dependencies(threaded_adc_test adc_lib.a circ_buff.a)
+add_dependencies(threaded_adc_test adc_lib.a circ_buff.a timestamps.a)
 
 ###########################################################################
 
@@ -54,6 +55,6 @@ add_dependencies(threaded_adc_test adc_lib.a circ_buff.a)
 target_link_libraries(adc_test bcm2835 adc_lib.a)
 target_link_libraries(blink bcm2835)
 target_link_libraries(spi_adc_test bcm2835)
-target_link_libraries(threaded_adc_test bcm2835 adc_lib.a pthread circ_buff.a)
+target_link_libraries(threaded_adc_test bcm2835 adc_lib.a pthread circ_buff.a timestamps.a)
 target_link_libraries(threaded_echo_server pthread circ_buff.a)
 ###########################################################################
