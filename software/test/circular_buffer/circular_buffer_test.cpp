@@ -116,7 +116,7 @@ TEST_CASE("Circular buffer can write correctly", "[cb]") {
     }
 
     SECTION("Write some overflowing data") {
-        char b[cb_size];
+        char b[cb_size] = {};
         cb.add_data(b, cb_size - 1);
         b[0] = 10;
         b[1] = 11;
@@ -129,12 +129,33 @@ TEST_CASE("Circular buffer can write correctly", "[cb]") {
         REQUIRE(out_buf[0] == b[0]);
         REQUIRE(out_buf[1] == b[1]);
 
+
         //Now tell cb to write two bytes starting from the second to last:
         //Test writing the same bytes again a big offset.
         cb.write_data(fdbuf, 2, cb.nbytes - 1 + 100 * cb.nbytes);
         REQUIRE(out_buf[2] == b[0]);
         REQUIRE(out_buf[3] == b[1]);
+
+
+        //Do it again, but write some extra crap first:
+        cb.add_data(b + 3, cb_size - 5);
+
+        //Now tell cb to write two bytes starting from the second to last:
+        //Test writing the same bytes again a big offset.
+        cb.write_data(fdbuf, 2, cb.nbytes - 1 + 100 * cb.nbytes);
+        REQUIRE(out_buf[4] == b[0]);
+        REQUIRE(out_buf[5] == b[1]);
+
+        //Add even more crap that overflows:
+        cb.add_data(b + 3, cb_size - 5);
+        //Now tell cb to write two bytes starting from the second to last:
+        //Test writing the same bytes again a big offset.
+        cb.write_data(fdbuf, 2, cb.nbytes - 1 + 100 * cb.nbytes);
+        REQUIRE(out_buf[6] != b[0]);
+        REQUIRE(out_buf[7] != b[1]);
     }
+
+
 
     REQUIRE(munmap(out_buf, out_buf_size) == 0);
 }
