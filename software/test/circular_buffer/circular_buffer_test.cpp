@@ -155,7 +155,46 @@ TEST_CASE("Circular buffer can write correctly", "[cb]") {
         REQUIRE(out_buf[7] != b[1]);
     }
 
-
-
     REQUIRE(munmap(out_buf, out_buf_size) == 0);
+}
+
+TEST_CASE("A use case like the ADC test", "[cb][adc]") {
+    struct adc_reading {
+        uint16_t v;
+        uint64_t t;
+    } reading;
+
+    uint16_t mv = 0; //Incrementing value counter
+    uint64_t mt = 0; //Incrementing time counter
+
+    size_t cb_size = 100;
+    circular_buffer cb(cb_size);
+    cb.zero();
+    int fdbuf = open(TEMP_FILE, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+
+    //MMAP a file at temp.txt as write to mess with a fd in the program memory:
+    size_t out_buf_size = cb_size * 4;
+    char * out_buf = (char *) mmap(nullptr, out_buf_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fdbuf, 0);
+
+    SECTION("Put three times and then get them back:") {
+        int i = 0;
+        int j = 0;
+
+        for (i = 0; i < 3;i++) {
+            reading.t = mt++;
+            reading.v = mv++;
+
+            cb.add_data(&reading, sizeof(reading));
+            for (j = 0; j <= i; j++) {
+                //Check that cb data matches expectation:
+                uint16_t *pv;
+                uint64_t *pt;
+                pv = (uint16_t *) (cb.data + j * sizeof(reading));
+                pt = (uint64_t *) (cb.data + j * sizeof(reading) + offsetof(struct adc_reading, t));
+                REQUIRE(*pv == j);
+                REQUIRE(*pt == j);
+            }
+        }
+
+    }
 }
