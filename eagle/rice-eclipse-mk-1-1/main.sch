@@ -11457,67 +11457,6 @@ Source: AVX .. aphvc.pdf</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="shorts">
-<packages>
-<package name="SHORT_TOP-50">
-<description>Short, top layer, 50mil width</description>
-<smd name="1" x="0.635" y="0" dx="1.27" dy="1.27" layer="1" stop="no" cream="no"/>
-<smd name="2" x="-0.635" y="0" dx="1.27" dy="1.27" layer="1" stop="no" cream="no"/>
-<text x="-1.27" y="-2.032" size="1.27" layer="25" ratio="16">&gt;NAME</text>
-</package>
-<package name="SHORT_ALL-50">
-<description>Short, all layers, 50mil width</description>
-<pad name="1" x="-0.635" y="0" drill="0.7366" diameter="1.524"/>
-<pad name="2" x="0.635" y="0" drill="0.7366" diameter="1.524"/>
-<text x="-1.7145" y="-2.2225" size="1.27" layer="25" ratio="16">&gt;NAME</text>
-<text x="0.381" y="-0.889" size="0.762" layer="51" ratio="10" rot="R90">&gt;NAME</text>
-<rectangle x1="-0.254" y1="0.381" x2="0.254" y2="0.635" layer="1"/>
-<rectangle x1="-0.254" y1="-0.635" x2="0.254" y2="-0.381" layer="1"/>
-<rectangle x1="-0.254" y1="0.381" x2="0.254" y2="0.635" layer="16"/>
-<rectangle x1="-0.254" y1="-0.635" x2="0.254" y2="-0.381" layer="16"/>
-</package>
-</packages>
-<symbols>
-<symbol name="SHORT-H">
-<wire x1="-2.54" y1="0" x2="2.54" y2="0" width="0.508" layer="94"/>
-<text x="-2.2225" y="1.27" size="1.778" layer="95">&gt;NAME</text>
-<pin name="P$1" x="-2.54" y="0" visible="off" length="point" swaplevel="1"/>
-<pin name="P$2" x="2.54" y="0" visible="off" length="point" swaplevel="1"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="SHORT" prefix="SH">
-<description>Short between two nets</description>
-<gates>
-<gate name="G$1" symbol="SHORT-H" x="0" y="0" swaplevel="1"/>
-</gates>
-<devices>
-<device name="T5" package="SHORT_TOP-50">
-<connects>
-<connect gate="G$1" pin="P$1" pad="1"/>
-<connect gate="G$1" pin="P$2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="BOM" value="no"/>
-</technology>
-</technologies>
-</device>
-<device name="A5" package="SHORT_ALL-50">
-<connects>
-<connect gate="G$1" pin="P$1" pad="1"/>
-<connect gate="G$1" pin="P$2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="BOM" value="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="con-3m" urn="urn:adsk.eagle:library:119">
 <description>&lt;b&gt;3M Connectors&lt;/b&gt;&lt;p&gt;
 PCMCIA-CompactFlash Connectors&lt;p&gt;
@@ -12156,15 +12095,14 @@ Source: http://www.alphapotentiometers.net/html/16mm_pot_2.html</description>
 <part name="ADC1" library="microchip-extra" deviceset="MCP3208" device="SN"/>
 <part name="C3" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:26138/1" value="1UF"/>
 <part name="REG1" library="diodes-extra" deviceset="AP2210N-3.3TRG1" device=""/>
-<part name="C4" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-050X050" package3d_urn="urn:adsk.eagle:package:23633/1" value="10UF"/>
-<part name="C5" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-050X050" package3d_urn="urn:adsk.eagle:package:23633/1" value="100UF"/>
+<part name="C4" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="2.2UF"/>
+<part name="C5" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="1UF"/>
 <part name="U1" library="texas-extra" deviceset="LM1084ISX-5.0/NOPB" device=""/>
 <part name="C6" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-050X050" package3d_urn="urn:adsk.eagle:package:23633/1" value="10UF"/>
 <part name="C7" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-050X050" package3d_urn="urn:adsk.eagle:package:23633/1" value="10UF"/>
 <part name="FRAME4" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
 <part name="FRAME5" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
 <part name="FRAME6" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
-<part name="SH1" library="shorts" deviceset="SHORT" device="T5"/>
 <part name="FRAME1" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
 <part name="FRAME7" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
 <part name="FRAME8" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
@@ -12343,10 +12281,13 @@ A sheet for all the voltage regulators in use.</description>
 <segment>
 <label x="213.36" y="111.76" size="1.778" layer="95"/>
 <pinref part="U1" gate="A" pin="VOUT"/>
-<wire x1="165.1" y1="111.76" x2="170.18" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="C7" gate="G$1" pin="1"/>
 <wire x1="170.18" y1="111.76" x2="213.36" y2="111.76" width="0.1524" layer="91"/>
 <junction x="170.18" y="111.76"/>
+<wire x1="165.1" y1="111.76" x2="170.18" y2="111.76" width="0.1524" layer="91"/>
+<pinref part="U1" gate="A" pin="4"/>
+<wire x1="160.02" y1="121.92" x2="170.18" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="121.92" x2="170.18" y2="111.76" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="G$1" pin="VDD"/>
@@ -12401,20 +12342,12 @@ A sheet for all the voltage regulators in use.</description>
 <wire x1="167.64" y1="53.34" x2="185.42" y2="53.34" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$4" class="0">
-<segment>
-<pinref part="U1" gate="A" pin="4"/>
-<wire x1="160.02" y1="121.92" x2="170.18" y2="121.92" width="0.1524" layer="91"/>
-</segment>
-</net>
 </nets>
 </sheet>
 <sheet>
 <description>&lt;b&gt;Load Cell Amplification&lt;/b&gt;&lt;br&gt;
 A schematic for amplifying signals from the load cells. Additional Level-Shifting circuits may be necessary, this is important as well.</description>
 <plain>
-<text x="33.02" y="154.94" size="1.778" layer="97">TODO: Bypass caps</text>
-<text x="27.94" y="119.38" size="1.778" layer="97">Need to add variable gain using potentiometer.</text>
 <text x="134.62" y="157.48" size="1.778" layer="97">TODO: Bypass caps</text>
 <text x="129.54" y="121.92" size="1.778" layer="97">Need to add variable gain using potentiometer.</text>
 <text x="30.48" y="76.2" size="1.778" layer="97">TODO: Bypass caps</text>
@@ -13638,8 +13571,9 @@ All the external connectors used on the board.</description>
 </net>
 <net name="N$11" class="0">
 <segment>
-<wire x1="30.48" y1="81.28" x2="38.1" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="27.94" y1="81.28" x2="38.1" y2="81.28" width="0.1524" layer="91"/>
 <label x="38.1" y="81.28" size="1.778" layer="95"/>
+<pinref part="X4" gate="-5" pin="SK"/>
 </segment>
 </net>
 <net name="N$12" class="0">
@@ -13713,25 +13647,10 @@ This sheet will be used to connect nets that are named such as ADC1_1 to LC1+ us
 <plain>
 </plain>
 <instances>
-<instance part="SH1" gate="G$1" x="93.98" y="68.58"/>
 </instances>
 <busses>
 </busses>
 <nets>
-<net name="TEST_NET_1" class="0">
-<segment>
-<wire x1="35.56" y1="68.58" x2="91.44" y2="68.58" width="0.1524" layer="91"/>
-<label x="83.82" y="63.5" size="1.778" layer="95"/>
-<pinref part="SH1" gate="G$1" pin="P$1"/>
-</segment>
-</net>
-<net name="TEST_NET_2" class="0">
-<segment>
-<wire x1="96.52" y1="68.58" x2="157.48" y2="68.58" width="0.1524" layer="91"/>
-<label x="101.6" y="71.12" size="1.778" layer="95"/>
-<pinref part="SH1" gate="G$1" pin="P$2"/>
-</segment>
-</net>
 </nets>
 </sheet>
 </sheets>
