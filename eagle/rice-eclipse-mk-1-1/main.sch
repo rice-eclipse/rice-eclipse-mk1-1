@@ -12082,6 +12082,7 @@ Source: http://www.alphapotentiometers.net/html/16mm_pot_2.html</description>
 <part name="R23" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="20K"/>
 <part name="R24" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="20K"/>
 <part name="C13" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:26138/1" value="1UF"/>
+<part name="R25" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="500K"/>
 </parts>
 <sheets>
 <sheet>
@@ -12623,6 +12624,7 @@ The updated schematic for the adc because the old one is on backorder.</descript
 <attribute name="NAME" x="98.425" y="102.616" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="100.711" y="102.616" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="R25" gate="G$1" x="109.22" y="78.74" rot="R90"/>
 </instances>
 <busses>
 <bus name="ADC1_A[0..7]">
@@ -12638,39 +12640,45 @@ The updated schematic for the adc because the old one is on backorder.</descript
 <label x="91.44" y="114.3" size="1.778" layer="95"/>
 <pinref part="ADC1" gate="P" pin="VDD"/>
 <wire x1="91.44" y1="93.98" x2="91.44" y2="99.06" width="0.1524" layer="91"/>
-<wire x1="91.44" y1="99.06" x2="91.44" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="99.06" x2="91.44" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="106.68" x2="91.44" y2="111.76" width="0.1524" layer="91"/>
 <wire x1="83.82" y1="99.06" x2="91.44" y2="99.06" width="0.1524" layer="91"/>
 <junction x="91.44" y="99.06"/>
 <pinref part="ADC1" gate="P" pin="VREF"/>
 <wire x1="83.82" y1="93.98" x2="91.44" y2="93.98" width="0.1524" layer="91"/>
 <pinref part="C3" gate="G$1" pin="1"/>
 <wire x1="91.44" y1="99.06" x2="96.52" y2="99.06" width="0.1524" layer="91"/>
+<pinref part="R25" gate="G$1" pin="2"/>
+<wire x1="109.22" y1="83.82" x2="109.22" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="106.68" x2="91.44" y2="106.68" width="0.1524" layer="91"/>
+<junction x="91.44" y="106.68"/>
 </segment>
 </net>
 <net name="SCLK" class="0">
 <segment>
-<wire x1="83.82" y1="83.82" x2="134.62" y2="83.82" width="0.1524" layer="91"/>
-<label x="134.62" y="83.82" size="1.778" layer="95"/>
+<wire x1="83.82" y1="83.82" x2="88.9" y2="83.82" width="0.1524" layer="91"/>
+<label x="88.9" y="83.82" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="MISO" class="0">
 <segment>
-<wire x1="83.82" y1="78.74" x2="139.7" y2="78.74" width="0.1524" layer="91"/>
-<label x="137.16" y="78.74" size="1.778" layer="95"/>
+<wire x1="83.82" y1="78.74" x2="88.9" y2="78.74" width="0.1524" layer="91"/>
+<label x="88.9" y="78.74" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="MOSI" class="0">
 <segment>
-<wire x1="81.28" y1="76.2" x2="132.08" y2="76.2" width="0.1524" layer="91"/>
-<label x="132.08" y="76.2" size="1.778" layer="95"/>
+<wire x1="81.28" y1="76.2" x2="88.9" y2="76.2" width="0.1524" layer="91"/>
+<label x="88.9" y="76.2" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="CS_ADC1" class="0">
+<net name="ADC1_CS" class="0">
 <segment>
-<wire x1="83.82" y1="73.66" x2="132.08" y2="73.66" width="0.1524" layer="91"/>
-<label x="139.7" y="73.66" size="1.778" layer="95"/>
-<wire x1="132.08" y1="73.66" x2="134.62" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="134.62" y1="73.66" x2="139.7" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="73.66" x2="109.22" y2="73.66" width="0.1524" layer="91"/>
+<label x="111.76" y="73.66" size="1.778" layer="95"/>
+<wire x1="109.22" y1="73.66" x2="111.76" y2="73.66" width="0.1524" layer="91"/>
+<pinref part="R25" gate="G$1" pin="1"/>
+<junction x="109.22" y="73.66"/>
 </segment>
 </net>
 <net name="ADC1_A0" class="0">
@@ -13060,12 +13068,6 @@ All the external connectors used on the board.</description>
 <wire x1="195.58" y1="50.8" x2="185.42" y2="50.8" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="RPI_GPIO_2" class="0">
-<segment>
-<pinref part="X1" gate="-2" pin="KL"/>
-<wire x1="195.58" y1="53.34" x2="185.42" y2="53.34" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="RPI_GPIO_3" class="0">
 <segment>
 <pinref part="X1" gate="-3" pin="KL"/>
@@ -13084,22 +13086,10 @@ All the external connectors used on the board.</description>
 <wire x1="195.58" y1="60.96" x2="185.42" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="RPI_GPIO_6" class="0">
-<segment>
-<pinref part="X1" gate="-6" pin="KL"/>
-<wire x1="195.58" y1="63.5" x2="185.42" y2="63.5" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="RPI_GPIO_7" class="0">
 <segment>
 <pinref part="X1" gate="-7" pin="KL"/>
 <wire x1="195.58" y1="66.04" x2="185.42" y2="66.04" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="RPI_GPIO_8" class="0">
-<segment>
-<pinref part="X1" gate="-8" pin="KL"/>
-<wire x1="195.58" y1="68.58" x2="185.42" y2="68.58" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_40" class="0">
@@ -13186,10 +13176,11 @@ All the external connectors used on the board.</description>
 <wire x1="195.58" y1="116.84" x2="185.42" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="RPI_GPIO_26" class="0">
+<net name="ADC3_CS" class="0">
 <segment>
 <pinref part="X1" gate="-26" pin="KL"/>
 <wire x1="195.58" y1="114.3" x2="185.42" y2="114.3" width="0.1524" layer="91"/>
+<label x="185.42" y="114.3" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RPI_GPIO_25" class="0">
@@ -13198,28 +13189,25 @@ All the external connectors used on the board.</description>
 <wire x1="195.58" y1="111.76" x2="185.42" y2="111.76" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="RPI_GPIO_24" class="0">
-<segment>
-<pinref part="X1" gate="-24" pin="KL"/>
-<wire x1="195.58" y1="109.22" x2="185.42" y2="109.22" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="RPI_GPIO_23" class="0">
+<net name="SCLK" class="0">
 <segment>
 <pinref part="X1" gate="-23" pin="KL"/>
 <wire x1="195.58" y1="106.68" x2="185.42" y2="106.68" width="0.1524" layer="91"/>
+<label x="185.42" y="106.68" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="RPI_GPIO_22" class="0">
+<net name="ADC1_CS" class="0">
 <segment>
 <pinref part="X1" gate="-22" pin="KL"/>
 <wire x1="195.58" y1="104.14" x2="185.42" y2="104.14" width="0.1524" layer="91"/>
+<label x="185.42" y="104.14" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="RPI_GPIO_21" class="0">
+<net name="MISO" class="0">
 <segment>
 <pinref part="X1" gate="-21" pin="KL"/>
 <wire x1="195.58" y1="101.6" x2="185.42" y2="101.6" width="0.1524" layer="91"/>
+<label x="185.42" y="101.6" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RPI_GPIO_20" class="0">
@@ -13228,10 +13216,11 @@ All the external connectors used on the board.</description>
 <wire x1="195.58" y1="99.06" x2="185.42" y2="99.06" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="RPI_GPIO_19" class="0">
+<net name="MOSI" class="0">
 <segment>
 <pinref part="X1" gate="-19" pin="KL"/>
 <wire x1="195.58" y1="96.52" x2="185.42" y2="96.52" width="0.1524" layer="91"/>
+<label x="185.42" y="96.52" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RPI_GPIO_18" class="0">
@@ -13246,16 +13235,18 @@ All the external connectors used on the board.</description>
 <wire x1="195.58" y1="91.44" x2="185.42" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="RPI_GPIO_16" class="0">
+<net name="IGNITION_RELAY" class="0">
 <segment>
 <pinref part="X1" gate="-16" pin="KL"/>
 <wire x1="195.58" y1="88.9" x2="185.42" y2="88.9" width="0.1524" layer="91"/>
+<label x="185.42" y="88.9" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="RPI_GPIO_15" class="0">
+<net name="CTRL_SOLENOID_3" class="0">
 <segment>
 <pinref part="X1" gate="-15" pin="KL"/>
 <wire x1="195.58" y1="86.36" x2="185.42" y2="86.36" width="0.1524" layer="91"/>
+<label x="185.42" y="86.36" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RPI_GPIO_14" class="0">
@@ -13270,16 +13261,18 @@ All the external connectors used on the board.</description>
 <wire x1="195.58" y1="78.74" x2="185.42" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="RPI_GPIO_13" class="0">
+<net name="CTRL_SOLENOID_2" class="0">
 <segment>
 <pinref part="X1" gate="-13" pin="KL"/>
 <wire x1="195.58" y1="81.28" x2="185.42" y2="81.28" width="0.1524" layer="91"/>
+<label x="185.42" y="81.28" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="RPI_GPIO_11" class="0">
+<net name="CTRL_SOLENOID_1" class="0">
 <segment>
 <pinref part="X1" gate="-11" pin="KL"/>
 <wire x1="195.58" y1="76.2" x2="185.42" y2="76.2" width="0.1524" layer="91"/>
+<label x="185.42" y="76.2" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RPI_GPIO_10" class="0">
@@ -13440,12 +13433,22 @@ All the external connectors used on the board.</description>
 <wire x1="78.74" y1="154.94" x2="86.36" y2="154.94" width="0.1524" layer="91"/>
 <label x="86.36" y="154.94" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="X1" gate="-2" pin="KL"/>
+<wire x1="195.58" y1="53.34" x2="185.42" y2="53.34" width="0.1524" layer="91"/>
+<label x="185.42" y="53.34" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="GND" class="0">
 <segment>
 <pinref part="U$5" gate="G$2" pin="2"/>
 <wire x1="78.74" y1="152.4" x2="86.36" y2="152.4" width="0.1524" layer="91"/>
 <label x="86.36" y="152.4" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="X1" gate="-6" pin="KL"/>
+<wire x1="195.58" y1="63.5" x2="185.42" y2="63.5" width="0.1524" layer="91"/>
+<label x="185.42" y="63.5" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RELAY_NEGATIVE" class="0">
@@ -13474,6 +13477,19 @@ All the external connectors used on the board.</description>
 <pinref part="U$7" gate="G$2" pin="2"/>
 <wire x1="78.74" y1="132.08" x2="86.36" y2="132.08" width="0.1524" layer="91"/>
 <label x="86.36" y="132.08" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="RPI_GPIO_8" class="0">
+<segment>
+<pinref part="X1" gate="-8" pin="KL"/>
+<wire x1="195.58" y1="68.58" x2="185.42" y2="68.58" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="ADC2_CS" class="0">
+<segment>
+<pinref part="X1" gate="-24" pin="KL"/>
+<wire x1="195.58" y1="109.22" x2="185.42" y2="109.22" width="0.1524" layer="91"/>
+<label x="185.42" y="109.22" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
