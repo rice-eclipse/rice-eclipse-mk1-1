@@ -10564,6 +10564,26 @@ A sheet for all the voltage regulators in use.</description>
 </net>
 <net name="+5V" class="0">
 <segment>
+<pinref part="U$12" gate="G$1" pin="P$3"/>
+<wire x1="198.12" y1="116.84" x2="198.12" y2="129.54" width="0.1524" layer="91"/>
+<label x="198.12" y="129.54" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="+10V" class="0">
+<segment>
+<wire x1="193.04" y1="137.16" x2="218.44" y2="137.16" width="0.1524" layer="91"/>
+<label x="218.44" y="137.16" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DEBUG_3V3" class="0">
+<segment>
+<pinref part="U$11" gate="G$1" pin="P$1"/>
+<wire x1="210.82" y1="78.74" x2="228.6" y2="78.74" width="0.1524" layer="91"/>
+<label x="228.6" y="78.74" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="DEBUG_5V" class="0">
+<segment>
 <label x="180.34" y="111.76" size="1.778" layer="95"/>
 <pinref part="U1" gate="A" pin="VOUT"/>
 <pinref part="C7" gate="G$1" pin="1"/>
@@ -10574,26 +10594,6 @@ A sheet for all the voltage regulators in use.</description>
 <wire x1="160.02" y1="121.92" x2="170.18" y2="121.92" width="0.1524" layer="91"/>
 <wire x1="170.18" y1="121.92" x2="170.18" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="U$12" gate="G$1" pin="P$2"/>
-</segment>
-</net>
-<net name="+10V" class="0">
-<segment>
-<wire x1="193.04" y1="137.16" x2="218.44" y2="137.16" width="0.1524" layer="91"/>
-<label x="218.44" y="137.16" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DEBUG_5V" class="0">
-<segment>
-<pinref part="U$12" gate="G$1" pin="P$3"/>
-<wire x1="198.12" y1="116.84" x2="198.12" y2="129.54" width="0.1524" layer="91"/>
-<label x="198.12" y="129.54" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="DEBUG_3V3" class="0">
-<segment>
-<pinref part="U$11" gate="G$1" pin="P$1"/>
-<wire x1="210.82" y1="78.74" x2="228.6" y2="78.74" width="0.1524" layer="91"/>
-<label x="228.6" y="78.74" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
