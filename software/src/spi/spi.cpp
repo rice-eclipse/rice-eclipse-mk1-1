@@ -13,8 +13,9 @@ int main(int argc, char **argv)
     // If you all this, it will not actually access the GPIO
 // Use for testing
 //        bcm2835_set_debug(1);
-    char writeb[4] = {(char) 0x06,(char) 0xc0, 0, 0}; //Write to pick the first channel.
-    char readb[4] = {0,0,0, 0};
+
+    char writeb[3] = {(char) 0x06,(char) 0xc0, 0}; //Write to pick CH03
+    char readb[3] = {0,0,0};
     uint16_t out_value = 0;
 
     if (!bcm2835_init())
@@ -47,8 +48,8 @@ int main(int argc, char **argv)
         out_value = __bswap_16(out_value);
         printf("Sent to SPI: 0x%01X. Read back from SPI: 0x%03X.\n", 0x0c, out_value);
     }
-    bcm2835_spi_end();
-    bcm2835_close();
-    return 0;
+    //bcm2835_spi_end();
+    //bcm2835_close();
+    //return 0;
 }
 
