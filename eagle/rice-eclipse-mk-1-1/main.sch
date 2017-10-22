@@ -61,6 +61,8 @@
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
 <layer number="51" name="tDocu" color="7" fill="1" visible="no" active="no"/>
 <layer number="52" name="bDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="88" name="SimResults" color="9" fill="1" visible="yes" active="yes"/>
+<layer number="89" name="SimProbes" color="9" fill="1" visible="yes" active="yes"/>
 <layer number="90" name="Modules" color="5" fill="1" visible="yes" active="yes"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
@@ -14135,6 +14137,85 @@ Grid 2.54 mm&lt;p&gt;
 </deviceset>
 </devicesets>
 </library>
+<library name="st-microelectronics-extra">
+<packages>
+<package name="SOT23-5">
+<description>&lt;b&gt;5-Lead Small Outline Transistor&lt;/b&gt; Package SOT-23&lt;p&gt;
+Source: http://www.analog.com/UploadedFiles/Data_Sheets/346131962AD8067_a.pdf</description>
+<wire x1="1.372" y1="0.735" x2="1.372" y2="-0.735" width="0.1524" layer="21"/>
+<wire x1="1.372" y1="-0.735" x2="-1.372" y2="-0.735" width="0.1524" layer="51"/>
+<wire x1="-1.372" y1="-0.735" x2="-1.372" y2="0.735" width="0.1524" layer="21"/>
+<wire x1="-1.372" y1="0.735" x2="1.372" y2="0.735" width="0.1524" layer="51"/>
+<wire x1="-0.522" y1="0.735" x2="0.522" y2="0.735" width="0.1524" layer="21"/>
+<wire x1="-0.428" y1="-0.735" x2="-0.522" y2="-0.735" width="0.1524" layer="21"/>
+<wire x1="0.522" y1="-0.735" x2="0.428" y2="-0.735" width="0.1524" layer="21"/>
+<wire x1="-1.328" y1="-0.735" x2="-1.372" y2="-0.735" width="0.1524" layer="21"/>
+<wire x1="1.372" y1="-0.735" x2="1.328" y2="-0.735" width="0.1524" layer="21"/>
+<wire x1="1.328" y1="0.735" x2="1.372" y2="0.735" width="0.1524" layer="21"/>
+<wire x1="-1.372" y1="0.735" x2="-1.328" y2="0.735" width="0.1524" layer="21"/>
+<smd name="1" x="-0.95" y="-1.3" dx="0.55" dy="1.2" layer="1"/>
+<smd name="2" x="0" y="-1.3" dx="0.55" dy="1.2" layer="1"/>
+<smd name="3" x="0.95" y="-1.3" dx="0.55" dy="1.2" layer="1"/>
+<smd name="4" x="0.95" y="1.3" dx="0.55" dy="1.2" layer="1"/>
+<smd name="5" x="-0.95" y="1.3" dx="0.55" dy="1.2" layer="1"/>
+<text x="-1.905" y="1.905" size="1.27" layer="25">&gt;NAME</text>
+<text x="-1.905" y="-3.429" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-1.2" y1="-1.425" x2="-0.7" y2="-0.775" layer="51"/>
+<rectangle x1="-0.25" y1="-1.425" x2="0.25" y2="-0.775" layer="51"/>
+<rectangle x1="0.7" y1="-1.425" x2="1.2" y2="-0.775" layer="51"/>
+<rectangle x1="0.7" y1="0.775" x2="1.2" y2="1.425" layer="51"/>
+<rectangle x1="-1.2" y1="0.775" x2="-0.7" y2="1.425" layer="51"/>
+</package>
+</packages>
+<symbols>
+<symbol name="OP+-VS">
+<wire x1="-2.54" y1="5.08" x2="-2.54" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="-5.08" x2="5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="5.08" y1="0" x2="-2.54" y2="5.08" width="0.254" layer="94"/>
+<wire x1="2.54" y1="2.54" x2="2.54" y2="1.778" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="-2.54" x2="2.54" y2="-1.778" width="0.1524" layer="94"/>
+<text x="7.62" y="2.54" size="1.778" layer="95">&gt;NAME</text>
+<text x="7.62" y="-3.81" size="1.778" layer="96">&gt;VALUE</text>
+<text x="-1.778" y="1.778" size="1.27" layer="96">+</text>
+<text x="-1.524" y="-2.794" size="1.27" layer="96">-</text>
+<text x="3.302" y="3.556" size="1.27" layer="96">+VS</text>
+<text x="3.302" y="-3.556" size="1.27" layer="96" rot="MR180">-VS</text>
+<pin name="IN+" x="-5.08" y="2.54" visible="pad" length="short" direction="in" swaplevel="1"/>
+<pin name="IN-" x="-5.08" y="-2.54" visible="pad" length="short" direction="in" swaplevel="1"/>
+<pin name="OUT" x="7.62" y="0" visible="pad" length="short" direction="out" rot="R180"/>
+<pin name="-VS" x="2.54" y="-5.08" visible="pad" length="short" direction="in" rot="R90"/>
+<pin name="+VS" x="2.54" y="5.08" visible="pad" length="short" direction="in" rot="R270"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="LMV321LICT" prefix="IC">
+<description>&lt;b&gt;High Performance, 145 MHz FastFET Op Amps&lt;/b&gt;&lt;p&gt;
+Source: http://www.analog.com/static/imported-files/data_sheets/AD8065_8066.pdf</description>
+<gates>
+<gate name="G$" symbol="OP+-VS" x="0" y="0"/>
+</gates>
+<devices>
+<device name="RT" package="SOT23-5">
+<connects>
+<connect gate="G$" pin="+VS" pad="5"/>
+<connect gate="G$" pin="-VS" pad="2"/>
+<connect gate="G$" pin="IN+" pad="1"/>
+<connect gate="G$" pin="IN-" pad="3"/>
+<connect gate="G$" pin="OUT" pad="4"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MF" value="ALTERA CORPORATION" constant="no"/>
+<attribute name="MPN" value="AD8065ARTZ-REEL7" constant="no"/>
+<attribute name="OC_FARNELL" value="1464845" constant="no"/>
+<attribute name="OC_NEWARK" value="59K6316" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 <attribute name="CNAME" value="RJ Cunningham"/>
@@ -14209,8 +14290,6 @@ Grid 2.54 mm&lt;p&gt;
 <part name="X5" library="con-phoenix-250-extra" deviceset="1770908" device=""/>
 <part name="X6" library="con-phoenix-250-extra" deviceset="1770908" device=""/>
 <part name="U6" library="SLIDE_SW" deviceset="1101M2S3CQE2" device=""/>
-<part name="U7" library="SLIDE_SW" deviceset="1101M2S3CQE2" device=""/>
-<part name="U8" library="SLIDE_SW" deviceset="1101M2S3CQE2" device=""/>
 <part name="LED1" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
 <part name="LED2" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
 <part name="LED3" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
@@ -14228,6 +14307,12 @@ Grid 2.54 mm&lt;p&gt;
 <part name="R30" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="500K"/>
 <part name="X7" library="con-phoenix-254" library_urn="urn:adsk.eagle:library:172" deviceset="MPT8" device="" package3d_urn="urn:adsk.eagle:package:9329/1"/>
 <part name="X8" library="con-phoenix-254" library_urn="urn:adsk.eagle:library:172" deviceset="MPT8" device="" package3d_urn="urn:adsk.eagle:package:9329/1"/>
+<part name="FRAME10" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
+<part name="FRAME11" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
+<part name="IC1" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
+<part name="IC2" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
+<part name="IC3" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
+<part name="IC4" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
 </parts>
 <sheets>
 <sheet>
@@ -14255,8 +14340,6 @@ A sheet for all the voltage regulators in use.</description>
 <instance part="U$1" gate="G$1" x="58.42" y="93.98"/>
 <instance part="U$1" gate="G$2" x="58.42" y="86.36"/>
 <instance part="U6" gate="A" x="88.9" y="93.98" rot="R270"/>
-<instance part="U7" gate="A" x="198.12" y="111.76" rot="R270"/>
-<instance part="U8" gate="A" x="205.74" y="78.74" rot="R180"/>
 <instance part="LED1" gate="G$1" x="109.22" y="114.3"/>
 <instance part="LED2" gate="G$1" x="203.2" y="129.54" rot="R180"/>
 <instance part="LED3" gate="G$1" x="215.9" y="71.12"/>
@@ -14340,17 +14423,15 @@ A sheet for all the voltage regulators in use.</description>
 <label x="228.6" y="73.66" size="1.778" layer="95"/>
 <pinref part="LED3" gate="G$1" pin="A"/>
 <wire x1="215.9" y1="73.66" x2="228.6" y2="73.66" width="0.1524" layer="91"/>
-<pinref part="U8" gate="A" pin="O"/>
-<wire x1="215.9" y1="73.66" x2="208.28" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="73.66" x2="210.82" y2="73.66" width="0.1524" layer="91"/>
 <junction x="215.9" y="73.66"/>
-</segment>
-</net>
-<net name="+5V" class="0">
-<segment>
-<label x="203.2" y="127" size="1.778" layer="95"/>
-<pinref part="LED2" gate="G$1" pin="A"/>
-<pinref part="U7" gate="A" pin="O"/>
-<wire x1="203.2" y1="114.3" x2="203.2" y2="127" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="73.66" x2="210.82" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="93.98" x2="172.72" y2="93.98" width="0.1524" layer="91"/>
+<label x="200.66" y="96.52" size="1.778" layer="95"/>
+<pinref part="REG1" gate="G$1" pin="VOUT"/>
+<pinref part="C4" gate="G$1" pin="1"/>
+<wire x1="172.72" y1="93.98" x2="210.82" y2="93.98" width="0.1524" layer="91"/>
+<junction x="172.72" y="93.98"/>
 </segment>
 </net>
 <net name="+10V" class="0">
@@ -14365,32 +14446,6 @@ A sheet for all the voltage regulators in use.</description>
 <wire x1="83.82" y1="93.98" x2="58.42" y2="93.98" width="0.1524" layer="91"/>
 <label x="66.04" y="93.98" size="1.778" layer="95"/>
 <pinref part="U6" gate="A" pin="P"/>
-</segment>
-</net>
-<net name="+5V_DEBUG" class="0">
-<segment>
-<label x="180.34" y="111.76" size="1.778" layer="95"/>
-<pinref part="U1" gate="A" pin="VOUT"/>
-<pinref part="C7" gate="G$1" pin="1"/>
-<junction x="170.18" y="111.76"/>
-<wire x1="170.18" y1="111.76" x2="193.04" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="165.1" y1="111.76" x2="170.18" y2="111.76" width="0.1524" layer="91"/>
-<pinref part="U1" gate="A" pin="4"/>
-<wire x1="160.02" y1="121.92" x2="170.18" y2="121.92" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="121.92" x2="170.18" y2="111.76" width="0.1524" layer="91"/>
-<pinref part="U7" gate="A" pin="P"/>
-</segment>
-</net>
-<net name="+3V3_DEBUG" class="0">
-<segment>
-<wire x1="160.02" y1="93.98" x2="172.72" y2="93.98" width="0.1524" layer="91"/>
-<label x="200.66" y="96.52" size="1.778" layer="95"/>
-<pinref part="REG1" gate="G$1" pin="VOUT"/>
-<pinref part="C4" gate="G$1" pin="1"/>
-<wire x1="172.72" y1="93.98" x2="205.74" y2="93.98" width="0.1524" layer="91"/>
-<junction x="172.72" y="93.98"/>
-<wire x1="205.74" y1="93.98" x2="205.74" y2="83.82" width="0.1524" layer="91"/>
-<pinref part="U8" gate="A" pin="P"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -14409,6 +14464,24 @@ A sheet for all the voltage regulators in use.</description>
 <segment>
 <pinref part="LED3" gate="G$1" pin="C"/>
 <pinref part="R28" gate="G$1" pin="1"/>
+</segment>
+</net>
+<net name="+5V" class="0">
+<segment>
+<label x="180.34" y="111.76" size="1.778" layer="95"/>
+<pinref part="U1" gate="A" pin="VOUT"/>
+<pinref part="C7" gate="G$1" pin="1"/>
+<junction x="170.18" y="111.76"/>
+<wire x1="170.18" y1="111.76" x2="190.5" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="111.76" x2="170.18" y2="111.76" width="0.1524" layer="91"/>
+<pinref part="U1" gate="A" pin="4"/>
+<wire x1="160.02" y1="121.92" x2="170.18" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="121.92" x2="170.18" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="111.76" x2="190.5" y2="121.92" width="0.1524" layer="91"/>
+<label x="203.2" y="127" size="1.778" layer="95"/>
+<pinref part="LED2" gate="G$1" pin="A"/>
+<wire x1="203.2" y1="121.92" x2="203.2" y2="127" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="121.92" x2="203.2" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
@@ -14829,6 +14902,32 @@ A schematic for amplifying signals from the load cells. Additional Level-Shiftin
 <junction x="25.4" y="134.62"/>
 </segment>
 </net>
+</nets>
+</sheet>
+<sheet>
+<description>&lt;b&gt;PT Amplification&lt;/b&gt;&lt;br&gt;
+Circuits for measuring PT</description>
+<plain>
+</plain>
+<instances>
+<instance part="FRAME10" gate="G$1" x="0" y="0" smashed="yes">
+<attribute name="DRAWING_NAME" x="217.17" y="15.24" size="2.54" layer="94"/>
+<attribute name="LAST_DATE_TIME" x="217.17" y="10.16" size="2.286" layer="94"/>
+<attribute name="SHEET" x="230.505" y="5.08" size="2.54" layer="94"/>
+</instance>
+<instance part="FRAME11" gate="G$1" x="0" y="0" smashed="yes">
+<attribute name="DRAWING_NAME" x="217.17" y="15.24" size="2.54" layer="94"/>
+<attribute name="LAST_DATE_TIME" x="217.17" y="10.16" size="2.286" layer="94"/>
+<attribute name="SHEET" x="230.505" y="5.08" size="2.54" layer="94"/>
+</instance>
+<instance part="IC1" gate="G$" x="53.34" y="129.54"/>
+<instance part="IC2" gate="G$" x="193.04" y="132.08"/>
+<instance part="IC3" gate="G$" x="53.34" y="88.9"/>
+<instance part="IC4" gate="G$" x="195.58" y="83.82"/>
+</instances>
+<busses>
+</busses>
+<nets>
 </nets>
 </sheet>
 <sheet>
@@ -15454,6 +15553,10 @@ All the external connectors used on the board.</description>
 <text x="10.16" y="170.18" size="2.54" layer="97">External Signal Connectors</text>
 <text x="73.66" y="170.18" size="2.54" layer="97">External Power Connectors</text>
 <text x="71.12" y="127" size="1.778" layer="97">TODO: Figure out how to properly distinguish these on the hardware board?</text>
+<text x="55.88" y="96.52" size="1.778" layer="97">TC_1</text>
+<text x="55.88" y="101.6" size="1.778" layer="97">TC_2</text>
+<text x="55.88" y="106.68" size="1.778" layer="97">TC_3</text>
+<text x="55.88" y="111.76" size="1.778" layer="97">TC_4</text>
 </plain>
 <instances>
 <instance part="FRAME9" gate="G$1" x="0" y="0" smashed="yes">
@@ -15891,6 +15994,34 @@ All the external connectors used on the board.</description>
 <pinref part="X6" gate="-4" pin="SK"/>
 <wire x1="30.48" y1="127" x2="43.18" y2="127" width="0.1524" layer="91"/>
 <label x="35.56" y="127" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="ADC2_A0" class="0">
+<segment>
+<pinref part="X2" gate="-6" pin="SK"/>
+<wire x1="30.48" y1="96.52" x2="43.18" y2="96.52" width="0.1524" layer="91"/>
+<label x="43.18" y="96.52" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="ADC2_A1" class="0">
+<segment>
+<pinref part="X2" gate="-5" pin="SK"/>
+<wire x1="30.48" y1="101.6" x2="43.18" y2="101.6" width="0.1524" layer="91"/>
+<label x="43.18" y="101.6" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="ADC2_A2" class="0">
+<segment>
+<pinref part="X2" gate="-4" pin="SK"/>
+<wire x1="30.48" y1="106.68" x2="43.18" y2="106.68" width="0.1524" layer="91"/>
+<label x="43.18" y="106.68" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="ADC2_A3" class="0">
+<segment>
+<pinref part="X2" gate="-3" pin="SK"/>
+<wire x1="30.48" y1="111.76" x2="43.18" y2="111.76" width="0.1524" layer="91"/>
+<label x="43.18" y="111.76" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
