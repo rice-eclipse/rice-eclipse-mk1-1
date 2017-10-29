@@ -15073,7 +15073,7 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 </symbol>
 <symbol name="THS4531IDR">
 <pin name="VIN-" x="0" y="0" length="middle" direction="in"/>
-<pin name="VOCM" x="0" y="-2.54" length="middle" direction="in"/>
+<pin name="VOCM" x="0" y="-2.54" length="middle"/>
 <pin name="VS+" x="0" y="-5.08" length="middle" direction="pwr"/>
 <pin name="VOUT+" x="0" y="-7.62" length="middle" direction="out"/>
 <pin name="VOUT-" x="30.48" y="-7.62" length="middle" direction="out" rot="R180"/>
@@ -24777,6 +24777,8 @@ A sheet for all the voltage regulators in use.</description>
 <wire x1="71.12" y1="129.54" x2="71.12" y2="119.38" width="0.1524" layer="91"/>
 <wire x1="71.12" y1="119.38" x2="93.98" y2="119.38" width="0.1524" layer="91"/>
 <junction x="93.98" y="119.38"/>
+<junction x="71.12" y="119.38"/>
+<label x="38.1" y="119.38" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="+12V" class="0">
@@ -25440,6 +25442,7 @@ Circuits for measuring PT</description>
 <pinref part="R38" gate="G$1" pin="1"/>
 <wire x1="63.5" y1="165.1" x2="76.2" y2="165.1" width="0.1524" layer="91"/>
 <junction x="76.2" y="165.1"/>
+<junction x="101.6" y="83.82"/>
 </segment>
 </net>
 <net name="GND" class="0">
