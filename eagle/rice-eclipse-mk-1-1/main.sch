@@ -24578,7 +24578,7 @@ general purpose rectifier, 1 A</description>
 <part name="FRAME7" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
 <part name="FRAME8" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
 <part name="FRAME9" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
-<part name="X1" library="con-3m" library_urn="urn:adsk.eagle:library:119" deviceset="2540-" device="5" package3d_urn="urn:adsk.eagle:package:5588/1"/>
+<part name="RPI_GPIO" library="con-3m" library_urn="urn:adsk.eagle:library:119" deviceset="2540-" device="5" package3d_urn="urn:adsk.eagle:package:5588/1"/>
 <part name="U$2" library="transistor-fet-extra" deviceset="2N7000" device=""/>
 <part name="R1" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="10k"/>
 <part name="R2" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="500k"/>
@@ -24621,8 +24621,8 @@ general purpose rectifier, 1 A</description>
 <part name="R24" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="20K"/>
 <part name="C13" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="1UF"/>
 <part name="R25" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="500K"/>
-<part name="X5" library="con-phoenix-250-extra" deviceset="1770908" device=""/>
-<part name="X6" library="con-phoenix-250-extra" deviceset="1770908" device=""/>
+<part name="LC_IN2" library="con-phoenix-250-extra" deviceset="1770908" device=""/>
+<part name="LC_IN1" library="con-phoenix-250-extra" deviceset="1770908" device=""/>
 <part name="U6" library="SLIDE_SW" deviceset="1101M2S3CQE2" device=""/>
 <part name="LED1" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
 <part name="LED2" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
@@ -24630,8 +24630,8 @@ general purpose rectifier, 1 A</description>
 <part name="R26" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:26057/1" value="470"/>
 <part name="R27" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:26057/1" value="130"/>
 <part name="R28" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:26057/1" value="39"/>
-<part name="X2" library="con-phoenix-250-extra" deviceset="1770924" device=""/>
-<part name="X3" library="con-phoenix-250-extra" deviceset="1770924" device=""/>
+<part name="PT_123_IN" library="con-phoenix-250-extra" deviceset="1770924" device=""/>
+<part name="TC_PT4_IN" library="con-phoenix-250-extra" deviceset="1770924" device=""/>
 <part name="X4" library="con-phoenix-254" library_urn="urn:adsk.eagle:library:172" deviceset="MPT8" device="" package3d_urn="urn:adsk.eagle:package:9329/1"/>
 <part name="ADC2" library="microchip-extra" deviceset="MCP3208" device="SN"/>
 <part name="C1" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="1UF"/>
@@ -26748,46 +26748,46 @@ All the external connectors used on the board.</description>
 <attribute name="LAST_DATE_TIME" x="217.17" y="10.16" size="2.286" layer="94"/>
 <attribute name="SHEET" x="230.505" y="5.08" size="2.54" layer="94"/>
 </instance>
-<instance part="X1" gate="-1" x="200.66" y="50.8" rot="R180"/>
-<instance part="X1" gate="-2" x="200.66" y="53.34" rot="R180"/>
-<instance part="X1" gate="-3" x="200.66" y="55.88" rot="R180"/>
-<instance part="X1" gate="-4" x="200.66" y="58.42" rot="R180"/>
-<instance part="X1" gate="-5" x="200.66" y="60.96" rot="R180"/>
-<instance part="X1" gate="-6" x="200.66" y="63.5" rot="R180"/>
-<instance part="X1" gate="-7" x="200.66" y="66.04" rot="R180"/>
-<instance part="X1" gate="-8" x="200.66" y="68.58" rot="R180"/>
-<instance part="X1" gate="-9" x="200.66" y="71.12" rot="R180"/>
-<instance part="X1" gate="-10" x="200.66" y="73.66" rot="R180"/>
-<instance part="X1" gate="-11" x="200.66" y="76.2" rot="R180"/>
-<instance part="X1" gate="-12" x="200.66" y="78.74" rot="R180"/>
-<instance part="X1" gate="-13" x="200.66" y="81.28" rot="R180"/>
-<instance part="X1" gate="-14" x="200.66" y="83.82" rot="R180"/>
-<instance part="X1" gate="-15" x="200.66" y="86.36" rot="R180"/>
-<instance part="X1" gate="-16" x="200.66" y="88.9" rot="R180"/>
-<instance part="X1" gate="-17" x="200.66" y="91.44" rot="R180"/>
-<instance part="X1" gate="-18" x="200.66" y="93.98" rot="R180"/>
-<instance part="X1" gate="-19" x="200.66" y="96.52" rot="R180"/>
-<instance part="X1" gate="-20" x="200.66" y="99.06" rot="R180"/>
-<instance part="X1" gate="-21" x="200.66" y="101.6" rot="R180"/>
-<instance part="X1" gate="-22" x="200.66" y="104.14" rot="R180"/>
-<instance part="X1" gate="-23" x="200.66" y="106.68" rot="R180"/>
-<instance part="X1" gate="-24" x="200.66" y="109.22" rot="R180"/>
-<instance part="X1" gate="-25" x="200.66" y="111.76" rot="R180"/>
-<instance part="X1" gate="-26" x="200.66" y="114.3" rot="R180"/>
-<instance part="X1" gate="-27" x="200.66" y="116.84" rot="R180"/>
-<instance part="X1" gate="-28" x="200.66" y="119.38" rot="R180"/>
-<instance part="X1" gate="-29" x="200.66" y="121.92" rot="R180"/>
-<instance part="X1" gate="-30" x="200.66" y="124.46" rot="R180"/>
-<instance part="X1" gate="-31" x="200.66" y="127" rot="R180"/>
-<instance part="X1" gate="-32" x="200.66" y="129.54" rot="R180"/>
-<instance part="X1" gate="-33" x="200.66" y="132.08" rot="R180"/>
-<instance part="X1" gate="-34" x="200.66" y="134.62" rot="R180"/>
-<instance part="X1" gate="-35" x="200.66" y="137.16" rot="R180"/>
-<instance part="X1" gate="-36" x="200.66" y="139.7" rot="R180"/>
-<instance part="X1" gate="-37" x="200.66" y="142.24" rot="R180"/>
-<instance part="X1" gate="-38" x="200.66" y="144.78" rot="R180"/>
-<instance part="X1" gate="-39" x="200.66" y="147.32" rot="R180"/>
-<instance part="X1" gate="-40" x="200.66" y="149.86" rot="R180"/>
+<instance part="RPI_GPIO" gate="-1" x="200.66" y="50.8" rot="R180"/>
+<instance part="RPI_GPIO" gate="-2" x="200.66" y="53.34" rot="R180"/>
+<instance part="RPI_GPIO" gate="-3" x="200.66" y="55.88" rot="R180"/>
+<instance part="RPI_GPIO" gate="-4" x="200.66" y="58.42" rot="R180"/>
+<instance part="RPI_GPIO" gate="-5" x="200.66" y="60.96" rot="R180"/>
+<instance part="RPI_GPIO" gate="-6" x="200.66" y="63.5" rot="R180"/>
+<instance part="RPI_GPIO" gate="-7" x="200.66" y="66.04" rot="R180"/>
+<instance part="RPI_GPIO" gate="-8" x="200.66" y="68.58" rot="R180"/>
+<instance part="RPI_GPIO" gate="-9" x="200.66" y="71.12" rot="R180"/>
+<instance part="RPI_GPIO" gate="-10" x="200.66" y="73.66" rot="R180"/>
+<instance part="RPI_GPIO" gate="-11" x="200.66" y="76.2" rot="R180"/>
+<instance part="RPI_GPIO" gate="-12" x="200.66" y="78.74" rot="R180"/>
+<instance part="RPI_GPIO" gate="-13" x="200.66" y="81.28" rot="R180"/>
+<instance part="RPI_GPIO" gate="-14" x="200.66" y="83.82" rot="R180"/>
+<instance part="RPI_GPIO" gate="-15" x="200.66" y="86.36" rot="R180"/>
+<instance part="RPI_GPIO" gate="-16" x="200.66" y="88.9" rot="R180"/>
+<instance part="RPI_GPIO" gate="-17" x="200.66" y="91.44" rot="R180"/>
+<instance part="RPI_GPIO" gate="-18" x="200.66" y="93.98" rot="R180"/>
+<instance part="RPI_GPIO" gate="-19" x="200.66" y="96.52" rot="R180"/>
+<instance part="RPI_GPIO" gate="-20" x="200.66" y="99.06" rot="R180"/>
+<instance part="RPI_GPIO" gate="-21" x="200.66" y="101.6" rot="R180"/>
+<instance part="RPI_GPIO" gate="-22" x="200.66" y="104.14" rot="R180"/>
+<instance part="RPI_GPIO" gate="-23" x="200.66" y="106.68" rot="R180"/>
+<instance part="RPI_GPIO" gate="-24" x="200.66" y="109.22" rot="R180"/>
+<instance part="RPI_GPIO" gate="-25" x="200.66" y="111.76" rot="R180"/>
+<instance part="RPI_GPIO" gate="-26" x="200.66" y="114.3" rot="R180"/>
+<instance part="RPI_GPIO" gate="-27" x="200.66" y="116.84" rot="R180"/>
+<instance part="RPI_GPIO" gate="-28" x="200.66" y="119.38" rot="R180"/>
+<instance part="RPI_GPIO" gate="-29" x="200.66" y="121.92" rot="R180"/>
+<instance part="RPI_GPIO" gate="-30" x="200.66" y="124.46" rot="R180"/>
+<instance part="RPI_GPIO" gate="-31" x="200.66" y="127" rot="R180"/>
+<instance part="RPI_GPIO" gate="-32" x="200.66" y="129.54" rot="R180"/>
+<instance part="RPI_GPIO" gate="-33" x="200.66" y="132.08" rot="R180"/>
+<instance part="RPI_GPIO" gate="-34" x="200.66" y="134.62" rot="R180"/>
+<instance part="RPI_GPIO" gate="-35" x="200.66" y="137.16" rot="R180"/>
+<instance part="RPI_GPIO" gate="-36" x="200.66" y="139.7" rot="R180"/>
+<instance part="RPI_GPIO" gate="-37" x="200.66" y="142.24" rot="R180"/>
+<instance part="RPI_GPIO" gate="-38" x="200.66" y="144.78" rot="R180"/>
+<instance part="RPI_GPIO" gate="-39" x="200.66" y="147.32" rot="R180"/>
+<instance part="RPI_GPIO" gate="-40" x="200.66" y="149.86" rot="R180"/>
 <instance part="U$4" gate="G$1" x="78.74" y="165.1"/>
 <instance part="U$4" gate="G$2" x="78.74" y="162.56"/>
 <instance part="U$5" gate="G$1" x="78.74" y="154.94"/>
@@ -26796,279 +26796,279 @@ All the external connectors used on the board.</description>
 <instance part="U$6" gate="G$2" x="78.74" y="142.24"/>
 <instance part="U$7" gate="G$1" x="78.74" y="134.62"/>
 <instance part="U$7" gate="G$2" x="78.74" y="132.08"/>
-<instance part="X5" gate="-1" x="22.86" y="162.56"/>
-<instance part="X5" gate="-2" x="22.86" y="157.48"/>
-<instance part="X5" gate="-3" x="22.86" y="152.4"/>
-<instance part="X5" gate="-4" x="22.86" y="147.32"/>
-<instance part="X6" gate="-1" x="22.86" y="142.24"/>
-<instance part="X6" gate="-2" x="22.86" y="137.16"/>
-<instance part="X6" gate="-3" x="22.86" y="132.08"/>
-<instance part="X6" gate="-4" x="22.86" y="127"/>
-<instance part="X2" gate="-1" x="22.86" y="121.92"/>
-<instance part="X2" gate="-2" x="22.86" y="116.84"/>
-<instance part="X2" gate="-3" x="22.86" y="111.76"/>
-<instance part="X2" gate="-4" x="22.86" y="106.68"/>
-<instance part="X2" gate="-5" x="22.86" y="101.6"/>
-<instance part="X2" gate="-6" x="22.86" y="96.52"/>
-<instance part="X3" gate="-1" x="22.86" y="91.44"/>
-<instance part="X3" gate="-2" x="22.86" y="86.36"/>
-<instance part="X3" gate="-3" x="22.86" y="81.28"/>
-<instance part="X3" gate="-4" x="22.86" y="76.2"/>
-<instance part="X3" gate="-5" x="22.86" y="71.12"/>
-<instance part="X3" gate="-6" x="22.86" y="66.04"/>
+<instance part="LC_IN2" gate="-1" x="22.86" y="162.56"/>
+<instance part="LC_IN2" gate="-2" x="22.86" y="157.48"/>
+<instance part="LC_IN2" gate="-3" x="22.86" y="152.4"/>
+<instance part="LC_IN2" gate="-4" x="22.86" y="147.32"/>
+<instance part="LC_IN1" gate="-1" x="22.86" y="142.24"/>
+<instance part="LC_IN1" gate="-2" x="22.86" y="137.16"/>
+<instance part="LC_IN1" gate="-3" x="22.86" y="132.08"/>
+<instance part="LC_IN1" gate="-4" x="22.86" y="127"/>
+<instance part="PT_123_IN" gate="-1" x="22.86" y="121.92"/>
+<instance part="PT_123_IN" gate="-2" x="22.86" y="116.84"/>
+<instance part="PT_123_IN" gate="-3" x="22.86" y="111.76"/>
+<instance part="PT_123_IN" gate="-4" x="22.86" y="106.68"/>
+<instance part="PT_123_IN" gate="-5" x="22.86" y="101.6"/>
+<instance part="PT_123_IN" gate="-6" x="22.86" y="96.52"/>
+<instance part="TC_PT4_IN" gate="-1" x="22.86" y="91.44"/>
+<instance part="TC_PT4_IN" gate="-2" x="22.86" y="86.36"/>
+<instance part="TC_PT4_IN" gate="-3" x="22.86" y="81.28"/>
+<instance part="TC_PT4_IN" gate="-4" x="22.86" y="76.2"/>
+<instance part="TC_PT4_IN" gate="-5" x="22.86" y="71.12"/>
+<instance part="TC_PT4_IN" gate="-6" x="22.86" y="66.04"/>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="RPI_GPIO_1" class="0">
 <segment>
-<pinref part="X1" gate="-1" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-1" pin="KL"/>
 <wire x1="195.58" y1="50.8" x2="185.42" y2="50.8" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_3" class="0">
 <segment>
-<pinref part="X1" gate="-3" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-3" pin="KL"/>
 <wire x1="195.58" y1="55.88" x2="185.42" y2="55.88" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_4" class="0">
 <segment>
-<pinref part="X1" gate="-4" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-4" pin="KL"/>
 <wire x1="195.58" y1="58.42" x2="185.42" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_5" class="0">
 <segment>
-<pinref part="X1" gate="-5" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-5" pin="KL"/>
 <wire x1="195.58" y1="60.96" x2="185.42" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_7" class="0">
 <segment>
-<pinref part="X1" gate="-7" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-7" pin="KL"/>
 <wire x1="195.58" y1="66.04" x2="185.42" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_40" class="0">
 <segment>
-<pinref part="X1" gate="-40" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-40" pin="KL"/>
 <wire x1="195.58" y1="149.86" x2="185.42" y2="149.86" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_39" class="0">
 <segment>
-<pinref part="X1" gate="-39" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-39" pin="KL"/>
 <wire x1="195.58" y1="147.32" x2="185.42" y2="147.32" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_38" class="0">
 <segment>
-<pinref part="X1" gate="-38" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-38" pin="KL"/>
 <wire x1="195.58" y1="144.78" x2="185.42" y2="144.78" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_37" class="0">
 <segment>
-<pinref part="X1" gate="-37" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-37" pin="KL"/>
 <wire x1="195.58" y1="142.24" x2="185.42" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_36" class="0">
 <segment>
-<pinref part="X1" gate="-36" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-36" pin="KL"/>
 <wire x1="195.58" y1="139.7" x2="185.42" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_35" class="0">
 <segment>
-<pinref part="X1" gate="-35" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-35" pin="KL"/>
 <wire x1="195.58" y1="137.16" x2="185.42" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_34" class="0">
 <segment>
-<pinref part="X1" gate="-34" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-34" pin="KL"/>
 <wire x1="195.58" y1="134.62" x2="185.42" y2="134.62" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_33" class="0">
 <segment>
-<pinref part="X1" gate="-33" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-33" pin="KL"/>
 <wire x1="195.58" y1="132.08" x2="185.42" y2="132.08" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_32" class="0">
 <segment>
-<pinref part="X1" gate="-32" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-32" pin="KL"/>
 <wire x1="195.58" y1="129.54" x2="185.42" y2="129.54" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_31" class="0">
 <segment>
-<pinref part="X1" gate="-31" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-31" pin="KL"/>
 <wire x1="195.58" y1="127" x2="185.42" y2="127" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_30" class="0">
 <segment>
-<pinref part="X1" gate="-30" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-30" pin="KL"/>
 <wire x1="195.58" y1="124.46" x2="185.42" y2="124.46" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_29" class="0">
 <segment>
-<pinref part="X1" gate="-29" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-29" pin="KL"/>
 <wire x1="195.58" y1="121.92" x2="185.42" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_28" class="0">
 <segment>
-<pinref part="X1" gate="-28" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-28" pin="KL"/>
 <wire x1="195.58" y1="119.38" x2="185.42" y2="119.38" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_27" class="0">
 <segment>
-<pinref part="X1" gate="-27" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-27" pin="KL"/>
 <wire x1="195.58" y1="116.84" x2="185.42" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADC3_CS" class="0">
 <segment>
-<pinref part="X1" gate="-26" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-26" pin="KL"/>
 <label x="162.56" y="114.3" size="1.778" layer="95"/>
 <wire x1="195.58" y1="114.3" x2="162.56" y2="114.3" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_25" class="0">
 <segment>
-<pinref part="X1" gate="-25" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-25" pin="KL"/>
 <wire x1="195.58" y1="111.76" x2="185.42" y2="111.76" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SCLK" class="0">
 <segment>
-<pinref part="X1" gate="-23" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-23" pin="KL"/>
 <label x="162.56" y="106.68" size="1.778" layer="95"/>
 <wire x1="195.58" y1="106.68" x2="162.56" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADC1_CS" class="0">
 <segment>
-<pinref part="X1" gate="-22" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-22" pin="KL"/>
 <label x="162.56" y="104.14" size="1.778" layer="95"/>
 <wire x1="195.58" y1="104.14" x2="162.56" y2="104.14" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MISO" class="0">
 <segment>
-<pinref part="X1" gate="-21" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-21" pin="KL"/>
 <label x="162.56" y="101.6" size="1.778" layer="95"/>
 <wire x1="195.58" y1="101.6" x2="162.56" y2="101.6" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_20" class="0">
 <segment>
-<pinref part="X1" gate="-20" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-20" pin="KL"/>
 <wire x1="195.58" y1="99.06" x2="185.42" y2="99.06" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MOSI" class="0">
 <segment>
-<pinref part="X1" gate="-19" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-19" pin="KL"/>
 <label x="162.56" y="96.52" size="1.778" layer="95"/>
 <wire x1="195.58" y1="96.52" x2="162.56" y2="96.52" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_18" class="0">
 <segment>
-<pinref part="X1" gate="-18" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-18" pin="KL"/>
 <wire x1="195.58" y1="93.98" x2="185.42" y2="93.98" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_17" class="0">
 <segment>
-<pinref part="X1" gate="-17" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-17" pin="KL"/>
 <wire x1="195.58" y1="91.44" x2="185.42" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="IGNITION_RELAY" class="0">
 <segment>
-<pinref part="X1" gate="-16" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-16" pin="KL"/>
 <label x="162.56" y="88.9" size="1.778" layer="95"/>
 <wire x1="195.58" y1="88.9" x2="162.56" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="CTRL_SOLENOID_3" class="0">
 <segment>
-<pinref part="X1" gate="-15" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-15" pin="KL"/>
 <label x="162.56" y="86.36" size="1.778" layer="95"/>
 <wire x1="195.58" y1="86.36" x2="162.56" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_14" class="0">
 <segment>
-<pinref part="X1" gate="-14" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-14" pin="KL"/>
 <wire x1="195.58" y1="83.82" x2="185.42" y2="83.82" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_12" class="0">
 <segment>
-<pinref part="X1" gate="-12" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-12" pin="KL"/>
 <wire x1="195.58" y1="78.74" x2="185.42" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="CTRL_SOLENOID_2" class="0">
 <segment>
-<pinref part="X1" gate="-13" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-13" pin="KL"/>
 <label x="162.56" y="81.28" size="1.778" layer="95"/>
 <wire x1="195.58" y1="81.28" x2="162.56" y2="81.28" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="CTRL_SOLENOID_1" class="0">
 <segment>
-<pinref part="X1" gate="-11" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-11" pin="KL"/>
 <label x="162.56" y="76.2" size="1.778" layer="95"/>
 <wire x1="195.58" y1="76.2" x2="162.56" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_10" class="0">
 <segment>
-<pinref part="X1" gate="-10" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-10" pin="KL"/>
 <wire x1="195.58" y1="73.66" x2="185.42" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RPI_GPIO_9" class="0">
 <segment>
-<pinref part="X1" gate="-9" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-9" pin="KL"/>
 <wire x1="195.58" y1="71.12" x2="185.42" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="LC_3_OUT+" class="0">
 <segment>
-<pinref part="X5" gate="-3" pin="SK"/>
+<pinref part="LC_IN2" gate="-3" pin="SK"/>
 <wire x1="30.48" y1="152.4" x2="45.72" y2="152.4" width="0.1524" layer="91"/>
 <label x="38.1" y="152.4" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LC_3_OUT-" class="0">
 <segment>
-<pinref part="X5" gate="-4" pin="SK"/>
+<pinref part="LC_IN2" gate="-4" pin="SK"/>
 <wire x1="30.48" y1="147.32" x2="45.72" y2="147.32" width="0.1524" layer="91"/>
 <label x="38.1" y="147.32" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LC_4_OUT+" class="0">
 <segment>
-<pinref part="X5" gate="-1" pin="SK"/>
+<pinref part="LC_IN2" gate="-1" pin="SK"/>
 <wire x1="30.48" y1="162.56" x2="45.72" y2="162.56" width="0.1524" layer="91"/>
 <label x="38.1" y="162.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LC_4_OUT-" class="0">
 <segment>
-<pinref part="X5" gate="-2" pin="SK"/>
+<pinref part="LC_IN2" gate="-2" pin="SK"/>
 <wire x1="30.48" y1="157.48" x2="45.72" y2="157.48" width="0.1524" layer="91"/>
 <label x="38.1" y="157.48" size="1.778" layer="95"/>
 </segment>
@@ -27080,22 +27080,22 @@ All the external connectors used on the board.</description>
 <label x="86.36" y="165.1" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="X2" gate="-6" pin="SK"/>
+<pinref part="PT_123_IN" gate="-6" pin="SK"/>
 <wire x1="30.48" y1="96.52" x2="40.64" y2="96.52" width="0.1524" layer="91"/>
 <label x="40.64" y="96.52" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="X2" gate="-2" pin="SK"/>
+<pinref part="PT_123_IN" gate="-2" pin="SK"/>
 <wire x1="30.48" y1="116.84" x2="40.64" y2="116.84" width="0.1524" layer="91"/>
 <label x="40.64" y="116.84" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="X2" gate="-4" pin="SK"/>
+<pinref part="PT_123_IN" gate="-4" pin="SK"/>
 <wire x1="30.48" y1="106.68" x2="40.64" y2="106.68" width="0.1524" layer="91"/>
 <label x="40.64" y="106.68" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="X3" gate="-6" pin="SK"/>
+<pinref part="TC_PT4_IN" gate="-6" pin="SK"/>
 <wire x1="30.48" y1="66.04" x2="40.64" y2="66.04" width="0.1524" layer="91"/>
 <label x="40.64" y="66.04" size="1.778" layer="95"/>
 </segment>
@@ -27121,7 +27121,7 @@ All the external connectors used on the board.</description>
 <label x="86.36" y="152.4" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="X1" gate="-6" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-6" pin="KL"/>
 <label x="162.56" y="63.5" size="1.778" layer="95"/>
 <wire x1="195.58" y1="63.5" x2="162.56" y2="63.5" width="0.1524" layer="91"/>
 </segment>
@@ -27156,41 +27156,41 @@ All the external connectors used on the board.</description>
 </net>
 <net name="RPI_GPIO_8" class="0">
 <segment>
-<pinref part="X1" gate="-8" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-8" pin="KL"/>
 <wire x1="195.58" y1="68.58" x2="185.42" y2="68.58" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADC2_CS" class="0">
 <segment>
-<pinref part="X1" gate="-24" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-24" pin="KL"/>
 <label x="162.56" y="109.22" size="1.778" layer="95"/>
 <wire x1="195.58" y1="109.22" x2="162.56" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="LC_2_OUT+" class="0">
 <segment>
-<pinref part="X6" gate="-1" pin="SK"/>
+<pinref part="LC_IN1" gate="-1" pin="SK"/>
 <wire x1="30.48" y1="142.24" x2="45.72" y2="142.24" width="0.1524" layer="91"/>
 <label x="35.56" y="142.24" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LC_2_OUT-" class="0">
 <segment>
-<pinref part="X6" gate="-2" pin="SK"/>
+<pinref part="LC_IN1" gate="-2" pin="SK"/>
 <wire x1="30.48" y1="137.16" x2="43.18" y2="137.16" width="0.1524" layer="91"/>
 <label x="35.56" y="137.16" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LC_1_OUT+" class="0">
 <segment>
-<pinref part="X6" gate="-3" pin="SK"/>
+<pinref part="LC_IN1" gate="-3" pin="SK"/>
 <wire x1="30.48" y1="132.08" x2="43.18" y2="132.08" width="0.1524" layer="91"/>
 <label x="35.56" y="132.08" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LC_1_OUT-" class="0">
 <segment>
-<pinref part="X6" gate="-4" pin="SK"/>
+<pinref part="LC_IN1" gate="-4" pin="SK"/>
 <wire x1="30.48" y1="127" x2="43.18" y2="127" width="0.1524" layer="91"/>
 <label x="35.56" y="127" size="1.778" layer="95"/>
 </segment>
@@ -27198,62 +27198,62 @@ All the external connectors used on the board.</description>
 <net name="ADC2_A7" class="0">
 <segment>
 <label x="40.64" y="91.44" size="1.778" layer="95"/>
-<pinref part="X3" gate="-1" pin="SK"/>
+<pinref part="TC_PT4_IN" gate="-1" pin="SK"/>
 <wire x1="40.64" y1="91.44" x2="30.48" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADC2_A6" class="0">
 <segment>
 <label x="40.64" y="86.36" size="1.778" layer="95"/>
-<pinref part="X3" gate="-2" pin="SK"/>
+<pinref part="TC_PT4_IN" gate="-2" pin="SK"/>
 <wire x1="40.64" y1="86.36" x2="30.48" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADC2_A5" class="0">
 <segment>
 <label x="40.64" y="81.28" size="1.778" layer="95"/>
-<pinref part="X3" gate="-3" pin="SK"/>
+<pinref part="TC_PT4_IN" gate="-3" pin="SK"/>
 <wire x1="40.64" y1="81.28" x2="30.48" y2="81.28" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADC2_A4" class="0">
 <segment>
 <label x="40.64" y="76.2" size="1.778" layer="95"/>
-<pinref part="X3" gate="-4" pin="SK"/>
+<pinref part="TC_PT4_IN" gate="-4" pin="SK"/>
 <wire x1="40.64" y1="76.2" x2="30.48" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="PT1_VS-" class="0">
 <segment>
-<pinref part="X2" gate="-5" pin="SK"/>
+<pinref part="PT_123_IN" gate="-5" pin="SK"/>
 <wire x1="30.48" y1="101.6" x2="40.64" y2="101.6" width="0.1524" layer="91"/>
 <label x="40.64" y="101.6" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PT2_VS-" class="0">
 <segment>
-<pinref part="X2" gate="-3" pin="SK"/>
+<pinref part="PT_123_IN" gate="-3" pin="SK"/>
 <wire x1="30.48" y1="111.76" x2="40.64" y2="111.76" width="0.1524" layer="91"/>
 <label x="40.64" y="111.76" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PT3_VS-" class="0">
 <segment>
-<pinref part="X2" gate="-1" pin="SK"/>
+<pinref part="PT_123_IN" gate="-1" pin="SK"/>
 <wire x1="30.48" y1="121.92" x2="40.64" y2="121.92" width="0.1524" layer="91"/>
 <label x="40.64" y="121.92" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PT4_VS-" class="0">
 <segment>
-<pinref part="X3" gate="-5" pin="SK"/>
+<pinref part="TC_PT4_IN" gate="-5" pin="SK"/>
 <wire x1="30.48" y1="71.12" x2="40.64" y2="71.12" width="0.1524" layer="91"/>
 <label x="40.64" y="71.12" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="+5V_RPI" class="0">
 <segment>
-<pinref part="X1" gate="-2" pin="KL"/>
+<pinref part="RPI_GPIO" gate="-2" pin="KL"/>
 <label x="162.56" y="53.34" size="1.778" layer="95"/>
 <wire x1="195.58" y1="53.34" x2="162.56" y2="53.34" width="0.1524" layer="91"/>
 </segment>
