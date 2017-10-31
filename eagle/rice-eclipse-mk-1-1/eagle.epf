@@ -366,6 +366,15 @@ Loc="425 175 1624 814"
 State=2
 Number=0
 
+[Win_2]
+Type="CAM Processor"
+Loc="45 72 1244 671"
+State=2
+Number=3
+File="main.brd"
+Job="/home/rjcunningham/Documents/eagle/sfe-gerb274x.cam"
+
 [Desktop]
 Screen="1920 1080"
 Window="Win_1"
+Window="Win_2"
