@@ -15695,10 +15695,6 @@ A two pin 5mm connector.</description>
 <description>&lt;b&gt;PHOENIX&lt;/b&gt;</description>
 <text x="1.8594" y="-2.65" size="1.778" layer="25" ratio="10">&gt;NAME</text>
 <text x="1.5994" y="13.08" size="1.778" layer="27" ratio="10">&gt;VALUE</text>
-<text x="3.5898" y="10.9804" size="1.27" layer="21" ratio="10">1</text>
-<text x="6.1682" y="10.9804" size="1.27" layer="21" ratio="10">2</text>
-<text x="8.572" y="10.955" size="1.27" layer="21" ratio="10">3</text>
-<text x="10.8012" y="10.9804" size="1.27" layer="21" ratio="10">4</text>
 <pad name="P$1" x="3.55" y="2.7" drill="1.2" shape="long" rot="R90"/>
 <pad name="P$2" x="6.05" y="2.7" drill="1.2" shape="long" rot="R90"/>
 <pad name="P$3" x="8.55" y="2.7" drill="1.2" shape="long" rot="R90"/>
@@ -15716,12 +15712,6 @@ A two pin 5mm connector.</description>
 <description>&lt;b&gt;PHOENIX&lt;/b&gt;</description>
 <text x="1.8594" y="-2.65" size="1.778" layer="25" ratio="10">&gt;NAME</text>
 <text x="1.5994" y="13.08" size="1.778" layer="27" ratio="10">&gt;VALUE</text>
-<text x="3.5898" y="10.9804" size="1.27" layer="21" ratio="10">1</text>
-<text x="6.1682" y="10.9804" size="1.27" layer="21" ratio="10">2</text>
-<text x="8.572" y="10.955" size="1.27" layer="21" ratio="10">3</text>
-<text x="10.8012" y="10.9804" size="1.27" layer="21" ratio="10">4</text>
-<text x="13.4034" y="10.9804" size="1.27" layer="21" ratio="10">5</text>
-<text x="15.9834" y="10.9804" size="1.27" layer="21" ratio="10">6</text>
 <pad name="P$1" x="3.55" y="2.7" drill="1.2" shape="long" rot="R90"/>
 <pad name="P$2" x="6.05" y="2.7" drill="1.2" shape="long" rot="R90"/>
 <pad name="P$3" x="8.55" y="2.7" drill="1.2" shape="long" rot="R90"/>
@@ -15813,39 +15803,39 @@ A two pin 5mm connector.</description>
 <description>&lt;b&gt;16mm Potentiometer&lt;/b&gt; two level&lt;p&gt;
 Source: http://www.alphapotentiometers.net/html/16mm_pot_2.html</description>
 <wire x1="-5.05" y1="-3.7" x2="5.35" y2="-3.7" width="0.2032" layer="21"/>
-<wire x1="-5.05" y1="-5.7" x2="-3.95" y2="-5.7" width="0.2032" layer="21"/>
-<wire x1="-5.05" y1="-3.7" x2="-5.05" y2="-5.7" width="0.2032" layer="21"/>
-<wire x1="-3.95" y1="-5.7" x2="-3.95" y2="-3.8" width="0.2032" layer="21"/>
+<wire x1="-5.05" y1="-5.7" x2="-3.95" y2="-5.7" width="0.2032" layer="48"/>
+<wire x1="-5.05" y1="-3.7" x2="-5.05" y2="-5.7" width="0.2032" layer="48"/>
+<wire x1="-3.95" y1="-5.7" x2="-3.95" y2="-3.8" width="0.2032" layer="48"/>
 <wire x1="-5.05" y1="-1.7" x2="5.35" y2="-1.7" width="0.2032" layer="21"/>
-<wire x1="-2.9" y1="-10.2" x2="-2.9" y2="-13.7" width="0.2032" layer="21"/>
-<wire x1="2.9" y1="-13.7" x2="2.9" y2="-10.2" width="0.2032" layer="21"/>
-<wire x1="-3.4" y1="-3.8" x2="-3.4" y2="-9.9" width="0.2032" layer="21"/>
-<wire x1="-3.4" y1="-9.9" x2="-2.9" y2="-10.2" width="0.2032" layer="21"/>
-<wire x1="2.9" y1="-10.2" x2="3.4" y2="-9.9" width="0.2032" layer="21"/>
-<wire x1="3.4" y1="-9.9" x2="3.4" y2="-3.8" width="0.2032" layer="21"/>
-<wire x1="-2.9" y1="-10.2" x2="2.9" y2="-10.2" width="0.2032" layer="21"/>
-<wire x1="-2.9" y1="-13.7" x2="2.9" y2="-13.7" width="0.2032" layer="21"/>
+<wire x1="-2.9" y1="-10.2" x2="-2.9" y2="-13.7" width="0.2032" layer="48"/>
+<wire x1="2.9" y1="-13.7" x2="2.9" y2="-10.2" width="0.2032" layer="48"/>
+<wire x1="-3.4" y1="-3.8" x2="-3.4" y2="-9.9" width="0.2032" layer="48"/>
+<wire x1="-3.4" y1="-9.9" x2="-2.9" y2="-10.2" width="0.2032" layer="48"/>
+<wire x1="2.9" y1="-10.2" x2="3.4" y2="-9.9" width="0.2032" layer="48"/>
+<wire x1="3.4" y1="-9.9" x2="3.4" y2="-3.8" width="0.2032" layer="48"/>
+<wire x1="-2.9" y1="-10.2" x2="2.9" y2="-10.2" width="0.2032" layer="48"/>
+<wire x1="-2.9" y1="-13.7" x2="2.9" y2="-13.7" width="0.2032" layer="48"/>
 <wire x1="-5.05" y1="-3.7" x2="-5.05" y2="4.5" width="0.2032" layer="21"/>
 <wire x1="5.35" y1="-3.7" x2="5.35" y2="4.5" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-9.525" x2="3.3" y2="-9" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-9.025" x2="3.3" y2="-8.5" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-8.525" x2="3.3" y2="-8" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-8.025" x2="3.3" y2="-7.5" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-7.525" x2="3.3" y2="-7" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-7.025" x2="3.3" y2="-6.5" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-6.525" x2="3.3" y2="-6" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-6.025" x2="3.3" y2="-5.5" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-5.525" x2="3.3" y2="-5" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-5.025" x2="3.3" y2="-4.5" width="0.2032" layer="21"/>
-<wire x1="-3.3" y1="-4.525" x2="3.3" y2="-4" width="0.2032" layer="21"/>
-<wire x1="-3.075" y1="-10.025" x2="3.3" y2="-9.5" width="0.2032" layer="21"/>
+<wire x1="-3.3" y1="-9.525" x2="3.3" y2="-9" width="0.2032" layer="48"/>
+<wire x1="-3.3" y1="-9.025" x2="3.3" y2="-8.5" width="0.2032" layer="48"/>
+<wire x1="-3.3" y1="-8.525" x2="3.3" y2="-8" width="0.2032" layer="48"/>
+<wire x1="-3.3" y1="-8.025" x2="3.3" y2="-7.5" width="0.2032" layer="48"/>
+<wire x1="-3.3" y1="-7.525" x2="3.3" y2="-7" width="0.2032" layer="48"/>
+<wire x1="-3.3" y1="-7.025" x2="3.3" y2="-6.5" width="0.2032" layer="48"/>
+<wire x1="-3.3" y1="-6.525" x2="3.3" y2="-6" width="0.2032" layer="48"/>
+<wire x1="-3.3" y1="-6.025" x2="3.3" y2="-5.5" width="0.2032" layer="48"/>
+<wire x1="-3.3" y1="-5.525" x2="3.3" y2="-5" width="0.2032" layer="48"/>
+<wire x1="-3.3" y1="-5.025" x2="3.3" y2="-4.5" width="0.2032" layer="48"/>
+<wire x1="-3.3" y1="-4.525" x2="3.3" y2="-4" width="0.2032" layer="48"/>
+<wire x1="-3.075" y1="-10.025" x2="3.3" y2="-9.5" width="0.2032" layer="48"/>
 <wire x1="-5.05" y1="4.5" x2="5.35" y2="4.5" width="0.2032" layer="21"/>
-<pad name="1-1" x="-2.5" y="0" drill="1.2"/>
-<pad name="1-2" x="0" y="0" drill="1.2"/>
-<pad name="1-3" x="2.5" y="0" drill="1.2"/>
-<pad name="2-1" x="-2.5" y="2.5" drill="1.2"/>
-<pad name="2-2" x="0" y="2.5" drill="1.2"/>
-<pad name="2-3" x="2.5" y="2.5" drill="1.2"/>
+<pad name="1-1" x="-2.5" y="0" drill="1.1"/>
+<pad name="1-2" x="0" y="0" drill="1.1"/>
+<pad name="1-3" x="2.5" y="0" drill="1.1"/>
+<pad name="2-1" x="-2.5" y="2.5" drill="1.1"/>
+<pad name="2-2" x="0" y="2.5" drill="1.1"/>
+<pad name="2-3" x="2.5" y="2.5" drill="1.1"/>
 <text x="-3.755" y="5.155" size="1.27" layer="25">&gt;NAME</text>
 <text x="-4.145" y="-3.395" size="1.27" layer="27">&gt;VALUE</text>
 </package>
@@ -21775,6 +21765,37 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 Grid 2.54 mm&lt;p&gt;
 &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
 <packages>
+<package name="7POL254" urn="urn:adsk.eagle:footprint:9310/1" library_version="1">
+<description>&lt;b&gt;PHOENIX CONNECTOR&lt;/b&gt;</description>
+<wire x1="-9.02" y1="-1.45" x2="9.02" y2="-1.45" width="0.254" layer="21"/>
+<wire x1="9.02" y1="-1.45" x2="9.02" y2="1.45" width="0.254" layer="21"/>
+<wire x1="9.02" y1="1.45" x2="-9.02" y2="1.45" width="0.254" layer="21"/>
+<wire x1="-9.02" y1="1.45" x2="-9.02" y2="-1.45" width="0.254" layer="21"/>
+<wire x1="-8.91" y1="1.1" x2="8.91" y2="1.1" width="0.1524" layer="21"/>
+<wire x1="-8.255" y1="-0.508" x2="-7.112" y2="0.635" width="0.1524" layer="51"/>
+<wire x1="-5.842" y1="-0.254" x2="-4.318" y2="0.127" width="0.1524" layer="51"/>
+<wire x1="-3.048" y1="0.635" x2="-2.032" y2="-0.635" width="0.1524" layer="51"/>
+<wire x1="-0.762" y1="0.381" x2="0.762" y2="-0.381" width="0.1524" layer="51"/>
+<wire x1="2.032" y1="0.635" x2="3.048" y2="-0.635" width="0.1524" layer="51"/>
+<wire x1="4.318" y1="0.381" x2="5.842" y2="-0.381" width="0.1524" layer="51"/>
+<wire x1="7.112" y1="0.635" x2="8.128" y2="-0.635" width="0.1524" layer="51"/>
+<circle x="-7.62" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="-5.08" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="-2.54" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="0" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="2.54" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="5.08" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="7.62" y="0" radius="0.889" width="0.1524" layer="51"/>
+<pad name="1" x="-7.62" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="2" x="-5.08" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="3" x="-2.54" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="4" x="0" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="5" x="2.54" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="6" x="5.08" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="7" x="7.62" y="0" drill="1.2" shape="long" rot="R90"/>
+<text x="-9.144" y="1.778" size="1.27" layer="25">&gt;NAME</text>
+<text x="-9.144" y="-3.048" size="1.27" layer="27">&gt;VALUE</text>
+</package>
 <package name="8POL254" urn="urn:adsk.eagle:footprint:9311/1" library_version="1">
 <description>&lt;b&gt;PHOENIX CONNECTOR&lt;/b&gt;</description>
 <wire x1="-10.29" y1="-1.45" x2="10.29" y2="-1.45" width="0.254" layer="21"/>
@@ -21809,9 +21830,40 @@ Grid 2.54 mm&lt;p&gt;
 <text x="-10.414" y="1.778" size="1.27" layer="25">&gt;NAME</text>
 <text x="-10.414" y="-3.048" size="1.27" layer="27">&gt;VALUE</text>
 </package>
+<package name="5POL254" urn="urn:adsk.eagle:footprint:9308/1" library_version="1">
+<description>&lt;b&gt;PHOENIX CONNECTOR&lt;/b&gt;</description>
+<wire x1="-6.48" y1="-1.45" x2="6.48" y2="-1.45" width="0.254" layer="21"/>
+<wire x1="6.48" y1="-1.45" x2="6.48" y2="1.45" width="0.254" layer="21"/>
+<wire x1="6.48" y1="1.45" x2="-6.48" y2="1.45" width="0.254" layer="21"/>
+<wire x1="-6.48" y1="1.45" x2="-6.48" y2="-1.45" width="0.254" layer="21"/>
+<wire x1="-6.37" y1="1.1" x2="6.37" y2="1.1" width="0.1524" layer="21"/>
+<wire x1="-5.715" y1="-0.508" x2="-4.572" y2="0.635" width="0.1524" layer="51"/>
+<wire x1="-3.302" y1="-0.254" x2="-1.778" y2="0.127" width="0.1524" layer="51"/>
+<wire x1="-0.508" y1="0.635" x2="0.508" y2="-0.635" width="0.1524" layer="51"/>
+<wire x1="1.778" y1="0.381" x2="3.302" y2="-0.381" width="0.1524" layer="51"/>
+<wire x1="4.318" y1="-0.254" x2="5.842" y2="0.127" width="0.1524" layer="51"/>
+<circle x="-5.08" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="-2.54" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="0" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="2.54" y="0" radius="0.889" width="0.1524" layer="51"/>
+<circle x="5.08" y="0" radius="0.889" width="0.1524" layer="51"/>
+<pad name="1" x="-5.08" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="2" x="-2.54" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="3" x="0" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="4" x="2.54" y="0" drill="1.2" shape="long" rot="R90"/>
+<pad name="5" x="5.08" y="0" drill="1.2" shape="long" rot="R90"/>
+<text x="-6.604" y="1.778" size="1.27" layer="25">&gt;NAME</text>
+<text x="-6.604" y="-3.048" size="1.27" layer="27">&gt;VALUE</text>
+</package>
 </packages>
 <packages3d>
+<package3d name="7POL254" urn="urn:adsk.eagle:package:9321/1" type="box" library_version="1">
+<description>PHOENIX CONNECTOR</description>
+</package3d>
 <package3d name="8POL254" urn="urn:adsk.eagle:package:9329/1" type="box" library_version="1">
+<description>PHOENIX CONNECTOR</description>
+</package3d>
+<package3d name="5POL254" urn="urn:adsk.eagle:package:9317/1" type="box" library_version="1">
 <description>PHOENIX CONNECTOR</description>
 </package3d>
 </packages3d>
@@ -21831,6 +21883,42 @@ Grid 2.54 mm&lt;p&gt;
 </symbol>
 </symbols>
 <devicesets>
+<deviceset name="MPT7" urn="urn:adsk.eagle:component:9331/1" prefix="X" uservalue="yes" library_version="1">
+<description>&lt;b&gt;PHOENIX CONNECTOR&lt;/b&gt;</description>
+<gates>
+<gate name="-1" symbol="SKB" x="0" y="17.78" addlevel="always"/>
+<gate name="-2" symbol="SKB" x="0" y="12.7" addlevel="always"/>
+<gate name="-3" symbol="SKB" x="0" y="7.62" addlevel="always"/>
+<gate name="-4" symbol="SKB" x="0" y="2.54" addlevel="always"/>
+<gate name="-5" symbol="SKB" x="0" y="-2.54" addlevel="always"/>
+<gate name="-6" symbol="SKB" x="0" y="-7.62" addlevel="always"/>
+<gate name="-7" symbol="SKBV" x="0" y="-12.7" addlevel="always"/>
+</gates>
+<devices>
+<device name="" package="7POL254">
+<connects>
+<connect gate="-1" pin="1" pad="1"/>
+<connect gate="-2" pin="1" pad="2"/>
+<connect gate="-3" pin="1" pad="3"/>
+<connect gate="-4" pin="1" pad="4"/>
+<connect gate="-5" pin="1" pad="5"/>
+<connect gate="-6" pin="1" pad="6"/>
+<connect gate="-7" pin="1" pad="7"/>
+</connects>
+<package3dinstances>
+<package3dinstance package3d_urn="urn:adsk.eagle:package:9321/1"/>
+</package3dinstances>
+<technologies>
+<technology name="">
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+<attribute name="OC_FARNELL" value="unknown" constant="no"/>
+<attribute name="OC_NEWARK" value="unknown" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
 <deviceset name="MPT8" urn="urn:adsk.eagle:component:9335/1" prefix="X" uservalue="yes" library_version="1">
 <description>&lt;b&gt;PHOENIX CONNECTOR&lt;/b&gt;</description>
 <gates>
@@ -21857,6 +21945,38 @@ Grid 2.54 mm&lt;p&gt;
 </connects>
 <package3dinstances>
 <package3dinstance package3d_urn="urn:adsk.eagle:package:9329/1"/>
+</package3dinstances>
+<technologies>
+<technology name="">
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+<attribute name="OC_FARNELL" value="unknown" constant="no"/>
+<attribute name="OC_NEWARK" value="unknown" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="MPT5" urn="urn:adsk.eagle:component:9334/1" prefix="X" uservalue="yes" library_version="1">
+<description>&lt;b&gt;PHOENIX CONNECTOR&lt;/b&gt;</description>
+<gates>
+<gate name="-1" symbol="SKB" x="0" y="12.7" addlevel="always"/>
+<gate name="-2" symbol="SKB" x="0" y="7.62" addlevel="always"/>
+<gate name="-3" symbol="SKB" x="0" y="2.54" addlevel="always"/>
+<gate name="-4" symbol="SKB" x="0" y="-2.54" addlevel="always"/>
+<gate name="-5" symbol="SKBV" x="0" y="-7.62" addlevel="always"/>
+</gates>
+<devices>
+<device name="" package="5POL254">
+<connects>
+<connect gate="-1" pin="1" pad="1"/>
+<connect gate="-2" pin="1" pad="2"/>
+<connect gate="-3" pin="1" pad="3"/>
+<connect gate="-4" pin="1" pad="4"/>
+<connect gate="-5" pin="1" pad="5"/>
+</connects>
+<package3dinstances>
+<package3dinstance package3d_urn="urn:adsk.eagle:package:9317/1"/>
 </package3dinstances>
 <technologies>
 <technology name="">
@@ -24565,10 +24685,10 @@ general purpose rectifier, 1 A</description>
 <part name="FRAME3" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
 <part name="ADC1" library="microchip-extra" deviceset="MCP3208" device="SN"/>
 <part name="C3" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="1UF"/>
-<part name="REG1" library="diodes-extra" deviceset="AP2210N-3.3TRG1" device=""/>
+<part name="3.3V_REG" library="diodes-extra" deviceset="AP2210N-3.3TRG1" device=""/>
 <part name="C4" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="CPOL-US" device="E2.5-5" package3d_urn="urn:adsk.eagle:package:23344/1" value="2.2UF"/>
 <part name="C5" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="CPOL-US" device="E2.5-5" package3d_urn="urn:adsk.eagle:package:23344/1" value="1UF"/>
-<part name="U1" library="texas-extra" deviceset="LM1084ISX-5.0/NOPB" device=""/>
+<part name="5V_REG" library="texas-extra" deviceset="LM1084ISX-5.0/NOPB" device=""/>
 <part name="C6" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="CPOL-US" device="E2.5-5" package3d_urn="urn:adsk.eagle:package:23344/1" value="10UF"/>
 <part name="C7" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="CPOL-US" device="E2.5-5" package3d_urn="urn:adsk.eagle:package:23344/1" value="10UF"/>
 <part name="FRAME4" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
@@ -24585,11 +24705,11 @@ general purpose rectifier, 1 A</description>
 <part name="U$3" library="transistor-fet-extra" deviceset="2N7000" device=""/>
 <part name="R3" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="10k"/>
 <part name="R4" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="500k"/>
-<part name="U$1" library="con-phoenix-500-extra" deviceset="1991095" device=""/>
-<part name="U$4" library="con-phoenix-500-extra" deviceset="1991095" device=""/>
-<part name="U$5" library="con-phoenix-500-extra" deviceset="1991095" device=""/>
-<part name="U$6" library="con-phoenix-500-extra" deviceset="1991095" device=""/>
-<part name="U$7" library="con-phoenix-500-extra" deviceset="1991095" device=""/>
+<part name="PWR_IN" library="con-phoenix-500-extra" deviceset="1991095" device=""/>
+<part name="PWR_OUT1" library="con-phoenix-500-extra" deviceset="1991095" device=""/>
+<part name="PWR_OUT2" library="con-phoenix-500-extra" deviceset="1991095" device=""/>
+<part name="SOL+RELAY" library="con-phoenix-500-extra" deviceset="1991095" device=""/>
+<part name="SOLENOIDS" library="con-phoenix-500-extra" deviceset="1991095" device=""/>
 <part name="U$8" library="transistor-fet-extra" deviceset="2N7000" device=""/>
 <part name="R5" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="10k"/>
 <part name="R6" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="500k"/>
@@ -24624,9 +24744,9 @@ general purpose rectifier, 1 A</description>
 <part name="LC_IN2" library="con-phoenix-250-extra" deviceset="1770908" device=""/>
 <part name="LC_IN1" library="con-phoenix-250-extra" deviceset="1770908" device=""/>
 <part name="U6" library="SLIDE_SW" deviceset="1101M2S3CQE2" device=""/>
-<part name="LED1" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
-<part name="LED2" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
-<part name="LED3" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
+<part name="+12V_LED" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
+<part name="+5V_LED" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
+<part name="+3.3V_LED" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
 <part name="R26" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:26057/1" value="530"/>
 <part name="R27" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:26057/1" value="113"/>
 <part name="R28" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:26057/1" value="39"/>
@@ -24645,10 +24765,10 @@ general purpose rectifier, 1 A</description>
 <part name="FRAME11" library="frames" library_urn="urn:adsk.eagle:library:229" deviceset="A4L-LOC" device=""/>
 <part name="IC1" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
 <part name="R31" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="10"/>
-<part name="C8" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0402K" package3d_urn="urn:adsk.eagle:package:23679/2" value="10nF"/>
-<part name="IC5" library="texas-extra" deviceset="UA78M*" device=""/>
+<part name="C8" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="0.1UF"/>
+<part name="10V_REG" library="texas-extra" deviceset="UA78M*" device=""/>
 <part name="R35" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:26057/1" value="470"/>
-<part name="LED4" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
+<part name="+10V_LED" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="5MM" package3d_urn="urn:adsk.eagle:package:15799/1"/>
 <part name="C16" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="CPOL-US" device="E2.5-5" package3d_urn="urn:adsk.eagle:package:23344/1" value="0.1UF"/>
 <part name="C17" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="CPOL-US" device="E2.5-5" package3d_urn="urn:adsk.eagle:package:23344/1" value="0.33UF"/>
 <part name="JP1" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X2" device="" package3d_urn="urn:adsk.eagle:package:22435/2"/>
@@ -24659,7 +24779,7 @@ general purpose rectifier, 1 A</description>
 <part name="R38" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R39" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="IC6" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
-<part name="C18" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0402K" package3d_urn="urn:adsk.eagle:package:23679/2" value="10nF"/>
+<part name="C18" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="0.1UF"/>
 <part name="C19" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-025X050" package3d_urn="urn:adsk.eagle:package:23629/2"/>
 <part name="C20" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-025X050" package3d_urn="urn:adsk.eagle:package:23629/2"/>
 <part name="R41" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
@@ -24671,43 +24791,45 @@ general purpose rectifier, 1 A</description>
 <part name="D5" library="diode" library_urn="urn:adsk.eagle:library:210" deviceset="DIODE-" device="DO201-15" package3d_urn="urn:adsk.eagle:package:43365/1"/>
 <part name="IC2" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
 <part name="R32" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="10"/>
-<part name="C9" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0402K" package3d_urn="urn:adsk.eagle:package:23679/2" value="10nF"/>
+<part name="C9" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="0.1UF"/>
 <part name="R42" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R43" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R44" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R45" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="IC7" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
-<part name="C21" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0402K" package3d_urn="urn:adsk.eagle:package:23679/2" value="10nF"/>
+<part name="C21" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="0.1UF"/>
 <part name="C22" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-025X050" package3d_urn="urn:adsk.eagle:package:23629/2"/>
 <part name="C23" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-025X050" package3d_urn="urn:adsk.eagle:package:23629/2"/>
 <part name="R46" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R47" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="IC8" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
-<part name="C24" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0402K" package3d_urn="urn:adsk.eagle:package:23679/2" value="10nF"/>
+<part name="C24" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="0.1UF"/>
 <part name="C25" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-025X050" package3d_urn="urn:adsk.eagle:package:23629/2"/>
 <part name="C26" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-025X050" package3d_urn="urn:adsk.eagle:package:23629/2"/>
 <part name="R48" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R49" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="IC9" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
-<part name="C27" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0402K" package3d_urn="urn:adsk.eagle:package:23679/2" value="10nF"/>
+<part name="C27" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="0.1UF"/>
 <part name="C28" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-025X050" package3d_urn="urn:adsk.eagle:package:23629/2"/>
 <part name="C29" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="025-025X050" package3d_urn="urn:adsk.eagle:package:23629/2"/>
 <part name="R50" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R51" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="IC3" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
 <part name="R33" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="10"/>
-<part name="C14" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0402K" package3d_urn="urn:adsk.eagle:package:23679/2" value="10nF"/>
+<part name="C14" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="0.1UF"/>
 <part name="R34" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R52" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R53" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R54" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="IC4" library="st-microelectronics-extra" deviceset="LMV321LICT" device="RT"/>
 <part name="R55" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/2" value="10"/>
-<part name="C15" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0402K" package3d_urn="urn:adsk.eagle:package:23679/2" value="10nF"/>
+<part name="C15" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0603" package3d_urn="urn:adsk.eagle:package:23616/2" value="0.1UF"/>
 <part name="R56" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R57" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R58" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
 <part name="R59" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:23498/1" value="?"/>
+<part name="RPI_DEBUG" library="con-phoenix-254" library_urn="urn:adsk.eagle:library:172" deviceset="MPT7" device="" package3d_urn="urn:adsk.eagle:package:9321/1"/>
+<part name="PWR_DEBUG" library="con-phoenix-254" library_urn="urn:adsk.eagle:library:172" deviceset="MPT5" device="" package3d_urn="urn:adsk.eagle:package:9317/1"/>
 </parts>
 <sheets>
 <sheet>
@@ -24721,10 +24843,10 @@ A sheet for all the voltage regulators in use.</description>
 <attribute name="LAST_DATE_TIME" x="217.17" y="10.16" size="2.286" layer="94"/>
 <attribute name="SHEET" x="230.505" y="5.08" size="2.54" layer="94"/>
 </instance>
-<instance part="REG1" gate="G$1" x="175.26" y="93.98"/>
+<instance part="3.3V_REG" gate="G$1" x="175.26" y="93.98"/>
 <instance part="C4" gate="G$1" x="208.28" y="91.44"/>
 <instance part="C5" gate="G$1" x="162.56" y="91.44"/>
-<instance part="U1" gate="A" x="132.08" y="121.92"/>
+<instance part="5V_REG" gate="A" x="132.08" y="121.92"/>
 <instance part="C6" gate="G$1" x="119.38" y="116.84"/>
 <instance part="C7" gate="G$1" x="170.18" y="109.22"/>
 <instance part="FRAME4" gate="G$1" x="0" y="0" smashed="yes">
@@ -24732,18 +24854,18 @@ A sheet for all the voltage regulators in use.</description>
 <attribute name="LAST_DATE_TIME" x="217.17" y="10.16" size="2.286" layer="94"/>
 <attribute name="SHEET" x="230.505" y="5.08" size="2.54" layer="94"/>
 </instance>
-<instance part="U$1" gate="G$1" x="58.42" y="93.98"/>
-<instance part="U$1" gate="G$2" x="58.42" y="86.36"/>
+<instance part="PWR_IN" gate="G$1" x="58.42" y="93.98"/>
+<instance part="PWR_IN" gate="G$2" x="58.42" y="86.36"/>
 <instance part="U6" gate="A" x="88.9" y="93.98" rot="R270"/>
-<instance part="LED1" gate="G$1" x="109.22" y="114.3"/>
-<instance part="LED2" gate="G$1" x="203.2" y="129.54" rot="R180"/>
-<instance part="LED3" gate="G$1" x="215.9" y="71.12"/>
+<instance part="+12V_LED" gate="G$1" x="109.22" y="114.3"/>
+<instance part="+5V_LED" gate="G$1" x="203.2" y="129.54" rot="R180"/>
+<instance part="+3.3V_LED" gate="G$1" x="215.9" y="71.12"/>
 <instance part="R26" gate="G$1" x="109.22" y="104.14" rot="R90"/>
 <instance part="R27" gate="G$1" x="203.2" y="139.7" rot="R90"/>
 <instance part="R28" gate="G$1" x="215.9" y="60.96" rot="R270"/>
-<instance part="IC5" gate="G$1" x="58.42" y="137.16"/>
+<instance part="10V_REG" gate="G$1" x="58.42" y="137.16"/>
 <instance part="R35" gate="G$1" x="93.98" y="132.08" rot="R90"/>
-<instance part="LED4" gate="G$1" x="93.98" y="121.92" rot="R180"/>
+<instance part="+10V_LED" gate="G$1" x="93.98" y="124.46"/>
 <instance part="C16" gate="G$1" x="71.12" y="134.62"/>
 <instance part="C17" gate="G$1" x="43.18" y="134.62"/>
 <instance part="D5" gate="G$1" x="93.98" y="104.14" rot="R90"/>
@@ -24754,7 +24876,7 @@ A sheet for all the voltage regulators in use.</description>
 <net name="GND" class="0">
 <segment>
 <label x="83.82" y="88.9" size="1.778" layer="95"/>
-<pinref part="U1" gate="A" pin="GND"/>
+<pinref part="5V_REG" gate="A" pin="GND"/>
 <wire x1="119.38" y1="86.36" x2="109.22" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="109.22" y1="86.36" x2="101.6" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="101.6" y1="86.36" x2="58.42" y2="86.36" width="0.1524" layer="91"/>
@@ -24766,10 +24888,10 @@ A sheet for all the voltage regulators in use.</description>
 <wire x1="119.38" y1="104.14" x2="119.38" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="170.18" y1="104.14" x2="119.38" y2="104.14" width="0.1524" layer="91"/>
 <junction x="119.38" y="104.14"/>
-<pinref part="U$1" gate="G$2" pin="2"/>
+<pinref part="PWR_IN" gate="G$2" pin="2"/>
 <junction x="119.38" y="86.36"/>
 <pinref part="C4" gate="G$1" pin="-"/>
-<pinref part="REG1" gate="G$1" pin="GND"/>
+<pinref part="3.3V_REG" gate="G$1" pin="GND"/>
 <wire x1="175.26" y1="86.36" x2="162.56" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="C5" gate="G$1" pin="-"/>
 <junction x="162.56" y="86.36"/>
@@ -24793,11 +24915,10 @@ A sheet for all the voltage regulators in use.</description>
 <junction x="210.82" y="55.88"/>
 </segment>
 <segment>
-<pinref part="IC5" gate="G$1" pin="GND"/>
+<pinref part="10V_REG" gate="G$1" pin="GND"/>
 <wire x1="58.42" y1="129.54" x2="58.42" y2="119.38" width="0.1524" layer="91"/>
 <wire x1="58.42" y1="119.38" x2="43.18" y2="119.38" width="0.1524" layer="91"/>
 <junction x="58.42" y="119.38"/>
-<pinref part="LED4" gate="G$1" pin="A"/>
 <wire x1="43.18" y1="119.38" x2="38.1" y2="119.38" width="0.1524" layer="91"/>
 <pinref part="C17" gate="G$1" pin="-"/>
 <wire x1="71.12" y1="119.38" x2="58.42" y2="119.38" width="0.1524" layer="91"/>
@@ -24805,20 +24926,20 @@ A sheet for all the voltage regulators in use.</description>
 <junction x="43.18" y="119.38"/>
 <pinref part="C16" gate="G$1" pin="-"/>
 <wire x1="71.12" y1="129.54" x2="71.12" y2="119.38" width="0.1524" layer="91"/>
-<wire x1="71.12" y1="119.38" x2="93.98" y2="119.38" width="0.1524" layer="91"/>
-<junction x="93.98" y="119.38"/>
-<junction x="71.12" y="119.38"/>
 <label x="38.1" y="119.38" size="1.778" layer="95"/>
+<pinref part="+10V_LED" gate="G$1" pin="C"/>
+<wire x1="71.12" y1="119.38" x2="93.98" y2="119.38" width="0.1524" layer="91"/>
+<junction x="71.12" y="119.38"/>
 </segment>
 </net>
 <net name="+12V" class="0">
 <segment>
 <label x="99.06" y="114.3" size="1.778" layer="95"/>
 <wire x1="101.6" y1="106.68" x2="101.6" y2="121.92" width="0.1524" layer="91"/>
-<pinref part="LED1" gate="G$1" pin="A"/>
+<pinref part="+12V_LED" gate="G$1" pin="A"/>
 <wire x1="109.22" y1="121.92" x2="109.22" y2="116.84" width="0.1524" layer="91"/>
 <wire x1="101.6" y1="121.92" x2="109.22" y2="121.92" width="0.1524" layer="91"/>
-<pinref part="IC5" gate="G$1" pin="VI"/>
+<pinref part="10V_REG" gate="G$1" pin="VI"/>
 <wire x1="50.8" y1="137.16" x2="43.18" y2="137.16" width="0.1524" layer="91"/>
 <pinref part="C17" gate="G$1" pin="+"/>
 <wire x1="43.18" y1="137.16" x2="33.02" y2="137.16" width="0.1524" layer="91"/>
@@ -24836,12 +24957,12 @@ A sheet for all the voltage regulators in use.</description>
 <net name="+3V3" class="0">
 <segment>
 <label x="228.6" y="73.66" size="1.778" layer="95"/>
-<pinref part="LED3" gate="G$1" pin="A"/>
+<pinref part="+3.3V_LED" gate="G$1" pin="A"/>
 <wire x1="215.9" y1="73.66" x2="228.6" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="C4" gate="G$1" pin="+"/>
 <junction x="208.28" y="93.98"/>
 <wire x1="195.58" y1="93.98" x2="208.28" y2="93.98" width="0.1524" layer="91"/>
-<pinref part="REG1" gate="G$1" pin="VOUT"/>
+<pinref part="3.3V_REG" gate="G$1" pin="VOUT"/>
 <label x="200.66" y="96.52" size="1.778" layer="95"/>
 <wire x1="208.28" y1="93.98" x2="215.9" y2="93.98" width="0.1524" layer="91"/>
 <wire x1="215.9" y1="93.98" x2="215.9" y2="73.66" width="0.1524" layer="91"/>
@@ -24853,7 +24974,7 @@ A sheet for all the voltage regulators in use.</description>
 <pinref part="C6" gate="G$1" pin="+"/>
 <wire x1="119.38" y1="121.92" x2="119.38" y2="119.38" width="0.1524" layer="91"/>
 <junction x="119.38" y="121.92"/>
-<pinref part="U1" gate="A" pin="VIN"/>
+<pinref part="5V_REG" gate="A" pin="VIN"/>
 <wire x1="132.08" y1="121.92" x2="119.38" y2="121.92" width="0.1524" layer="91"/>
 <wire x1="119.38" y1="137.16" x2="119.38" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="R35" gate="G$1" pin="2"/>
@@ -24862,7 +24983,7 @@ A sheet for all the voltage regulators in use.</description>
 <junction x="93.98" y="137.16"/>
 <wire x1="71.12" y1="149.86" x2="93.98" y2="149.86" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="149.86" x2="93.98" y2="137.16" width="0.1524" layer="91"/>
-<pinref part="IC5" gate="G$1" pin="VO"/>
+<pinref part="10V_REG" gate="G$1" pin="VO"/>
 <pinref part="C16" gate="G$1" pin="+"/>
 <wire x1="68.58" y1="137.16" x2="71.12" y2="137.16" width="0.1524" layer="91"/>
 <junction x="71.12" y="137.16"/>
@@ -24871,7 +24992,7 @@ A sheet for all the voltage regulators in use.</description>
 </net>
 <net name="+12V_DEBUG" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="1"/>
+<pinref part="PWR_IN" gate="G$1" pin="1"/>
 <wire x1="83.82" y1="93.98" x2="58.42" y2="93.98" width="0.1524" layer="91"/>
 <label x="66.04" y="93.98" size="1.778" layer="95"/>
 <pinref part="U6" gate="A" pin="P"/>
@@ -24879,40 +25000,40 @@ A sheet for all the voltage regulators in use.</description>
 </net>
 <net name="N$1" class="0">
 <segment>
-<pinref part="LED1" gate="G$1" pin="C"/>
+<pinref part="+12V_LED" gate="G$1" pin="C"/>
 <pinref part="R26" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="N$2" class="0">
 <segment>
-<pinref part="LED2" gate="G$1" pin="C"/>
+<pinref part="+5V_LED" gate="G$1" pin="C"/>
 <pinref part="R27" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="N$3" class="0">
 <segment>
-<pinref part="LED3" gate="G$1" pin="C"/>
+<pinref part="+3.3V_LED" gate="G$1" pin="C"/>
 <pinref part="R28" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="+5V" class="0">
 <segment>
 <label x="180.34" y="111.76" size="1.778" layer="95"/>
-<pinref part="U1" gate="A" pin="VOUT"/>
+<pinref part="5V_REG" gate="A" pin="VOUT"/>
 <pinref part="C7" gate="G$1" pin="+"/>
 <junction x="170.18" y="111.76"/>
 <wire x1="170.18" y1="111.76" x2="175.26" y2="111.76" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="111.76" x2="190.5" y2="111.76" width="0.1524" layer="91"/>
 <wire x1="165.1" y1="111.76" x2="170.18" y2="111.76" width="0.1524" layer="91"/>
-<pinref part="U1" gate="A" pin="4"/>
+<pinref part="5V_REG" gate="A" pin="4"/>
 <wire x1="160.02" y1="121.92" x2="170.18" y2="121.92" width="0.1524" layer="91"/>
 <wire x1="170.18" y1="121.92" x2="170.18" y2="111.76" width="0.1524" layer="91"/>
 <wire x1="190.5" y1="111.76" x2="190.5" y2="121.92" width="0.1524" layer="91"/>
 <label x="203.2" y="127" size="1.778" layer="95"/>
-<pinref part="LED2" gate="G$1" pin="A"/>
+<pinref part="+5V_LED" gate="G$1" pin="A"/>
 <wire x1="203.2" y1="121.92" x2="203.2" y2="127" width="0.1524" layer="91"/>
 <wire x1="190.5" y1="121.92" x2="203.2" y2="121.92" width="0.1524" layer="91"/>
-<pinref part="REG1" gate="G$1" pin="VIN"/>
+<pinref part="3.3V_REG" gate="G$1" pin="VIN"/>
 <wire x1="175.26" y1="93.98" x2="162.56" y2="93.98" width="0.1524" layer="91"/>
 <pinref part="C5" gate="G$1" pin="+"/>
 <wire x1="175.26" y1="93.98" x2="175.26" y2="111.76" width="0.1524" layer="91"/>
@@ -24920,17 +25041,17 @@ A sheet for all the voltage regulators in use.</description>
 <junction x="175.26" y="111.76"/>
 </segment>
 </net>
-<net name="N$9" class="0">
-<segment>
-<pinref part="LED4" gate="G$1" pin="C"/>
-<pinref part="R35" gate="G$1" pin="1"/>
-</segment>
-</net>
 <net name="N$4" class="0">
 <segment>
 <pinref part="D5" gate="G$1" pin="A"/>
 <pinref part="U6" gate="A" pin="O"/>
 <wire x1="93.98" y1="101.6" x2="93.98" y2="96.52" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$9" class="0">
+<segment>
+<pinref part="R35" gate="G$1" pin="1"/>
+<pinref part="+10V_LED" gate="G$1" pin="A"/>
 </segment>
 </net>
 </nets>
@@ -26788,14 +26909,14 @@ All the external connectors used on the board.</description>
 <instance part="RPI_GPIO" gate="-38" x="200.66" y="144.78" rot="R180"/>
 <instance part="RPI_GPIO" gate="-39" x="200.66" y="147.32" rot="R180"/>
 <instance part="RPI_GPIO" gate="-40" x="200.66" y="149.86" rot="R180"/>
-<instance part="U$4" gate="G$1" x="78.74" y="165.1"/>
-<instance part="U$4" gate="G$2" x="78.74" y="162.56"/>
-<instance part="U$5" gate="G$1" x="78.74" y="154.94"/>
-<instance part="U$5" gate="G$2" x="78.74" y="152.4"/>
-<instance part="U$6" gate="G$1" x="78.74" y="144.78"/>
-<instance part="U$6" gate="G$2" x="78.74" y="142.24"/>
-<instance part="U$7" gate="G$1" x="78.74" y="134.62"/>
-<instance part="U$7" gate="G$2" x="78.74" y="132.08"/>
+<instance part="PWR_OUT1" gate="G$1" x="78.74" y="165.1"/>
+<instance part="PWR_OUT1" gate="G$2" x="78.74" y="162.56"/>
+<instance part="PWR_OUT2" gate="G$1" x="78.74" y="154.94"/>
+<instance part="PWR_OUT2" gate="G$2" x="78.74" y="152.4"/>
+<instance part="SOL+RELAY" gate="G$1" x="78.74" y="144.78"/>
+<instance part="SOL+RELAY" gate="G$2" x="78.74" y="142.24"/>
+<instance part="SOLENOIDS" gate="G$1" x="78.74" y="134.62"/>
+<instance part="SOLENOIDS" gate="G$2" x="78.74" y="132.08"/>
 <instance part="LC_IN2" gate="-1" x="22.86" y="162.56"/>
 <instance part="LC_IN2" gate="-2" x="22.86" y="157.48"/>
 <instance part="LC_IN2" gate="-3" x="22.86" y="152.4"/>
@@ -27075,11 +27196,6 @@ All the external connectors used on the board.</description>
 </net>
 <net name="+12V" class="0">
 <segment>
-<pinref part="U$4" gate="G$1" pin="1"/>
-<wire x1="78.74" y1="165.1" x2="86.36" y2="165.1" width="0.1524" layer="91"/>
-<label x="86.36" y="165.1" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="PT_123_IN" gate="-6" pin="SK"/>
 <wire x1="30.48" y1="96.52" x2="40.64" y2="96.52" width="0.1524" layer="91"/>
 <label x="40.64" y="96.52" size="1.778" layer="95"/>
@@ -27099,27 +27215,20 @@ All the external connectors used on the board.</description>
 <wire x1="30.48" y1="66.04" x2="40.64" y2="66.04" width="0.1524" layer="91"/>
 <label x="40.64" y="66.04" size="1.778" layer="95"/>
 </segment>
-</net>
-<net name="+10V" class="0">
 <segment>
-<pinref part="U$4" gate="G$2" pin="2"/>
+<pinref part="PWR_OUT1" gate="G$2" pin="2"/>
 <wire x1="78.74" y1="162.56" x2="86.36" y2="162.56" width="0.1524" layer="91"/>
 <label x="86.36" y="162.56" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="+5V" class="0">
+<net name="+10V" class="0">
 <segment>
-<pinref part="U$5" gate="G$1" pin="1"/>
-<wire x1="78.74" y1="154.94" x2="86.36" y2="154.94" width="0.1524" layer="91"/>
-<label x="86.36" y="154.94" size="1.778" layer="95"/>
+<pinref part="PWR_OUT1" gate="G$1" pin="1"/>
+<wire x1="78.74" y1="165.1" x2="86.36" y2="165.1" width="0.1524" layer="91"/>
+<label x="86.36" y="165.1" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="GND" class="0">
-<segment>
-<pinref part="U$5" gate="G$2" pin="2"/>
-<wire x1="78.74" y1="152.4" x2="86.36" y2="152.4" width="0.1524" layer="91"/>
-<label x="86.36" y="152.4" size="1.778" layer="95"/>
-</segment>
 <segment>
 <pinref part="RPI_GPIO" gate="-6" pin="KL"/>
 <label x="162.56" y="63.5" size="1.778" layer="95"/>
@@ -27128,28 +27237,28 @@ All the external connectors used on the board.</description>
 </net>
 <net name="RELAY_NEGATIVE" class="0">
 <segment>
-<pinref part="U$6" gate="G$1" pin="1"/>
+<pinref part="SOL+RELAY" gate="G$1" pin="1"/>
 <wire x1="78.74" y1="144.78" x2="86.36" y2="144.78" width="0.1524" layer="91"/>
 <label x="86.36" y="144.78" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SOLENOID_1_NEGATIVE" class="0">
 <segment>
-<pinref part="U$6" gate="G$2" pin="2"/>
+<pinref part="SOL+RELAY" gate="G$2" pin="2"/>
 <wire x1="78.74" y1="142.24" x2="86.36" y2="142.24" width="0.1524" layer="91"/>
 <label x="86.36" y="142.24" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SOLENOID_2_NEGATIVE" class="0">
 <segment>
-<pinref part="U$7" gate="G$1" pin="1"/>
+<pinref part="SOLENOIDS" gate="G$1" pin="1"/>
 <wire x1="78.74" y1="134.62" x2="86.36" y2="134.62" width="0.1524" layer="91"/>
 <label x="86.36" y="134.62" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SOLENOID_3_NEGATIVE" class="0">
 <segment>
-<pinref part="U$7" gate="G$2" pin="2"/>
+<pinref part="SOLENOIDS" gate="G$2" pin="2"/>
 <wire x1="78.74" y1="132.08" x2="86.36" y2="132.08" width="0.1524" layer="91"/>
 <label x="86.36" y="132.08" size="1.778" layer="95"/>
 </segment>
@@ -27258,6 +27367,20 @@ All the external connectors used on the board.</description>
 <wire x1="195.58" y1="53.34" x2="162.56" y2="53.34" width="0.1524" layer="91"/>
 </segment>
 </net>
+<net name="+3V3" class="0">
+<segment>
+<pinref part="PWR_OUT2" gate="G$1" pin="1"/>
+<wire x1="78.74" y1="154.94" x2="86.36" y2="154.94" width="0.1524" layer="91"/>
+<label x="86.36" y="154.94" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="+5V" class="0">
+<segment>
+<pinref part="PWR_OUT2" gate="G$2" pin="2"/>
+<wire x1="78.74" y1="152.4" x2="86.36" y2="152.4" width="0.1524" layer="91"/>
+<label x="86.36" y="152.4" size="1.778" layer="95"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
@@ -27291,6 +27414,18 @@ Used for debugging outputs.</description>
 <instance part="X8" gate="-6" x="124.46" y="81.28"/>
 <instance part="X8" gate="-7" x="124.46" y="78.74"/>
 <instance part="X8" gate="-8" x="124.46" y="76.2"/>
+<instance part="RPI_DEBUG" gate="-1" x="172.72" y="93.98"/>
+<instance part="RPI_DEBUG" gate="-2" x="172.72" y="88.9"/>
+<instance part="RPI_DEBUG" gate="-3" x="172.72" y="83.82"/>
+<instance part="RPI_DEBUG" gate="-4" x="172.72" y="78.74"/>
+<instance part="RPI_DEBUG" gate="-5" x="172.72" y="73.66"/>
+<instance part="RPI_DEBUG" gate="-6" x="172.72" y="68.58"/>
+<instance part="RPI_DEBUG" gate="-7" x="172.72" y="63.5"/>
+<instance part="PWR_DEBUG" gate="-1" x="167.64" y="40.64"/>
+<instance part="PWR_DEBUG" gate="-2" x="167.64" y="35.56"/>
+<instance part="PWR_DEBUG" gate="-3" x="167.64" y="30.48"/>
+<instance part="PWR_DEBUG" gate="-4" x="167.64" y="25.4"/>
+<instance part="PWR_DEBUG" gate="-5" x="167.64" y="20.32"/>
 </instances>
 <busses>
 <bus name="ADC1_A[0..7]">
@@ -27463,6 +27598,88 @@ Used for debugging outputs.</description>
 <segment>
 <wire x1="121.92" y1="76.2" x2="111.76" y2="76.2" width="0.1524" layer="91"/>
 <pinref part="X8" gate="-8" pin="1"/>
+</segment>
+</net>
+<net name="SCLK" class="0">
+<segment>
+<label x="152.4" y="63.5" size="1.778" layer="95"/>
+<pinref part="RPI_DEBUG" gate="-7" pin="1"/>
+<wire x1="152.4" y1="63.5" x2="170.18" y2="63.5" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="MISO" class="0">
+<segment>
+<label x="152.4" y="68.58" size="1.778" layer="95"/>
+<pinref part="RPI_DEBUG" gate="-6" pin="1"/>
+<wire x1="152.4" y1="68.58" x2="170.18" y2="68.58" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="MOSI" class="0">
+<segment>
+<label x="152.4" y="73.66" size="1.778" layer="95"/>
+<pinref part="RPI_DEBUG" gate="-5" pin="1"/>
+<wire x1="152.4" y1="73.66" x2="170.18" y2="73.66" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="ADC2_CS" class="0">
+<segment>
+<label x="152.4" y="83.82" size="1.778" layer="95"/>
+<pinref part="RPI_DEBUG" gate="-3" pin="1"/>
+<wire x1="152.4" y1="83.82" x2="170.18" y2="83.82" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="ADC1_CS" class="0">
+<segment>
+<label x="152.4" y="78.74" size="1.778" layer="95"/>
+<pinref part="RPI_DEBUG" gate="-4" pin="1"/>
+<wire x1="152.4" y1="78.74" x2="170.18" y2="78.74" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="GND" class="0">
+<segment>
+<label x="152.4" y="93.98" size="1.778" layer="95"/>
+<pinref part="RPI_DEBUG" gate="-1" pin="1"/>
+<wire x1="152.4" y1="93.98" x2="170.18" y2="93.98" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="PWR_DEBUG" gate="-5" pin="1"/>
+<wire x1="165.1" y1="20.32" x2="157.48" y2="20.32" width="0.1524" layer="91"/>
+<label x="157.48" y="20.32" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="+12V" class="0">
+<segment>
+<pinref part="PWR_DEBUG" gate="-1" pin="1"/>
+<wire x1="165.1" y1="40.64" x2="157.48" y2="40.64" width="0.1524" layer="91"/>
+<label x="157.48" y="40.64" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="+10V" class="0">
+<segment>
+<pinref part="PWR_DEBUG" gate="-2" pin="1"/>
+<wire x1="165.1" y1="35.56" x2="157.48" y2="35.56" width="0.1524" layer="91"/>
+<label x="157.48" y="35.56" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="+5V" class="0">
+<segment>
+<pinref part="PWR_DEBUG" gate="-3" pin="1"/>
+<wire x1="165.1" y1="30.48" x2="157.48" y2="30.48" width="0.1524" layer="91"/>
+<label x="157.48" y="30.48" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="+3V3" class="0">
+<segment>
+<pinref part="PWR_DEBUG" gate="-4" pin="1"/>
+<wire x1="165.1" y1="25.4" x2="157.48" y2="25.4" width="0.1524" layer="91"/>
+<label x="157.48" y="25.4" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="ADC3_CS" class="0">
+<segment>
+<label x="152.4" y="88.9" size="1.778" layer="95"/>
+<pinref part="RPI_DEBUG" gate="-2" pin="1"/>
+<wire x1="152.4" y1="88.9" x2="170.18" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

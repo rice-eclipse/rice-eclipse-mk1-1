@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.3.1">
+<eagle version="8.4.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -75,12 +75,6 @@
 <description>&lt;b&gt;PHOENIX&lt;/b&gt;</description>
 <text x="1.8594" y="-2.65" size="1.778" layer="25" ratio="10">&gt;NAME</text>
 <text x="1.5994" y="13.08" size="1.778" layer="27" ratio="10">&gt;VALUE</text>
-<text x="3.5898" y="10.9804" size="1.27" layer="21" ratio="10">1</text>
-<text x="6.1682" y="10.9804" size="1.27" layer="21" ratio="10">2</text>
-<text x="8.572" y="10.955" size="1.27" layer="21" ratio="10">3</text>
-<text x="10.8012" y="10.9804" size="1.27" layer="21" ratio="10">4</text>
-<text x="13.4034" y="10.9804" size="1.27" layer="21" ratio="10">5</text>
-<text x="15.9834" y="10.9804" size="1.27" layer="21" ratio="10">6</text>
 <pad name="P$1" x="3.55" y="2.7" drill="1.2" shape="long" rot="R90"/>
 <pad name="P$2" x="6.05" y="2.7" drill="1.2" shape="long" rot="R90"/>
 <pad name="P$3" x="8.55" y="2.7" drill="1.2" shape="long" rot="R90"/>
@@ -102,10 +96,6 @@
 <description>&lt;b&gt;PHOENIX&lt;/b&gt;</description>
 <text x="1.8594" y="-2.65" size="1.778" layer="25" ratio="10">&gt;NAME</text>
 <text x="1.5994" y="13.08" size="1.778" layer="27" ratio="10">&gt;VALUE</text>
-<text x="3.5898" y="10.9804" size="1.27" layer="21" ratio="10">1</text>
-<text x="6.1682" y="10.9804" size="1.27" layer="21" ratio="10">2</text>
-<text x="8.572" y="10.955" size="1.27" layer="21" ratio="10">3</text>
-<text x="10.8012" y="10.9804" size="1.27" layer="21" ratio="10">4</text>
 <pad name="P$1" x="3.55" y="2.7" drill="1.2" shape="long" rot="R90"/>
 <pad name="P$2" x="6.05" y="2.7" drill="1.2" shape="long" rot="R90"/>
 <pad name="P$3" x="8.55" y="2.7" drill="1.2" shape="long" rot="R90"/>
