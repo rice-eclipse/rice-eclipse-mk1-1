@@ -1,3 +1,8 @@
 #eagle backup files
 *.s#*
 *.l#*
+*.b#*
+
+#Some other eagle files?
+*.job
+*.pro

@@ -16,9 +16,7 @@ from  matplotlib import style
 s = socket.socket()
 
 #make it configurable in the gui (text input box and button)
-host = "192.168.1.150" #Currently set to use loopback.
-port = 1234
-s.connect((host, port))
+
 
 #data buffer
 queue1 = Queue()
@@ -55,11 +53,12 @@ def animate(i):
 
 
 
+
 # called serialread, actually socket read though. rename if you want (be sure to change the name in other locations)
+# change the argument in recv to change number of bytes receive at a time
 def serialread(s, q):
     while 1:
         data = s.recv(2)
-        #print(data)
         if len(data) != 0:
             q.put(data)
 
@@ -100,6 +99,9 @@ class gui(tk.Tk):
         frame=self.frames[cont]
         frame.tkraise()
 
+#function to connect the socket
+def connect_socket(host,port):
+    s.connect((host, int(port)))
 
 # test function for sending via socket
 def test(entry):
@@ -112,8 +114,17 @@ def test(entry):
 class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
-        label1=tk.Label(self,text="start page")
-        label1.grid(row=0,column=11)
+        label1=tk.Label(self,text="IP")
+        label1.grid(row=0,column=10)
+        entry2 = tk.Entry(self)
+        entry2.grid(row=0, column=11)
+
+        label2 = tk.Label(self, text="port")
+        label2.grid(row=1, column=10)
+        entry3 = tk.Entry(self)
+        entry3.grid(row=1, column=11)
+        button4 = tk.Button(self, text="Connect",command=lambda:connect_socket(entry2.get(),entry3.get()))
+        button4.grid(row=1, column=12)
 
         #more buttons can be added,as well as text boxes
         #the third arguement is gonna be the function the button need to bind
@@ -126,12 +137,12 @@ class StartPage(tk.Frame):
         entry1=tk.Entry(self)
         entry1.grid(row=101, column=11)
 
-
+        #potential for multipage gui
         self.controller=controller
-        self.controller.lbl=label1
+
         canvas=FigureCanvasTkAgg(f,self)
         canvas.show()
-        canvas.get_tk_widget().grid(row=1,column=10,columnspan=3, rowspan=1,padx=5, pady=5,sticky="WENS")
+        canvas.get_tk_widget().grid(row=2,column=10,columnspan=3, rowspan=1,padx=5, pady=5,sticky="WENS")
 
 
     # don't actually need it right now
@@ -150,8 +161,10 @@ class StartPage(tk.Frame):
 gui1=gui()
 
 #put the thread run in a button binded function in order to control when it would run
-thread1 = myThread1(1, "Thread-1", 1)
-thread1.start()
-ani=animation.FuncAnimation(f,animate,interval=2)
+
+#uncoment to receive the data in 2byte per int mode
+#thread1 = myThread1(1, "Thread-1", 1)
+#thread1.start()
+ani=animation.FuncAnimation(f,animate,interval=500)
 
 gui1.run()

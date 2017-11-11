@@ -50,6 +50,7 @@ add_executable(threaded_adc_test ${SOURCE_FILES_THREADED_ADC_TEST}) #A simple ex
 
 add_dependencies(adc_test adc_lib.a)
 add_dependencies(threaded_adc_test adc_lib.a circ_buff.a timestamps.a)
+add_dependencies(spi_adc_test adc_lib.a)
 
 ###########################################################################
 
