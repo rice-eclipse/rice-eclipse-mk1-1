@@ -2,16 +2,18 @@
 // Created by rjcunningham on 9/7/17.
 //
 #include <iostream>
-#include "../server/safe_queue.hpp"
-#include "../server/queue_items.hpp"
-#include "../util/circular_buffer.hpp"
-#include "../echo_server/listener.hpp"
-#include "adc_block.hpp"
-#include "../util/timestamps.hpp"
+#include "../../src/server/safe_queue.hpp"
+#include "../../src/server/queue_items.hpp"
+#include "../../src/util/circular_buffer.hpp"
+#include "../../src/echo_server/listener.hpp"
+#include "../../src/util/timestamps.hpp"
 #include <thread>
 #include <poll.h>
+#include <cmath>
 
 #define DEBUG_ADC_TEST
+
+#define SAMPLES_TO_SEND 100
 
 struct adc_reading {
     uint16_t value;
@@ -32,19 +34,10 @@ void network_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_it
  */
 void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_item> &qw);
 
-#define CIRC_SIZE 1 << 12 // Needs to be bigger than 100 * 16 or else it won't work.
+#define CIRC_SIZE 1 << 14
 circular_buffer buff (CIRC_SIZE);
 
 int main(int argc, char **argv) {
-
-    if (!bcm2835_init()) {
-        printf("bcm2835_init failed. Are you running as root??\n");
-        return 1;
-    }
-    if (!bcm2835_spi_begin()) {
-        printf("bcm2835_spi_begin failed. Are you running as root??\n");
-        return 1;
-    }
 
     set_base_time();
 
@@ -75,7 +68,7 @@ void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_ite
     size_t last_send = 0;
     adc_reading adc_value = {};
 
-    adc_block *block = new adc_block(1);
+    uint16_t count = 0;
 
     while (1) {
         //std::cout << "Backworker entering loop:\n";
@@ -116,25 +109,28 @@ void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_ite
 
                     adc_value.t = get_time();
                     //Read the ADC (num = 0, use dual channel, use channel 0 (pin 0=+, pin 1 =-))
-                    adc_value.value = block->read_item(0, 0, 0);
+                    adc_value.value = count;
+                    //adc_value.value = sin(count);
+                    count++;
+                    usleep(1000); // Pretend like we slept for a while.
 
                     #ifdef DEBUG_ADC_TEST
-                        fprintf(stderr, "ADC reading: %u. Time: %llu \n", adc_value.value, adc_value.t);
+                        fprintf(stderr, "ADC reading: %u. Time: %llu \n", adc_value.value, (long long) adc_value.t);
                     #endif
                     buff.add_data(&adc_value, sizeof(adc_value));
                     //Check if it's been a while since we sent some data:
                     size_t bw = buff.bytes_written.load();
-                    if (bw > last_send + 100 * sizeof(adc_value)) {
+                    if (bw > last_send + SAMPLES_TO_SEND * sizeof(adc_value)) {
                         //Send some data:
                         nqi.type = nq_send;
-                        nqi.nbytes = 100 * sizeof(adc_value);
+                        nqi.nbytes = SAMPLES_TO_SEND * sizeof(adc_value);
                         nqi.total_bytes = bw;
 
                         qn.enqueue(nqi);
                         //std::cout << "Sending 200 bytes" << std::endl;
                         last_send = bw;
                         //TODO this carries a risk of missing some data. Fine on single worker thread, but bad.
-                        usleep(1000);
+                        //usleep(100);
                     }
                 }
                 //TODO update send data periodically instead of this way.

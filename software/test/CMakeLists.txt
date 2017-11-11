@@ -7,3 +7,4 @@ macro(add_catch_test name)
 endmacro()
 
 add_subdirectory(circular_buffer)
+add_subdirectory(threaded_circular_buffer)
