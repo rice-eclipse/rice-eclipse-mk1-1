@@ -2,12 +2,23 @@
 // Created by rjcunningham on 9/7/17.
 //
 #include <iostream>
-#include "listener.hpp"
-#include "../server/safe_queue.hpp"
-#include "../server/queue_items.hpp"
-#include "../util/circular_buffer.hpp"
+#include "../../src/server/safe_queue.hpp"
+#include "../../src/server/queue_items.hpp"
+#include "../../src/util/circular_buffer.hpp"
+#include "../../src/echo_server/listener.hpp"
+#include "../../src/util/timestamps.hpp"
 #include <thread>
 #include <poll.h>
+#include <cmath>
+
+#define DEBUG_ADC_TEST
+
+#define SAMPLES_TO_SEND 100
+
+struct adc_reading {
+    uint16_t value;
+    timestamp_t t;
+};
 
 network_queue_item null_nqi = {nq_none}; //An item for null args to
 
@@ -23,10 +34,13 @@ void network_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_it
  */
 void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_item> &qw);
 
-#define CIRC_SIZE 1 << 10
+#define CIRC_SIZE 1 << 14
 circular_buffer buff (CIRC_SIZE);
 
 int main(int argc, char **argv) {
+
+    set_base_time();
+
     int port = 1234; //TODO set this from inputs.
 
     safe_queue<network_queue_item> qn (null_nqi);
@@ -52,6 +66,8 @@ void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_ite
     char c;
     bool sending = false;
     size_t last_send = 0;
+    adc_reading adc_value = {};
+
     uint16_t count = 0;
 
     while (1) {
@@ -90,21 +106,31 @@ void worker_thread(safe_queue<network_queue_item> &qn, safe_queue<work_queue_ite
                  * Nothing in the work queue so do some work, such as reading sensors.
                  */
                 if (sending) {
-                    buff.add_data(&count, sizeof(count));
+
+                    adc_value.t = get_time();
+                    //Read the ADC (num = 0, use dual channel, use channel 0 (pin 0=+, pin 1 =-))
+                    adc_value.value = count;
+                    //adc_value.value = sin(count);
                     count++;
+                    usleep(1000); // Pretend like we slept for a while.
+
+                    #ifdef DEBUG_ADC_TEST
+                        fprintf(stderr, "ADC reading: %u. Time: %llu \n", adc_value.value, (long long) adc_value.t);
+                    #endif
+                    buff.add_data(&adc_value, sizeof(adc_value));
                     //Check if it's been a while since we sent some data:
                     size_t bw = buff.bytes_written.load();
-                    if (bw > last_send + 100 * sizeof(count)) {
+                    if (bw > last_send + SAMPLES_TO_SEND * sizeof(adc_value)) {
                         //Send some data:
                         nqi.type = nq_send;
-                        nqi.nbytes = 100 * sizeof(count);
+                        nqi.nbytes = SAMPLES_TO_SEND * sizeof(adc_value);
                         nqi.total_bytes = bw;
 
                         qn.enqueue(nqi);
                         //std::cout << "Sending 200 bytes" << std::endl;
                         last_send = bw;
                         //TODO this carries a risk of missing some data. Fine on single worker thread, but bad.
-                        usleep(1000);
+                        //usleep(100);
                     }
                 }
                 //TODO update send data periodically instead of this way.
