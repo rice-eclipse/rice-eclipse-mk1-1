@@ -2,8 +2,8 @@
 // Created by Thomas Yuan on 9/28/2017.
 //
 
-#include "adc_block.hpp"
-#include "adc_block.cpp"
+#include "lib/adc_block.hpp"
+#include "lib/adc_block.cpp"
 #include <iostream>
 
 int main() {
