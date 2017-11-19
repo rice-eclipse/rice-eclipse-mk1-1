@@ -6,7 +6,7 @@
 #define SOFTWARE_QUEUE_ITEMS_HPP
 
 #include <cstdint>
-using namespace std;
+#include "../util/circular_buffer.hpp"
 
 enum nqi_type {
     nq_none,
@@ -16,8 +16,10 @@ enum nqi_type {
 
 struct network_queue_item {
     nqi_type type;
+    circular_buffer *buff;
     size_t nbytes; //The number of bytes to send.
     size_t total_bytes; //The total number of bytes written into the relevant buffer at this point.
+    char data[8]; // An extra data field used for simple transactions.
 };
 
 enum wqi_type {
@@ -28,9 +30,11 @@ enum wqi_type {
 };
 
 struct work_queue_item {
+    //FIXME this is a really bad structure if we're actually doing anything with these.
     wqi_type action;
-    size_t nbytes; //The size of memory at nbytes.
-    void *datap; //A pointer to the relevant data.
+    size_t nbytes; //The size of memory at datap.
+    void *extra_datap; //A pointer to the relevant data.
+    char data[8]; // An extra data field for simple transactions.
 };
 
 #endif //SOFTWARE_QUEUE_ITEMS_HPP

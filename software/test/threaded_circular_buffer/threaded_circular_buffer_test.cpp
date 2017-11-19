@@ -5,7 +5,7 @@
 #include "../../src/server/safe_queue.hpp"
 #include "../../src/server/queue_items.hpp"
 #include "../../src/util/circular_buffer.hpp"
-#include "../../src/echo_server/listener.hpp"
+#include "../../src/util/listener.hpp"
 #include "../../src/util/timestamps.hpp"
 #include <thread>
 #include <poll.h>
