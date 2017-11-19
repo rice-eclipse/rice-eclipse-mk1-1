@@ -1,0 +1,36 @@
+[Eagle]
+Version="08 04 00"
+Platform="Linux"
+Globals="Globals"
+Desktop="Desktop"
+
+[Globals]
+AutoSaveProject=1
+UsedLibraryUrn="urn:adsk.eagle:library:178"
+UsedLibraryUrn="urn:adsk.eagle:library:179"
+UsedLibraryUrn="urn:adsk.eagle:library:180"
+UsedLibraryUrn="urn:adsk.eagle:library:334"
+UsedLibraryUrn="urn:adsk.eagle:library:172"
+UsedLibraryUrn="urn:adsk.eagle:library:173"
+UsedLibraryUrn="urn:adsk.eagle:library:174"
+UsedLibraryUrn="urn:adsk.eagle:library:175"
+UsedLibraryUrn="urn:adsk.eagle:library:176"
+UsedLibraryUrn="urn:adsk.eagle:library:177"
+UsedLibrary="/home/rjcunningham/Documents/eagle/libraries-extra/rice-eclipse-mk1-1-lib/st-microelectronics-extra.lbr"
+UsedLibrary="/home/rjcunningham/Documents/eagle/libraries-extra/rice-eclipse-mk1-1-lib/transistor-fet-extra.lbr"
+UsedLibrary="/home/rjcunningham/Documents/eagle/libraries-extra/rice-eclipse-mk1-1-lib/con-phoenix-250-extra.lbr"
+UsedLibrary="/home/rjcunningham/Documents/eagle/libraries-extra/rice-eclipse-mk1-1-lib/con-phoenix-500-extra.lbr"
+UsedLibrary="/home/rjcunningham/Documents/eagle/libraries-extra/rice-eclipse-mk1-1-lib/diodes-extra.lbr"
+UsedLibrary="/home/rjcunningham/Documents/eagle/libraries-extra/rice-eclipse-mk1-1-lib/microchip-extra.lbr"
+UsedLibrary="/home/rjcunningham/Documents/eagle/libraries-extra/rice-eclipse-mk1-1-lib/pot-extra.lbr"
+UsedLibrary="/home/rjcunningham/Documents/eagle/libraries-extra/rice-eclipse-mk1-1-lib/texas-extra.lbr"
+
+[Win_1]
+Type="Control Panel"
+Loc="425 175 1624 814"
+State=2
+Number=0
+
+[Desktop]
+Screen="1920 1080"
+Window="Win_1"
