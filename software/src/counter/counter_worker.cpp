@@ -1,15 +1,11 @@
 //
 // Created by rjcunningham on 11/18/17.
 //
-//
-// Created by rjcunningham on 11/18/17.
-//
 
-#include <zconf.h>
+#include "unistd.h"
 #include <iostream>
-#include "echo_worker.hpp"
-#include "../server/network_worker.hpp"
-#include "network_echo_worker.hpp"
+#include "counter_worker.hpp"
+#include "network_counter_worker.hpp"
 
 void echo_worker::worker_method() {
     network_queue_item nqi;
@@ -26,8 +22,8 @@ void echo_worker::worker_method() {
         switch (wqi.action) {
             case (wq_process): {
                 //For now we're not handling this.
-
-                c = (char) wqi.nbytes;
+                /*
+                c = wqi.data;
                 //Make the character lowercase.
                 if (c <= 'Z' && c >= 'A') {
                     c -= ('A' - 'a');
@@ -37,8 +33,9 @@ void echo_worker::worker_method() {
 
                 //Send c back over the socket.
                 nqi.type = nq_send;
-                nqi.total_bytes = (uint8_t) c;
+                nqi.data = (uint8_t) c;
                 qn.enqueue(nqi);
+                 */
             }
 
             case (wq_stop) :{
@@ -50,6 +47,29 @@ void echo_worker::worker_method() {
                 break;
             }
             case (wq_none): {
+                /*
+                 * Nothing in the work queue so do some work, such as reading sensors.
+                 */
+                if (sending) {
+                    buff.add_data(&count, sizeof(count));
+                    count++;
+                    //Check if it's been a while since we sent some data:
+                    size_t bw = buff.bytes_written.load();
+                    if (bw > last_send + 100 * sizeof(count)) {
+                        //Send some data:
+                        nqi.type = nq_send;
+                        nqi.nbytes = 100 * sizeof(count);
+                        nqi.total_bytes = bw;
+                        nqi.buff = &buff;
+
+                        qn.enqueue(nqi);
+                        //std::cout << "Sending 200 bytes" << std::endl;
+                        last_send = bw;
+                        //TODO this carries a risk of missing some data. Fine on single worker thread, but bad.
+                        usleep(1000);
+                    }
+                }
+                //TODO update send data periodically instead of this way.
 
             }
         }
@@ -76,7 +96,7 @@ int main(int argc, char **argv) {
     qn.enqueue(initial);
 
     echo_worker ew(qn, qw, buff);
-    network_echo_worker nw(qn, qw, port);
+    network_counter_worker nw(qn, qw, port);
 
     nw.start();
     ew.start();

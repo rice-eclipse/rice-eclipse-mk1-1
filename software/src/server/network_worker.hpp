@@ -13,21 +13,23 @@
 #include "queue_items.hpp"
 #include "safe_queue.hpp"
 #include "worker.hpp"
+#include <poll.h>
 #include "../util/circular_buffer.hpp"
 
 class network_worker : public worker {
     public:
-        circular_buffer &buff;
         int port;
+        int connfd;
+        pollfd pf;
+
         network_worker
-                (safe_queue<network_queue_item> &my_qn, safe_queue<work_queue_item> &my_qw, int port,
-                 circular_buffer &buff)
+                (safe_queue<network_queue_item> &my_qn, safe_queue<work_queue_item> &my_qw, int port)
                 : worker(my_qn, my_qw)
                 , port(port)
-                , buff(buff)
-
         {
         };
+
+        virtual void process_nqi(network_queue_item &nqi) = 0;
 
         void worker_method();
 

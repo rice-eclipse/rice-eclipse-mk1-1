@@ -1,6 +1,6 @@
-project(echo_server)
+project(counter)
 
-set(SOURCE_FILES echo_worker.cpp ../server/network_worker.cpp network_echo_worker.cpp network_echo_worker.hpp)
+set(SOURCE_FILES counter_worker.cpp ../server/network_worker.cpp network_counter_worker.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
