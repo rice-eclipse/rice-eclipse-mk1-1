@@ -9,13 +9,21 @@
 #include "queue_items.hpp"
 #include "safe_queue.hpp"
 
-
+/**
+ * A simple abstraction over a new worker thread that can read and write to work queues
+ * on the network.
+ */
 class worker {
 
     public:
         safe_queue<network_queue_item> &qn;
         safe_queue<work_queue_item> &qw;
 
+        /**
+         * Create a new worker.
+         * @param my_qn The network queue to use.
+         * @param my_qw The (data) work queue to use.
+         */
         worker(safe_queue<network_queue_item> &my_qn, safe_queue<work_queue_item> &my_qw)
                 : qn(my_qn)
                 , qw(my_qw)
@@ -24,13 +32,17 @@ class worker {
         };
 
 
+        /**
+         * This method is forked into a new thread when start is called.
+         * Should be used to read and write from the queues and either interact
+         * with the hardware or with the networking.
+         */
         virtual void worker_method() = 0;
 
         /**
          * Starts the data worker's threads.
          */
         virtual void start() {
-            // FIXME, currently starts when thread is created. So this method is useless.
             t_main = std::thread(&worker::worker_method, this);
         };
 

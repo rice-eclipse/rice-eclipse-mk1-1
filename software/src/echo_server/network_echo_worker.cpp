@@ -33,7 +33,7 @@ void network_echo_worker::process_nqi(network_queue_item &nqi) {
              * Otherwise ignore the message.
              */
             wqi.action = wq_process;
-            wqi.nbytes = (size_t) c;
+            wqi.data[0] = c;
             qw.enqueue(wqi);
 
         }
@@ -46,7 +46,7 @@ void network_echo_worker::process_nqi(network_queue_item &nqi) {
                     return;
                 }
             }
-            c = (char) nqi.total_bytes;
+            c = nqi.data[0];
             write(connfd, &c, 1);
             break;
 

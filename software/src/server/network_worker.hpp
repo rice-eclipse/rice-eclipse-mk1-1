@@ -29,6 +29,10 @@ class network_worker : public worker {
         {
         };
 
+        /**
+         * The method used to process a new request for this worker.
+         * @param nqi The network queue item to process.
+         */
         virtual void process_nqi(network_queue_item &nqi) = 0;
 
         void worker_method();

@@ -27,7 +27,7 @@ void echo_worker::worker_method() {
             case (wq_process): {
                 //For now we're not handling this.
 
-                c = (char) wqi.nbytes;
+                c = wqi.data[0];
                 //Make the character lowercase.
                 if (c <= 'Z' && c >= 'A') {
                     c -= ('A' - 'a');
@@ -37,7 +37,7 @@ void echo_worker::worker_method() {
 
                 //Send c back over the socket.
                 nqi.type = nq_send;
-                nqi.total_bytes = (uint8_t) c;
+                nqi.data[0] = c;
                 qn.enqueue(nqi);
             }
 
