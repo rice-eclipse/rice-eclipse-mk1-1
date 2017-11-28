@@ -5,6 +5,7 @@
 #include "../../src/util/circular_buffer.hpp"
 #include <sys/mman.h>
 #include <fcntl.h>
+#include <strings.h>
 
 #define TEMP_FILE "tmp.txt"
 
@@ -116,7 +117,8 @@ TEST_CASE("Circular buffer can write correctly", "[cb]") {
     }
 
     SECTION("Write some overflowing data") {
-        char b[cb_size] = {};
+        char b[cb_size];
+        bzero(b, cb_size);
         cb.add_data(b, cb_size - 1);
         b[0] = 10;
         b[1] = 11;
