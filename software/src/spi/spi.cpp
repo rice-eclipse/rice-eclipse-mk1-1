@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 // Use for testing
 //        bcm2835_set_debug(1);
 
-    char writeb[3] = {(char) 0x06,(char) 0xc0, 0}; //Write to pick CH03
+    char writeb[3] = {(char) 0x06,(char) 0x00, 0}; //Write to pick CH02
     char readb[3] = {0,0,0};
     uint16_t out_value = 0;
 
@@ -28,6 +28,8 @@ int main(int argc, char **argv)
       printf("bcm2835_spi_begin failed. Are you running as root??\n");
       return 1;
     }
+    bcm2835_gpio_fsel(RPI_V2_GPIO_P1_22, BCM2835_GPIO_FSEL_OUTP);
+    bcm2835_gpio_write(RPI_V2_GPIO_P1_22, HIGH);
     bcm2835_spi_chipSelect(BCM2835_SPI_CS0);                      // The default
     bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);      // The default
     bcm2835_spi_setDataMode(BCM2835_SPI_MODE3);                   // The MCP... uses this.
