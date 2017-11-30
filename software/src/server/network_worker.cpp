@@ -88,7 +88,8 @@ ssize_t network_worker::do_recv(int fd, char *b, size_t nbytes) {
         /*
          * Check if the file descriptor has closed:
          */
-        std::cerr << "Read nothing from socket" << std::endl;
+        std::cerr << "Read nothing from socket. Assuming it is dead." << std::endl;
+        fail_connection();
     }
 
     return read_result;
