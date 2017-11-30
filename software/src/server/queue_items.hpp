@@ -11,7 +11,8 @@
 enum nqi_type {
     nq_none,
     nq_send,
-    nq_recv
+    nq_recv,
+    nq_send_ack,
 };
 
 struct network_queue_item {
@@ -37,4 +38,13 @@ struct work_queue_item {
     char data[8]; // An extra data field for simple transactions.
 };
 
+enum send_code {
+    ack = 1,
+    payload = 2, // TODO this payload needs to be something like load cell, etc. etc.
+};
+
+struct send_header {
+    send_code code;
+    size_t nbytes;
+};
 #endif //SOFTWARE_QUEUE_ITEMS_HPP

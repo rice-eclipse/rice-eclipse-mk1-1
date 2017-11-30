@@ -6,7 +6,7 @@
 #include "network_counter_worker.hpp"
 #include "../util/listener.hpp"
 
-void network_counter_worker::process_nqi(network_queue_item &nqi) {
+bool network_counter_worker::process_nqi(network_queue_item &nqi) {
     char c;
     work_queue_item wqi;
     ssize_t read_result;
@@ -47,7 +47,7 @@ void network_counter_worker::process_nqi(network_queue_item &nqi) {
                 if (!pf.revents & POLLOUT) {
                     //Cannot write. Will block.
                     std::cerr << "Socket blocked" << std::endl;
-                    return;
+                    return true;
                 }
             }
             circular_buffer &buff = *nqi.buff;
@@ -66,4 +66,6 @@ void network_counter_worker::process_nqi(network_queue_item &nqi) {
             // FIXME need to do some checking to make sure this happens frequently.
         }
     }
+
+    return true;
 }
