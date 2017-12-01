@@ -14,18 +14,11 @@ bool network_counter_worker::process_nqi(network_queue_item &nqi) {
     switch (nqi.type) {
         case (nq_recv): {
             //Poll before we read:
-            if (poll(&pf, 1, 0) >= 0) {
-                if (!(pf.revents & POLLIN)) {
-                    // Nothing to read.
-                    //std::cerr << "Socket blocked on read" << std::endl;
-                    //Go back to looping.
-                    break;
-                }
-            } else {
-                std::cerr << "Poll failed" << std::endl;
-                exit(1);
+            read_result = do_recv(connfd, &c, 1);
+            if (read_result <= 0) {
+                //FIXME, do something better?
+                return true;
             }
-            read_result = read(connfd, &c, 1);
             /*
              * If we get a '0' then start processing stuff.
              * If we get a '1' then stop processing stuff.
@@ -51,6 +44,9 @@ bool network_counter_worker::process_nqi(network_queue_item &nqi) {
                 }
             }
             circular_buffer &buff = *nqi.buff;
+
+            network_worker::send_header(payload, nqi.nbytes);
+
             std::cout << "Writing data" << std::endl;
             if (buff.write_data(connfd, nqi.nbytes, nqi.total_bytes) != 0) {
                 std::cerr << "Connection Closed" << std::endl;
@@ -60,12 +56,11 @@ bool network_counter_worker::process_nqi(network_queue_item &nqi) {
             break;
 
         }
-        case (nq_none): {
-            nqi.type = nq_recv;
-            qn.enqueue(nqi); //Just always be reading because otherwise we're screwed.
-            // FIXME need to do some checking to make sure this happens frequently.
+        default: {
+            return network_worker::process_nqi(nqi);
         }
     }
 
     return true;
 }
+

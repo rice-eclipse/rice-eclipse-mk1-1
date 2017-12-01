@@ -7,6 +7,11 @@
 #include "counter_worker.hpp"
 #include "network_counter_worker.hpp"
 
+struct dummy_reading {
+    uint16_t count;
+    uint64_t t;
+} reading;
+
 void echo_worker::worker_method() {
     network_queue_item nqi;
     work_queue_item wqi;
@@ -21,21 +26,7 @@ void echo_worker::worker_method() {
         //std::cout << "Backworker got item:\n";
         switch (wqi.action) {
             case (wq_process): {
-                //For now we're not handling this.
-                /*
-                c = wqi.data;
-                //Make the character lowercase.
-                if (c <= 'Z' && c >= 'A') {
-                    c -= ('A' - 'a');
-                }
 
-                std::cout << c; //Write the byte.
-
-                //Send c back over the socket.
-                nqi.type = nq_send;
-                nqi.data = (uint8_t) c;
-                qn.enqueue(nqi);
-                 */
             }
 
             case (wq_stop) :{
@@ -51,14 +42,17 @@ void echo_worker::worker_method() {
                  * Nothing in the work queue so do some work, such as reading sensors.
                  */
                 if (sending) {
-                    buff.add_data(&count, sizeof(count));
+                    reading.count = count;
+                    reading.t = count;
+                    buff.add_data(&reading, sizeof(reading));
                     count++;
+                    usleep(100);
                     //Check if it's been a while since we sent some data:
                     size_t bw = buff.bytes_written.load();
-                    if (bw > last_send + 100 * sizeof(count)) {
+                    if (bw > last_send + 100 * sizeof(reading)) {
                         //Send some data:
                         nqi.type = nq_send;
-                        nqi.nbytes = 100 * sizeof(count);
+                        nqi.nbytes = 100 * sizeof(reading);
                         nqi.total_bytes = bw;
                         nqi.buff = &buff;
 
@@ -77,7 +71,7 @@ void echo_worker::worker_method() {
 
 }
 
-#define CIRC_SIZE 1 << 12
+#define CIRC_SIZE 1 << 16
 
 network_queue_item null_nqi = {nq_none}; //An item for null args to
 work_queue_item null_wqi = {wq_none}; //An object with the non-matching type to do nothing.
