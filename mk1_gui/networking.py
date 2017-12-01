@@ -153,8 +153,12 @@ class Networker:
             message = self._recv(nbytes)
 
         if (message is not None):
-            self.logger.debug("Received Full Message: Type:" + str(htype) +
+            if (nbytes <= 64):
+                self.logger.debug("Received Full Message: Type:" + str(htype) +
                            " Nbytes:" + str(nbytes) + " message" + str(message))
+            else:
+                self.logger.debug("Received Full Message: Type:" + str(htype) +
+                                  " Nbytes:" + str(nbytes))
 
         return htype, nbytes, message
 
@@ -176,8 +180,6 @@ class Networker:
 
         self.logger.debugv("Bytes form of nbytes:" + str(nbytes))
         nbytes = int_from_net_bytes(nbytes)
-        if (nbytes is not None and nbytes > 1):
-            nbytes = 1
 
         self.logger.debugv("Received message header: Type:" + str(htype) + " Nbytes:" + str(nbytes))
 

@@ -119,6 +119,9 @@ class Plotter:
         # TODO clear old data.
 
     def redraw(self):
+        #print("Redrawing")
+        #print(self.xlist)
+        #print(self.ylist)
         self.axes.clear()
         self.axes.plot(self.xlist, self.ylist)
 
