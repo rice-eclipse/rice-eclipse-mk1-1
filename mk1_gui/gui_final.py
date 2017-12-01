@@ -4,7 +4,7 @@ from queue import Queue
 import serial
 import matplotlib
 
-from networking import Networker
+from networking import *
 
 matplotlib.use("TKAgg")
 import tkinter as tk
@@ -18,11 +18,13 @@ from  matplotlib import style
 # Backend things for the GUI
 
 class GUIBackend:
-    def __init__(self):
-        self.nw = Networker()
+    def __init__(self, queue_out):
+        self.nw_queue = Queue()
+        self.nw = Networker(queue=self.nw_queue)
+        self.queue_out = queue_out
 
     def send_text(self, s):
-        self.nw.send(bytes(s, encoding='utf-8'))
+        self.nw.send(str.encode(s))
 
     def send_num(self, i):
         self.nw.send(int.to_bytes(i, byteorder='big', length=4))
@@ -37,6 +39,39 @@ class GUIBackend:
 
     def connect(self, address, port):
         self.nw.connect(addr=address, port=port)
+
+    def _process_recv_message(self):
+        """
+        A method that pulls new messages from the nw_queue and processes them and appropriately gives them to
+        the GUI thread.
+        :return:
+        """
+        while self.nw_queue.qsize() > 0:
+            mtype, nbytes, message = self.nw_queue.get()
+            if (mtype == ACK_VALUE):
+                pass
+            elif (mtype == PAYLOAD):
+                # This means we have a byte array of multiple possible readings from the sensor.
+                # First make sure we have a multiple of the size we expect:
+                if nbytes % payload_bytes != 0:
+                    print("Received PAYLOAD message with improper number of bytes:" + nbytes)
+                    return
+
+                bytes_read = 0
+                while bytes_read < nbytes:
+                    dat = message[bytes_read: bytes_read + payload_bytes]
+                    adc_read = dat[0:payload_bytes]
+                    adc_read = int.from_bytes(adc_read, byteorder=sys.byteorder)
+                    adc_read = socket.ntohs(adc_read)
+
+                    # TODO use the time to plot stuff
+                    read_time = dat[payload_time_offset:payload_time_offset + payload_bytes]
+
+                    self.nw.out_queue.put(adc_read)
+            elif mtype == TEXT:
+                sys.stdout.write(message.decode('utf-8'))
+            else:
+                print("Received incorrect message header type")
 
 
 #######################################
@@ -66,7 +101,7 @@ class Plotter:
 
     # animation for live plot
     def animate(self, i):
-        if self.queue_in.qsize() > 1:
+        while self.queue_in.qsize() > 1:
             first_byte = self.queue_in.get()
             # second_byte = queue1.get()
             pullData = int.from_bytes(first_byte, byteorder="big", signed=True)
@@ -81,6 +116,7 @@ class GUIFrontend(tk.Tk):
 
     def __init__(self, backend, *args, **kwargs):
         self.backend = backend
+        assert isinstance(self.backend, GUIBackend)
 
         tk.Tk.__init__(self,*args,**kwargs)
 
@@ -110,10 +146,14 @@ class GUIFrontend(tk.Tk):
 # The main frame for the gui.
 class StartPage(tk.Frame):
     def __init__(self, parent, controller):
+        assert isinstance(controller, GUIFrontend)
+        # potential for multipage gui
+        self.controller=controller
+
         # configure the plot
         self.f = Figure(figsize=(5, 5), dpi=100)
         a = self.f.add_subplot(111)
-        self.graph1 = Plotter(a, Queue())
+        self.graph1 = Plotter(a, self.controller.backend.queue_out)
 
         tk.Frame.__init__(self,parent)
         label1=tk.Label(self,text="IP")
@@ -134,21 +174,18 @@ class StartPage(tk.Frame):
         #more buttons can be added,as well as text boxes
         #the third arguement is gonna be the function the button need to bind
         button1=tk.Button(self,text="Button1")
-        button2 = tk.Button(self, text="Button2")
-        button3 = tk.Button(self, text="Button3",command=lambda:controller.backend.send_byte(int(entry1.get())))
+        button2 = tk.Button(self, text="send as string", command=lambda:controller.backend.send_text(entry1.get() + "\n"))
+        button3 = tk.Button(self, text="send as byte",command=lambda:controller.backend.send_byte(int(entry1.get())))
         button1.grid(row=100,column=10)
         button2.grid(row=100, column=11)
         button3.grid(row=100, column=12)
         entry1=tk.Entry(self)
         entry1.grid(row=101, column=11)
 
-        #potential for multipage gui
-        self.controller=controller
-
         canvas=FigureCanvasTkAgg(self.f,self)
         canvas.show()
         canvas.get_tk_widget().grid(row=2,column=10,columnspan=3, rowspan=1,padx=5, pady=5,sticky="WENS")
 
-front = GUIFrontend(GUIBackend())
+front = GUIFrontend(GUIBackend(Queue()))
 
 front.run()

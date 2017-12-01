@@ -8,13 +8,48 @@ import sys
 from server_info import *
 
 
+# MAJOR TODO move this networker to processing requests on its own thread and then let it attempt reconnection.
 class Networker:
-    def __init__(self):
-        self.sock = socket.socket()
+    class NWThread(threading.Thread):
+        def __init__(self, threadID, name, counter, nw):
+
+            assert(isinstance(nw, Networker))
+
+            threading.Thread.__init__(self)
+            self.threadID = threadID
+            self.name = name
+            self.counter = counter
+            self.nw = nw
+
+        def run(self):
+            while True:
+                # Ensure we are connected:
+                self.nw.conn_event.wait()
+
+                # Try to receive a message:
+                t,nb,m = self.nw.read_message()
+                self.nw.out_queue.put((t, nb, m))
+
+    @staticmethod
+    def make_socket():
+        sock = socket.socket()
+        # 10ms timeout, with the intent of giving just a bit of time if receiving.
+        sock.settimeout(0.01)
+
+        return sock
+
+    def __init__(self, queue=None):
+        self.sock = self.make_socket()
         self.addr = None
         self.port = None
         self.connected = False
         self.trying_connect = False
+        #TODO for now we only have the data receiving on a separate thread because that was straightforward:
+        self.out_queue = queue if queue is not None else Queue()
+        self.conn_event = threading.Event()
+
+        self.thr = Networker.NWThread(1, 'NWThread', 1, self)
+        self.thr.start()
 
     def connect(self, addr=None, port=None):
         """
@@ -46,12 +81,13 @@ class Networker:
                 print("Connection failed. OSError:" + e.strerror)
                 self.trying_connect = False
             except:
-                print("Unexpected error:", sys.exc_info()[0])
+                print("Connect: Unexpected error:", sys.exc_info()[0])
                 self.trying_connect = False
             else:
                 print("Successfully connected.")
                 self.trying_connect = False
                 self.connected = True
+                self.conn_event.set()
 
     def disconnect(self):
         """
@@ -61,12 +97,13 @@ class Networker:
         if not self.connected:
             return
 
+        self.conn_event.clear()
         self.connected = False
         print("Socket disconnecting:")
         self.sock.close()
 
         # Recreate the socket so that we aren't screwed.
-        self.sock = socket.socket()
+        self.sock = self.make_socket()
 
     def send(self, message):
         """
@@ -74,6 +111,8 @@ class Networker:
         :param message:
         :return: True if no exceptions were thrown:
         """
+        # TODO logging levels?
+        print ("Sending message:")
         # TODO proper error handling?
         try:
             self.sock.send(message)
@@ -87,6 +126,7 @@ class Networker:
             print("Unexpected error:", sys.exc_info()[0])
             self.disconnect()
         else:
+            print("Message sent")
             return True
 
         return False
@@ -101,7 +141,10 @@ class Networker:
 
         htype, nbytes = self.read_header()
 
-        message = self._recv(nbytes)
+        if nbytes is None or nbytes == 0:
+            message = None
+        else:
+            message = self._recv(nbytes)
 
         return htype, nbytes, message
 
@@ -111,11 +154,17 @@ class Networker:
         :return: The header type, The number of bytes
         """
         htype = self._recv(header_type_bytes)
+        if (len(htype) == 0):
+            return None, None
+
 
         dummy_pad = self._recv(header_pad_bytes)
 
         nbytes = self._recv(header_nbytes_info)
+        print("Bytes:" + str(nbytes))
         nbytes = int_from_net_bytes(nbytes)
+        if (nbytes > 1):
+            nbytes = 1
 
         return htype, nbytes
 
@@ -125,11 +174,24 @@ class Networker:
         :param nbytes: The number of bytes to receive.
         :return: The bytes.
         """
+        #print("Attempting to read " + str(nbytes) + " bytes")
         outb = bytes([])
         bcount = 0
-        while nbytes > 0:
-            b = self.sock.recv(nbytes)
-            nbytes -= len(b)
-            outb += b
+        try:
+            while nbytes > 0:
+                b = self.sock.recv(nbytes)
+                nbytes -= len(b)
+                bcount += len(b)
+                outb += b
+        except socket.timeout:
+            if bcount > 0:
+                #TODO fix this.
+                print("Socket timed out during partial read. Major problem.")
+        except OSError as e:
+            print("Read failed. OSError:" + e.strerror)
+        except:
+            print("Read: Unexpected error:", sys.exc_info()[0])
+        else:
+            return outb
 
-        return outb
+        return bytes([])

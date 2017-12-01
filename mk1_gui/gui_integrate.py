@@ -63,7 +63,6 @@ def serialread(s, q):
             q.put(data)
 
 
-
 # thread for data acquisition
 class myThread1(threading.Thread):
     def __init__(self, threadID, name, counter):
