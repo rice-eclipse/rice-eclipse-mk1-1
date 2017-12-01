@@ -33,7 +33,7 @@ class network_worker : public worker {
         /**
          * The time in microseconds when we last received our connection.
          */
-        std::atomic_uint64_t last_recv;
+        std::atomic<uint64_t> last_recv;
 
         network_worker
                 (safe_queue<network_queue_item> &my_qn, safe_queue<work_queue_item> &my_qw, int port)
