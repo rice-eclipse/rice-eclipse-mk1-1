@@ -4,6 +4,7 @@ from queue import Queue
 import serial
 import matplotlib
 
+from concurrency import async
 from networking import *
 
 matplotlib.use("TKAgg")
@@ -20,8 +21,10 @@ from  matplotlib import style
 class GUIBackend:
     def __init__(self, queue_out):
         self.nw_queue = Queue()
-        self.nw = Networker(queue=self.nw_queue)
+        self.nw = Networker(queue=self.nw_queue, loglevel=LogLevel.DEBUGV)
         self.queue_out = queue_out
+        self.logger = Logger(name='GUI', level=LogLevel.DEBUG, outfile='gui.log')
+        self._periodic_process_recv()
 
     def send_text(self, s):
         self.nw.send(str.encode(s))
@@ -40,14 +43,28 @@ class GUIBackend:
     def connect(self, address, port):
         self.nw.connect(addr=address, port=port)
 
+    @async
+    def _periodic_process_recv(self):
+        while True:
+            serial.time.sleep(0.1)
+            if not self.nw.connected:
+                continue
+
+            self._process_recv_message()
+
     def _process_recv_message(self):
         """
         A method that pulls new messages from the nw_queue and processes them and appropriately gives them to
         the GUI thread.
         :return:
         """
+        self.logger.debug("Processing Messages")
         while self.nw_queue.qsize() > 0:
             mtype, nbytes, message = self.nw_queue.get()
+
+            self.logger.debug("Processing message: Type:" + str(mtype) +
+                           " Nbytes:" + str(nbytes))
+
             if (mtype == ACK_VALUE):
                 pass
             elif (mtype == PAYLOAD):
@@ -69,7 +86,8 @@ class GUIBackend:
 
                     self.nw.out_queue.put(adc_read)
             elif mtype == TEXT:
-                sys.stdout.write(message.decode('utf-8'))
+                print(message.decode('utf-8'))
+                #sys.stdout.write(message.decode('utf-8'))
             else:
                 print("Received incorrect message header type")
 

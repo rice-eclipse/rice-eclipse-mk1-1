@@ -15,6 +15,7 @@ TEXT = bytes([3])
 header_type_bytes = 1
 header_pad_bytes = 7  # Not sure?
 header_nbytes_info = 4 # Verify this?
+header_end_pad_bytes = 4 # Another four pad bytes to word align the struct
 
 header_struct = (header_type_bytes,
                  header_pad_bytes,
@@ -43,3 +44,5 @@ def int_from_net_bytes(b):
     if len(b) == 2:
         i = int.from_bytes(b, byteorder=sys.byteorder)
         return i#socket.ntohs(i)
+
+    return None

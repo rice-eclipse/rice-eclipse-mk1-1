@@ -5,6 +5,7 @@ from queue import Queue
 # A class used to handle all the networking:
 import sys
 
+from logger import LogLevel, Logger
 from server_info import *
 
 
@@ -28,7 +29,8 @@ class Networker:
 
                 # Try to receive a message:
                 t,nb,m = self.nw.read_message()
-                self.nw.out_queue.put((t, nb, m))
+                if (t is not None):
+                    self.nw.out_queue.put((t, nb, m))
 
     @staticmethod
     def make_socket():
@@ -38,7 +40,7 @@ class Networker:
 
         return sock
 
-    def __init__(self, queue=None):
+    def __init__(self, queue=None, loglevel = LogLevel.DEBUG):
         self.sock = self.make_socket()
         self.addr = None
         self.port = None
@@ -50,6 +52,9 @@ class Networker:
 
         self.thr = Networker.NWThread(1, 'NWThread', 1, self)
         self.thr.start()
+        self.logger = Logger(name='networker', level=loglevel, outfile='networker.log')
+
+        self.logger.info("Initialized")
 
     def connect(self, addr=None, port=None):
         """
@@ -76,15 +81,15 @@ class Networker:
             try:
                 self.sock.connect((self.addr, int(self.port)))
             except socket.timeout:
-                print("Connect timed out.")
+                self.logger.error("Connect timed out.")
             except OSError as e:
-                print("Connection failed. OSError:" + e.strerror)
+                self.logger.error("Connection failed. OSError:" + e.strerror)
                 self.trying_connect = False
             except:
-                print("Connect: Unexpected error:", sys.exc_info()[0])
+                self.logger.error("Connect: Unexpected error:" + str(sys.exc_info()[0]))
                 self.trying_connect = False
             else:
-                print("Successfully connected.")
+                self.logger.error("Successfully connected.")
                 self.trying_connect = False
                 self.connected = True
                 self.conn_event.set()
@@ -99,7 +104,7 @@ class Networker:
 
         self.conn_event.clear()
         self.connected = False
-        print("Socket disconnecting:")
+        self.logger.warn("Socket disconnecting:")
         self.sock.close()
 
         # Recreate the socket so that we aren't screwed.
@@ -112,21 +117,21 @@ class Networker:
         :return: True if no exceptions were thrown:
         """
         # TODO logging levels?
-        print ("Sending message:")
+        self.logger.debug("Sending message:")
         # TODO proper error handling?
         try:
             self.sock.send(message)
         except socket.timeout:
-            print("Socket timed out while sending")
+            self.logger.error("Socket timed out while sending")
             self.disconnect()
         except OSError as e:
-            print("Connection failed. OSError:" + e.strerror)
+            self.logger.error("Connection failed. OSError:" + e.strerror)
             self.disconnect()
         except:
-            print("Unexpected error:", sys.exc_info()[0])
+            self.logger.error("Unexpected error:" + str(sys.exc_info()[0]))
             self.disconnect()
         else:
-            print("Message sent")
+            self.logger.info("Message sent")
             return True
 
         return False
@@ -137,6 +142,7 @@ class Networker:
         :return: The header type, the number of bytes, the message.
         """
         if not self.connected:
+            self.logger.error("Trying to read while not connected")
             raise Exception("Not connected. Cannot read.")
 
         htype, nbytes = self.read_header()
@@ -145,6 +151,10 @@ class Networker:
             message = None
         else:
             message = self._recv(nbytes)
+
+        if (message is not None):
+            self.logger.debug("Received Full Message: Type:" + str(htype) +
+                           " Nbytes:" + str(nbytes) + " message" + str(message))
 
         return htype, nbytes, message
 
@@ -161,10 +171,15 @@ class Networker:
         dummy_pad = self._recv(header_pad_bytes)
 
         nbytes = self._recv(header_nbytes_info)
-        print("Bytes:" + str(nbytes))
+
+        dummy_pad = self._recv(header_end_pad_bytes)
+
+        self.logger.debugv("Bytes form of nbytes:" + str(nbytes))
         nbytes = int_from_net_bytes(nbytes)
-        if (nbytes > 1):
+        if (nbytes is not None and nbytes > 1):
             nbytes = 1
+
+        self.logger.debugv("Received message header: Type:" + str(htype) + " Nbytes:" + str(nbytes))
 
         return htype, nbytes
 
@@ -186,11 +201,11 @@ class Networker:
         except socket.timeout:
             if bcount > 0:
                 #TODO fix this.
-                print("Socket timed out during partial read. Major problem.")
+                self.logger.error("Socket timed out during partial read. Major problem.")
         except OSError as e:
-            print("Read failed. OSError:" + e.strerror)
+            self.logger.error("Read failed. OSError:" + e.strerror)
         except:
-            print("Read: Unexpected error:", sys.exc_info()[0])
+            self.logger.error("Read: Unexpected error:" + str(sys.exc_info()[0]))
         else:
             return outb
 
