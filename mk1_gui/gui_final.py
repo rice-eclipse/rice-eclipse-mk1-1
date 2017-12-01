@@ -113,26 +113,29 @@ class StartPage(tk.Frame):
         # configure the plot
         self.f = Figure(figsize=(5, 5), dpi=100)
         a = self.f.add_subplot(111)
-        self.graph1 = Plotter(a, None)
+        self.graph1 = Plotter(a, Queue())
 
         tk.Frame.__init__(self,parent)
         label1=tk.Label(self,text="IP")
         label1.grid(row=0,column=10)
         entry2 = tk.Entry(self)
         entry2.grid(row=0, column=11)
+        entry2.insert(tk.END, '127.0.0.1')
+
 
         label2 = tk.Label(self, text="port")
         label2.grid(row=1, column=10)
         entry3 = tk.Entry(self)
+        entry3.insert(tk.END, '1234')
         entry3.grid(row=1, column=11)
-        button4 = tk.Button(self, text="Connect",command=lambda:parent.backend.connect(entry2.get(),entry3.get()))
+        button4 = tk.Button(self, text="Connect",command=lambda:controller.backend.connect(entry2.get(),entry3.get()))
         button4.grid(row=1, column=12)
 
         #more buttons can be added,as well as text boxes
         #the third arguement is gonna be the function the button need to bind
         button1=tk.Button(self,text="Button1")
         button2 = tk.Button(self, text="Button2")
-        button3 = tk.Button(self, text="Button3",command=lambda:parent.backend.send_byte(int(entry1.get())))
+        button3 = tk.Button(self, text="Button3",command=lambda:controller.backend.send_byte(int(entry1.get())))
         button1.grid(row=100,column=10)
         button2.grid(row=100, column=11)
         button3.grid(row=100, column=12)

@@ -42,6 +42,9 @@ class Networker:
                 self.sock.connect((self.addr, int(self.port)))
             except socket.timeout:
                 print("Connect timed out.")
+            except OSError as e:
+                print("Connection failed. OSError:" + e.strerror)
+                self.trying_connect = False
             except:
                 print("Unexpected error:", sys.exc_info()[0])
                 self.trying_connect = False
@@ -55,16 +58,38 @@ class Networker:
         Disconnects and resets and connection information.
         :return: None
         """
+        if not self.connected:
+            return
+
         self.connected = False
+        print("Socket disconnecting:")
         self.sock.close()
+
+        # Recreate the socket so that we aren't screwed.
+        self.sock = socket.socket()
 
     def send(self, message):
         """
         Sends a bytearray.
         :param message:
-        :return:
+        :return: True if no exceptions were thrown:
         """
-        self.sock.send(message)
+        # TODO proper error handling?
+        try:
+            self.sock.send(message)
+        except socket.timeout:
+            print("Socket timed out while sending")
+            self.disconnect()
+        except OSError as e:
+            print("Connection failed. OSError:" + e.strerror)
+            self.disconnect()
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+            self.disconnect()
+        else:
+            return True
+
+        return False
 
     def read_message(self):
         """
