@@ -45,4 +45,31 @@ def int_from_net_bytes(b):
         i = int.from_bytes(b, byteorder=sys.byteorder)
         return i#socket.ntohs(i)
 
+    if (len(b) == 8):
+        i = int.from_bytes(b, byteorder=sys.byteorder)
+        #NO 8 byte byteswap, which is an annoying problem.
+        #Not sure if we need it at all however.
+        return i
+
     return None
+
+def payload_from_bytes(b):
+    assert len(b) == payload_bytes
+
+    data = b[:payload_data_bytes]
+    data = int_from_net_bytes(data)
+
+    t = b[payload_time_offset:payload_time_offset + payload_time_bytes]
+    t = int_from_net_bytes(t)
+
+    return data, t
+
+def read_payload(b, nbytes, out_queue):
+    assert nbytes % payload_bytes == 0
+
+    bcount = 0
+    while bcount < nbytes:
+        d,t = payload_from_bytes(b[bcount: bcount + payload_bytes])
+        bcount += payload_bytes
+        #TODO handle multiple out queues
+        out_queue.put((d,t))

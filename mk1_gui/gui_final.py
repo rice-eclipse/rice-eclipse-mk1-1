@@ -58,38 +58,41 @@ class GUIBackend:
         the GUI thread.
         :return:
         """
-        self.logger.debug("Processing Messages")
+        if self.nw_queue.qsize() > 0:
+            self.logger.debug("Processing Messages")
         while self.nw_queue.qsize() > 0:
             mtype, nbytes, message = self.nw_queue.get()
 
             self.logger.debug("Processing message: Type:" + str(mtype) +
-                           " Nbytes:" + str(nbytes))
+                              " Nbytes:" + str(nbytes))
 
-            if (mtype == ACK_VALUE):
+            if mtype == ACK_VALUE:
                 pass
-            elif (mtype == PAYLOAD):
+            elif mtype == PAYLOAD:
                 # This means we have a byte array of multiple possible readings from the sensor.
                 # First make sure we have a multiple of the size we expect:
                 if nbytes % payload_bytes != 0:
-                    print("Received PAYLOAD message with improper number of bytes:" + nbytes)
+                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
                     return
 
-                bytes_read = 0
-                while bytes_read < nbytes:
-                    dat = message[bytes_read: bytes_read + payload_bytes]
-                    adc_read = dat[0:payload_bytes]
-                    adc_read = int.from_bytes(adc_read, byteorder=sys.byteorder)
-                    adc_read = socket.ntohs(adc_read)
+                # TODO this code is shit.
+                read_payload(message, nbytes, self.queue_out)
+                # bytes_read = 0
+                # while bytes_read < nbytes:
+                #     dat = message[bytes_read: bytes_read + payload_bytes]
+                #     adc_read = dat[0:payload_bytes]
+                #     adc_read = int.from_bytes(adc_read, byteorder=sys.byteorder)
+                #     adc_read = socket.ntohs(adc_read)
+                #
+                #     # TODO use the time to plot stuff
+                #     read_time = dat[payload_time_offset:payload_time_offset + payload_bytes]
 
-                    # TODO use the time to plot stuff
-                    read_time = dat[payload_time_offset:payload_time_offset + payload_bytes]
-
-                    self.nw.out_queue.put(adc_read)
+                #     self.nw.out_queue.put(adc_read)
             elif mtype == TEXT:
                 print(message.decode('utf-8'))
-                #sys.stdout.write(message.decode('utf-8'))
+                # sys.stdout.write(message.decode('utf-8'))
             else:
-                print("Received incorrect message header type")
+                self.logger.error("Received incorrect message header type")
 
 
 #######################################
@@ -104,6 +107,8 @@ class Plotter:
         :param axes: The axes on which to plot.
         :param queue_in: A queue of new data items that we should plot.
         """
+        assert isinstance(queue_in, Queue)
+
         # TODO make queue_in ints
         self.queue_in = queue_in
         self.xlist = []
@@ -120,11 +125,13 @@ class Plotter:
     # animation for live plot
     def animate(self, i):
         while self.queue_in.qsize() > 1:
-            first_byte = self.queue_in.get()
-            # second_byte = queue1.get()
-            pullData = int.from_bytes(first_byte, byteorder="big", signed=True)
+            # first_byte = self.queue_in.get()
+            # # second_byte = queue1.get()
+            # pullData = int.from_bytes(first_byte, byteorder="big", signed=True)
+            adc_data,t = self.queue_in.get()
+
             self.xlist.append(self.xcnt)
-            self.ylist.append(pullData)
+            self.ylist.append(adc_data)
             self.xcnt += 1
 
         self.redraw()
