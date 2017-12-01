@@ -30,8 +30,12 @@ void circular_buffer::add_data(void *p, size_t n) {
 }
 
 ssize_t circular_buffer::write_data(int fd, size_t n, size_t offset) {
-    if (offset < bytes_written.load() - this->nbytes) {
-        std::cerr << "Bytes already overwritten before sending" << std::endl;
+    size_t bw = bytes_written.load();
+    if ((long) offset <  (long) (bw - this->nbytes)) {
+        std::cerr << "Bytes already overwritten before sending: Num_to_write:" << n
+                  << " Offset:" << offset
+                  << " Total bytes written into buffer" << bw
+                  << " Total buffer size: " << nbytes << std::endl;
         return -1; //TODO don't collide with write error?
     }
     size_t to_send = nbytes - offset % this->nbytes; // The distance between start and the end of the buffer.

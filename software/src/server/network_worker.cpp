@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <poll.h>
+#include <stddef.h>
 #include "network_worker.hpp"
 #include "../util/listener.hpp"
 #include "../util/timestamps.hpp"

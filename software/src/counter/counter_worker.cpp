@@ -12,6 +12,8 @@ struct dummy_reading {
     uint64_t t;
 } reading;
 
+#define COUNT_PER_SEND 100
+
 void echo_worker::worker_method() {
     network_queue_item nqi;
     work_queue_item wqi;
@@ -46,14 +48,18 @@ void echo_worker::worker_method() {
                     reading.t = count;
                     buff.add_data(&reading, sizeof(reading));
                     count++;
-                    usleep(100);
+
+                    if (usleep(10000) != 0) {
+                        perror("sleep");
+                    }
+
                     //Check if it's been a while since we sent some data:
                     size_t bw = buff.bytes_written.load();
-                    if (bw > last_send + 100 * sizeof(reading)) {
+                    if (bw > last_send + COUNT_PER_SEND * sizeof(reading)) {
                         //Send some data:
                         nqi.type = nq_send;
-                        nqi.nbytes = 100 * sizeof(reading);
-                        nqi.total_bytes = bw;
+                        nqi.nbytes = bw - last_send;
+                        nqi.total_bytes = last_send;
                         nqi.buff = &buff;
 
                         qn.enqueue(nqi);
