@@ -41,10 +41,11 @@ struct work_queue_item {
 enum send_code {
     ack = 1,
     payload = 2, // TODO this payload needs to be something like load cell, etc. etc.
+    text = 3,
 };
 
-struct send_header {
+struct send_header_t {
     send_code code;
     size_t nbytes;
-};
+}; typedef struct send_header_t send_header_t;
 #endif //SOFTWARE_QUEUE_ITEMS_HPP

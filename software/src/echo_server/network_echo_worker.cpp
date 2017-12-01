@@ -36,6 +36,7 @@ bool network_echo_worker::process_nqi(network_queue_item &nqi) {
                 }
             }
             c = nqi.data[0];
+            network_worker::send_header(text, 1);
             write(connfd, &c, 1);
             return true;
 

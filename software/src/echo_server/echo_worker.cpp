@@ -34,7 +34,7 @@ void echo_worker::worker_method() {
                 }
 
                 std::cout << c; //Write the byte.
-
+                std::cout.flush();
                 //Send c back over the socket.
                 nqi.type = nq_send;
                 nqi.data[0] = c;

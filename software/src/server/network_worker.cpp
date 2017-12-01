@@ -8,6 +8,13 @@
 #include "../util/timestamps.hpp"
 
 void network_worker::worker_method() {
+    /*
+    std::cout << "Size of sht" << sizeof(send_header_t)
+              << " offset of nbytes"
+              << offsetof(send_header_t, nbytes)
+              << "sizeof send_code" << sizeof(send_code)
+              << std::endl;
+              */
     ssize_t read_result;
     char c;
     network_queue_item nqi;
@@ -92,6 +99,7 @@ ssize_t network_worker::do_recv(int fd, char *b, size_t nbytes) {
         fail_connection();
     }
 
+    //std::cout << "Read " << read_result << " bytes from socket." << std::endl;
     return read_result;
 }
 
@@ -119,4 +127,12 @@ void network_worker::open_connection() {
     connected = true;
     has_acked = false;
     last_recv = get_time();
+}
+
+void network_worker::send_header(send_code h, size_t nbytes) {
+    send_header_t sh;
+    sh.code = h;
+    sh.nbytes = nbytes;
+
+    write(connfd, &sh, sizeof(sh));
 }

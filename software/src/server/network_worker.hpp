@@ -74,6 +74,9 @@ class network_worker : public worker {
          */
         void open_connection();
 
+
+        void send_header(send_code h, size_t nbytes);
+
     protected:
         /**
          * A simple wrapper over read that handles errors and updates the timeout information.
