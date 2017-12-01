@@ -34,7 +34,6 @@ xlist = []
 ylist = []
 
 
-
 #animation for live plot
 def animate(i):
     if queue1.qsize()>1:

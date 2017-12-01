@@ -54,7 +54,15 @@ class Networker:
         self.thr.start()
         self.logger = Logger(name='networker', level=loglevel, outfile='networker.log')
 
+        self.server_info = ServerInfo()
+
         self.logger.info("Initialized")
+
+    def update_server_info(self, addr):
+        if '127.0.0.1' == addr:
+            self.server_info.info = ServerInfo.OtherInfo
+        else:
+            self.server_info.info = ServerInfo.PiInfo
 
     def connect(self, addr=None, port=None):
         """
@@ -89,9 +97,11 @@ class Networker:
                 self.logger.error("Connect: Unexpected error:" + str(sys.exc_info()[0]))
                 self.trying_connect = False
             else:
-                self.logger.error("Successfully connected.")
+                self.update_server_info(self.addr)
+                self.logger.error("Successfully connected. Using info" + self.server_info.info.__name__)
                 self.trying_connect = False
                 self.connected = True
+                # TODO make this variable not some hacky global.
                 self.conn_event.set()
 
     def disconnect(self):
@@ -167,19 +177,11 @@ class Networker:
         Reads a data header from PI server.
         :return: The header type, The number of bytes
         """
-        htype = self._recv(header_type_bytes)
-        if (len(htype) == 0):
+        b = self._recv(self.server_info.info.header_size)
+        if (len(b) == 0):
             return None, None
 
-
-        dummy_pad = self._recv(header_pad_bytes)
-
-        nbytes = self._recv(header_nbytes_info)
-
-        dummy_pad = self._recv(header_end_pad_bytes)
-
-        self.logger.debugv("Bytes form of nbytes:" + str(nbytes))
-        nbytes = int_from_net_bytes(nbytes)
+        htype, nbytes = self.server_info.decode_header(b)
 
         self.logger.debugv("Received message header: Type:" + str(htype) + " Nbytes:" + str(nbytes))
 

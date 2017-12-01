@@ -66,17 +66,17 @@ class GUIBackend:
             self.logger.debug("Processing message: Type:" + str(mtype) +
                               " Nbytes:" + str(nbytes))
 
-            if mtype == ACK_VALUE:
+            if mtype == ServerInfo.ACK_VALUE:
                 pass
-            elif mtype == PAYLOAD:
+            elif mtype == ServerInfo.PAYLOAD:
                 # This means we have a byte array of multiple possible readings from the sensor.
                 # First make sure we have a multiple of the size we expect:
-                if nbytes % payload_bytes != 0:
+                if nbytes % self.nw.server_info.info.payload_bytes != 0:
                     self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
                     return
 
                 # TODO this code is shit.
-                read_payload(message, nbytes, self.queue_out)
+                self.nw.server_info.read_payload(message, nbytes, self.queue_out)
                 # bytes_read = 0
                 # while bytes_read < nbytes:
                 #     dat = message[bytes_read: bytes_read + payload_bytes]
@@ -88,7 +88,7 @@ class GUIBackend:
                 #     read_time = dat[payload_time_offset:payload_time_offset + payload_bytes]
 
                 #     self.nw.out_queue.put(adc_read)
-            elif mtype == TEXT:
+            elif mtype == ServerInfo.TEXT:
                 print(message.decode('utf-8'))
                 # sys.stdout.write(message.decode('utf-8'))
             else:
@@ -120,7 +120,7 @@ class Plotter:
 
     def redraw(self):
         #print("Redrawing")
-        #print(self.xlist)
+        #print(len(self.xlist))
         #print(self.ylist)
         self.axes.clear()
         self.axes.plot(self.xlist, self.ylist)

@@ -4,72 +4,101 @@
 import socket
 import sys
 
-ACK_VALUE = bytes([1])
-PAYLOAD = bytes([2])
-TEXT = bytes([3])
 
-#############################################################################
-
-# Information on the padding of c structs that are sent raw by the PI server:
-
-header_type_bytes = 1
-header_pad_bytes = 7  # Not sure?
-header_nbytes_info = 4 # Verify this?
-header_end_pad_bytes = 4 # Another four pad bytes to word align the struct
-
-header_struct = (header_type_bytes,
-                 header_pad_bytes,
-                 header_nbytes_info)
-
-payload_data_bytes = 2
-payload_padding_bytes = 6
-payload_time_bytes = 8
-payload_time_offset = 8
-payload_bytes = 16
-
-#############################################################################
-
-
-def int_from_net_bytes(b):
+class ServerInfo:
     """
-    Converts a bytearray received from the network to an integer type 2 or 4 bytes.
-    :param b: A bytearray
-    :return: A 2 or 4 byte int.
+    A class that contains all the configuration info, like if we're connected to a pi or not.
+    Used to track manually unpacking structs and other dumb stuff.
     """
-    if len(b) == 4:
-        i = int.from_bytes(b, byteorder=sys.byteorder)
-        # TODO need to check if my computer and raspberry pi differ in endianness.
-        # Really hacky if this is the fix.
-        return i#socket.ntohl(i)
-    if len(b) == 2:
-        i = int.from_bytes(b, byteorder=sys.byteorder)
-        return i#socket.ntohs(i)
+    def __init__(self):
+        self.on_pi = True
+        self.info = ServerInfo.PiInfo
+        pass
 
-    if (len(b) == 8):
-        i = int.from_bytes(b, byteorder=sys.byteorder)
-        #NO 8 byte byteswap, which is an annoying problem.
-        #Not sure if we need it at all however.
-        return i
+    def int_from_net_bytes(self, b):
+        """
+        Converts a bytearray received from the network to an integer type 2 or 4 bytes.
+        :param b: A bytearray
+        :return: A 2 or 4 byte int.
+        """
+        if len(b) == 4:
+            i = int.from_bytes(b, self.info.byteorder)
+            # TODO need to check if my computer and raspberry pi differ in endianness.
+            # Really hacky if this is the fix.
+            print("4 byte int:" + str(i))
+            return i  # socket.ntohl(i)
+        if len(b) == 2:
+            i = int.from_bytes(b, self.info.byteorder)
+            print("2 byte int:" + str(i))
+            return i  # socket.ntohs(i)
 
-    return None
+        if (len(b) == 8):
+            i = int.from_bytes(b, self.info.byteorder)
+            # NO 8 byte byteswap, which is an annoying problem.
+            # Not sure if we need it at all however.
+            print("8 byte int:" + str(i))
+            return i
 
-def payload_from_bytes(b):
-    assert len(b) == payload_bytes
+        return None
 
-    data = b[:payload_data_bytes]
-    data = int_from_net_bytes(data)
+    ACK_VALUE = bytes([1])
+    PAYLOAD = bytes([2])
+    TEXT = bytes([3])
 
-    t = b[payload_time_offset:payload_time_offset + payload_time_bytes]
-    t = int_from_net_bytes(t)
+    class PiInfo:
+        byteorder='little'
 
-    return data, t
+        header_type_bytes = 1
+        header_nbytes_offset = 4
+        header_nbytes_info = 4
+        header_end_pad_bytes = 0
+        header_size = 8
 
-def read_payload(b, nbytes, out_queue):
-    assert nbytes % payload_bytes == 0
+        payload_data_bytes = 2
+        payload_padding_bytes = 6
+        payload_time_bytes = 8
+        payload_time_offset = 8
+        payload_bytes = 16
 
-    bcount = 0
-    while bcount < nbytes:
-        d,t = payload_from_bytes(b[bcount: bcount + payload_bytes])
-        bcount += payload_bytes
-        #TODO handle multiple out queues
-        out_queue.put((d,t))
+    class OtherInfo:
+        byteorder='little'
+
+        header_type_bytes = 1
+        header_nbytes_offset = 8
+        header_nbytes_info = 4
+        header_end_pad_bytes = 4
+        header_size = 16
+
+        payload_data_bytes = 2
+        payload_padding_bytes = 6
+        payload_time_bytes = 8
+        payload_time_offset = 8
+        payload_bytes = 16
+
+    def payload_from_bytes(self, b):
+        assert len(b) == self.info.payload_bytes
+
+        data = b[:self.info.payload_data_bytes]
+        data = self.int_from_net_bytes(data)
+
+        t = b[self.info.payload_time_offset:self.info.payload_time_offset + self.info.payload_time_bytes]
+        t = self.int_from_net_bytes(t)
+
+        return data, t
+
+    def read_payload(self, b, nbytes, out_queue):
+        assert nbytes % self.info.payload_bytes == 0
+
+        bcount = 0
+        while bcount < nbytes:
+            d, t = self.payload_from_bytes(b[bcount: bcount + self.info.payload_bytes])
+            bcount += self.info.payload_bytes
+            # TODO handle multiple out queues
+            out_queue.put((d, t))
+
+    def decode_header(self, b):
+        htype = b[:self.info.header_type_bytes]
+
+        nbytesb = b[self.info.header_nbytes_offset: self.info.header_nbytes_offset + self.info.header_nbytes_info]
+
+        return htype, self.int_from_net_bytes(nbytesb)
