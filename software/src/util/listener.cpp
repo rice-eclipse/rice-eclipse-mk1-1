@@ -67,6 +67,8 @@ wait_for_connection(int port, sockaddr *sa) {
     /* Acquire a port, and make sure we got it successfully. */
     listenfd = open_listen(port);
     if (listenfd < 0) {
+        //TODO I think the best option is to try opening a new port if this fails.
+        //Alternately closing the listenfd is a useful fix.
         fprintf(stderr, "Failed to open listener on %d\n", port);
         exit(1);
     }
@@ -84,7 +86,6 @@ wait_for_connection(int port, sockaddr *sa) {
         fprintf(stderr, "Received request on connfd on %d\n", connfd);
     #endif /*DEBUG_LISTENER*/
 
-    //TODO I think we need to close listenfd.
     close(listenfd);
     return connfd;
 }
