@@ -159,7 +159,15 @@ void main_worker::worker_method() {
 
                 } else {
                     // Handle the case of using ignition stuff.
-                    if ()
+                    if (ti->a == ign2) {
+                        disable_ti_item(ti);
+                        // Enable the second igntion thing:
+                        // TODO
+                    }
+                    if (ti->a == ign3) {
+                        // Disable ignition 3.
+                        disable_ti_item(ti);
+                    }
                 }
                 break;
             }
