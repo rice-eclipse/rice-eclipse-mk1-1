@@ -15,7 +15,7 @@ RPiGPIOPin SPI_CS_1 = RPI_V2_GPIO_P1_26;
 adc_block::adc_block(uint8_t num_adcs) {
     //these adc_infos need to be initialized
     //Add a default initialiation header file?
-    RPiGPIOPin adcs[num_adcs];
+    adcs = new RPiGPIOPin[num_adcs];
     for (int i = 0; i < num_adcs; i++) {
         adcs[i] = RPI_BPLUS_GPIO_J8_24;
     }

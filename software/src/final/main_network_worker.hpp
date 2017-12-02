@@ -13,7 +13,7 @@ class main_network_worker : public network_worker {
         circular_buffer &buff;
         main_network_worker(safe_queue<network_queue_item> &my_qn, safe_queue<work_queue_item> &my_qw, int port,
         circular_buffer &buff)
-        : network_worker(my_qn, my_qw, port, 15000)
+        : network_worker(my_qn, my_qw, port)
         , buff(buff)
         {
         };
