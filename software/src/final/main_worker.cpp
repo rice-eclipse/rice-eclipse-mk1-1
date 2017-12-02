@@ -49,6 +49,7 @@ static void check_ti_list(timestamp_t t, safe_queue<work_queue_item> &qw) {
 static void enable_ti_item(timed_item *ti, timestamp_t now) {
     ti->scheduled = now;
     ti->enabled = true;
+    std::cout << "Enabling timed item." << ti->a << std::endl;
 }
 
 static void disable_ti_item(timed_item *ti) {
@@ -281,6 +282,9 @@ void init_timed_items() {
     ign3_ti.b = NULL;
     ign3_ti.scheduled = now;
     ign3_ti.last_send = now;
+
+    // TODO should be using TI add for this. stupid me.
+    ti_count = 12;
 }
 
 void main_worker::worker_method() {
@@ -386,9 +390,10 @@ void main_worker::worker_method() {
                 } else {
                     // Handle the case of using ignition stuff.
                     if (ti->a == ign2) {
-                        disable_ti_item(ti);
-                        enable_ti_item(&ign3_ti, now);
-
+                        //TODO this is fucked.
+                        disable_ti_item(&ti_list[10]);
+                        //enable_ti_item(&ign3_ti, now);
+                        enable_ti_item(&ti_list[11], now);
                         std::cout << "Writing main valve on" << std::endl;
                         bcm2835_gpio_write(MAIN_VALVE, HIGH);
                         break;
@@ -400,7 +405,7 @@ void main_worker::worker_method() {
                         bcm2835_gpio_write(MAIN_VALVE, LOW);
 
                         // Disable ignition 3.
-                        disable_ti_item(ti);
+                        disable_ti_item(&ti_list[11]);
 
                         std::cout << "Writing ignition off" << std::endl;
                         bcm2835_gpio_write(IGN_START, LOW);
@@ -414,7 +419,7 @@ void main_worker::worker_method() {
                 std::cout << "Writing ignition on" << std::endl;
                 bcm2835_gpio_write(IGN_START, HIGH);
 
-                enable_ti_item(&ign2_ti, now);
+                enable_ti_item(&ti_list[10], now);
                 break;
             }
             case (wq_none): {
