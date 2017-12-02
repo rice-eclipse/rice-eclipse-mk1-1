@@ -43,12 +43,14 @@ ssize_t circular_buffer::write_data(int fd, size_t n, size_t offset) {
 #ifdef DEBUG_CIRC_SEND
     if (to_send > 4 * 16) {
         size_t temp_offset = offset % this->nbytes;
+        /*
         fprintf(stdout, "Offset %#u \n", (uint16_t) temp_offset);
         fprintf(stdout, "Sending Bytes: %X %llX %X %llX %X %llX %X %llX \n",
             *((uint16_t *)(data + temp_offset)), *((uint64_t *)(data + temp_offset + 8)),
             *((uint16_t *)(data + temp_offset + 16)), *((uint64_t *)(data + temp_offset + 24)),
             *((uint16_t *)(data + temp_offset + 32)), *((uint64_t *)(data + temp_offset + 40)),
             *((uint16_t *)(data + temp_offset + 48)), *((uint64_t *)(data + temp_offset + 56)));
+            * */
     }
 #endif
     ssize_t result;

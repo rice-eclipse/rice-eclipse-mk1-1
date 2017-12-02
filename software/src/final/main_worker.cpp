@@ -219,75 +219,7 @@ static timed_item ign3_ti = {
         false,
 };
 
-
-// Leaving this here, but it needs to be inlined to work with current implementation :(
-void init_timed_items() {
-    timestamp_t now = get_time();
-    size_t buff_size = 2 << 18;
-
-    ti_list[0] = lc_main_ti;
-    lc_main_ti.b = new circular_buffer(buff_size);
-    lc_main_ti.scheduled = now;
-    lc_main_ti.last_send = now;
-
-    ti_list[1] = lc1_ti;
-    lc1_ti.b = new circular_buffer(buff_size);
-    lc1_ti.scheduled = now;
-    lc1_ti.last_send = now;
-
-    ti_list[2] = lc2_ti;
-    lc2_ti.b = new circular_buffer(buff_size);
-    lc2_ti.scheduled = now;
-    lc2_ti.last_send = now;
-
-    ti_list[3] = lc3_ti;
-    lc3_ti.b = new circular_buffer(buff_size);
-    lc3_ti.scheduled = now;
-    lc3_ti.last_send = now;
-
-    ti_list[4] = pt_inje_ti;
-    pt_inje_ti.b = new circular_buffer(buff_size);
-    pt_inje_ti.scheduled = now;
-    pt_inje_ti.last_send = now;
-
-    ti_list[5] = pt_comb_ti;
-    pt_comb_ti.b = new circular_buffer(buff_size);
-    pt_comb_ti.scheduled = now;
-    pt_comb_ti.last_send = now;
-
-    ti_list[6] = pt_feed_ti;
-    pt_feed_ti.b = new circular_buffer(buff_size);
-    pt_feed_ti.scheduled = now;
-    pt_feed_ti.last_send = now;
-
-    ti_list[7] = tc1_ti;
-    tc1_ti.b = new circular_buffer(buff_size);
-    tc1_ti.scheduled = now;
-    tc1_ti.last_send = now;
-
-    ti_list[8] = tc2_ti;
-    tc2_ti.b = new circular_buffer(buff_size);
-    tc2_ti.scheduled = now;
-    tc2_ti.last_send = now;
-
-    ti_list[9] = tc3_ti;
-    tc3_ti.b = new circular_buffer(buff_size);
-    tc3_ti.scheduled = now;
-    tc3_ti.last_send = now;
-
-    ti_list[10] = ign2_ti;
-    ign2_ti.b = NULL;
-    ign2_ti.scheduled = now;
-    ign2_ti.last_send = now;
-
-    ti_list[11] = ign3_ti;
-    ign3_ti.b = NULL;
-    ign3_ti.scheduled = now;
-    ign3_ti.last_send = now;
-
-    // TODO should be using TI add for this. stupid me.
-    ti_count = 12;
-}
+uint16_t count = 0;
 
 void main_worker::worker_method() {
     network_queue_item nqi;
@@ -443,11 +375,15 @@ void main_worker::worker_method() {
                 
                 if (ti->b != NULL) {
                     adcd.dat = adcs.read_item(ti->ai);
+                    //adcd.dat = count++;
+                    //usleep(100);
+                    //FIXME switch this.
+
                     adcd.t = now;
                     ti->b->add_data(&adcd, sizeof(adcd));
                     // Now see if it has been long enough that we should send data:
                     if (now - ti->last_send > SEND_TIME) {
-                        size_t bw = buff.bytes_written.load();
+                        size_t bw = ti->b->bytes_written.load();
                         //std::cout << "Will do sending" << std::endl;
 
                         //Send some data:
@@ -455,11 +391,12 @@ void main_worker::worker_method() {
                         nqi.nbytes = bw - ti->nbytes_last_send;
                         nqi.total_bytes = ti->nbytes_last_send;
                         nqi.data[0] = ti->a; // Include info on which buffer this is from.
+                        nqi.buff = ti->b;
                         ti->nbytes_last_send = bw;
                         ti->last_send = now;
 
                         // TODO only enqueue if the nw is connected:
-                        if (!nw_ref->connected) {
+                        if (!nw_ref->connected && nqi.nbytes > 0) {
                             break;
                         }
                         qn.enqueue(nqi);

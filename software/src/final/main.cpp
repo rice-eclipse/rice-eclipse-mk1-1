@@ -41,6 +41,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+
     if (!bcm2835_init()) {
         std::cerr << "bcm2835_init failed. Are you running as root??\n" << std::endl;
         return 1;
@@ -57,16 +58,17 @@ int main(int argc, char **argv) {
     if (result != 0) {
         std::cerr << "Could not register exit function." << std::endl;
         return 1;
-    } 
-
-
-    // Set the base time so that we have no risk of overflow.
-    set_base_time();
+    }
 
     adc_block adcs = adc_block(3);
     adcs.register_pin(0, ADC_0_CS);
     adcs.register_pin(1, ADC_1_CS);
     adcs.register_pin(2, ADC_2_CS);
+
+    // Set the base time so that we have no risk of overflow.
+    set_base_time();
+
+
 
     // Now we create our network and hardware workers:
     safe_queue<network_queue_item> qn (null_nqi);

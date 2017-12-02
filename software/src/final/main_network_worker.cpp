@@ -43,7 +43,7 @@ bool main_network_worker::process_nqi(network_queue_item &nqi) {
                     return true;
                 }
             }
-            circular_buffer &buff = *nqi.buff;
+            circular_buffer *buff = nqi.buff;
 
             send_code h = (send_code) nqi.data[0];
 
@@ -51,12 +51,12 @@ bool main_network_worker::process_nqi(network_queue_item &nqi) {
             network_worker::send_header(h, nqi.nbytes);
 
             std::cout << "Writing data" << std::endl;
-            if (buff.write_data(connfd, nqi.nbytes, nqi.total_bytes) != 0) {
+            if (buff->write_data(connfd, nqi.nbytes, nqi.total_bytes) != 0) {
                 std::cerr << "Connection Closed" << std::endl;
                 //exit(0);
             }
 
-            break;
+            return true;
         }
 
         default: {
