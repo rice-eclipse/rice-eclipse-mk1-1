@@ -21,7 +21,7 @@ from  matplotlib import style
 class GUIBackend:
     def __init__(self, queue_out):
         self.nw_queue = Queue()
-        self.nw = Networker(queue=self.nw_queue, loglevel=LogLevel.DEBUGV)
+        self.nw = Networker(queue=self.nw_queue, loglevel=LogLevel.DEBUG)
         self.queue_out = queue_out
         self.logger = Logger(name='GUI', level=LogLevel.DEBUG, outfile='gui.log')
         self._periodic_process_recv()

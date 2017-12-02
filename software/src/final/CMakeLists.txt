@@ -1,7 +1,7 @@
 project(final)
 
 add_executable(${PROJECT_NAME} main.cpp initialization.cpp initialization.hpp main_network_worker.cpp main_network_worker.hpp
-        ../server/network_worker.cpp ../server/network_worker.hpp ../server/worker.hpp)
+        ../server/network_worker.cpp ../server/network_worker.hpp ../server/worker.hpp pins.hpp)
 
 SET(FINAL_LIBS timestamps.a listener.a circ_buff.a adc_lib.a)
 

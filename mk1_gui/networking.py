@@ -35,8 +35,8 @@ class Networker:
     @staticmethod
     def make_socket():
         sock = socket.socket()
-        # 10ms timeout, with the intent of giving just a bit of time if receiving.
-        sock.settimeout(0.01)
+        # 50ms timeout, with the intent of giving just a bit of time if receiving.
+        sock.settimeout(0.05)
 
         return sock
 

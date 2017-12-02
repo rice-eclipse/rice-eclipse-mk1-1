@@ -25,18 +25,18 @@ class ServerInfo:
             i = int.from_bytes(b, self.info.byteorder)
             # TODO need to check if my computer and raspberry pi differ in endianness.
             # Really hacky if this is the fix.
-            print("4 byte int:" + str(i))
+            # print("4 byte int:" + str(i))
             return i  # socket.ntohl(i)
         if len(b) == 2:
             i = int.from_bytes(b, self.info.byteorder)
-            print("2 byte int:" + str(i))
+            # print("2 byte int:" + str(i))
             return i  # socket.ntohs(i)
 
         if (len(b) == 8):
             i = int.from_bytes(b, self.info.byteorder)
             # NO 8 byte byteswap, which is an annoying problem.
             # Not sure if we need it at all however.
-            print("8 byte int:" + str(i))
+            # print("8 byte int:" + str(i))
             return i
 
         return None
