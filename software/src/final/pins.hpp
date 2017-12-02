@@ -5,6 +5,13 @@
 #ifndef SOFTWARE_PINS_HPP
 #define SOFTWARE_PINS_HPP
 
+#include <bcm2835.h>
+extern RPiGPIOPin ADC_0_CS;
+extern RPiGPIOPin ADC_1_CS;
+extern RPiGPIOPin ADC_2_CS;
 
-
+extern RPiGPIOPin MAIN_VALVE;
+extern RPiGPIOPin VALVE_2;
+extern RPiGPIOPin VALVE_3;
+extern RPiGPIOPin IGN_START;
 #endif //SOFTWARE_PINS_HPP

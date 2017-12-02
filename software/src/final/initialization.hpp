@@ -6,9 +6,14 @@
 #define SOFTWARE_INITIALIZATION_HPP
 
 /**
- * Sets all pins and SPI modes to the default state.
+ * Sets all pins and to the default state.
  * @return 0 unless an error occurs.
  */
 int initialize_pins();
+
+/**
+ * Initializes all the SPI stuff and ADC stuff.
+ */
+int initialize_spi();
 
 #endif //SOFTWARE_INITIALIZATION_HPP

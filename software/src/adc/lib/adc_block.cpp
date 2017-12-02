@@ -3,9 +3,13 @@
 //
 
 #include "adc_block.hpp"
+#include "../../final/pins.hpp"
 #include <bcm2835.h>
 #include <stdio.h>
 #include <byteswap.h>
+
+RPiGPIOPin SPI_CS_0 = RPI_V2_GPIO_P1_24;
+RPiGPIOPin SPI_CS_1 = RPI_V2_GPIO_P1_26;
 
 //Creates an internal array of adc_infos
 adc_block::adc_block(uint8_t num_adcs) {
@@ -38,16 +42,25 @@ uint16_t adc_block::read_item(adc_info idx) {
     char readb[3] = {0,0,0};
     uint16_t out_value = 0;
 
-    bcm2835_spi_chipSelect(BCM2835_SPI_CS0);                      // TODO
-    bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);      // The default
-    bcm2835_spi_setDataMode(BCM2835_SPI_MODE3);                   // The MCP... uses this.
-    //bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_256); // Just under 1MHz
-    bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_1024); // Seems like 1Mhz is too fast to charge internal cap.
-    bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);      // the default
+    // set the chip select based on which adc (by pin) we're using
+    if (idx.pin == SPI_CS_0) {
+        bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
+    } else if (idx.pin == SPI_CS_1) {
+        bcm2835_spi_chipSelect(BCM2835_SPI_CS1);
+    } else {
+        // Control the pin manually
+        //bcm2835_gpio_fsel(manual, BCM2835_GPIO_FSEL_OUTP);
+        bcm2835_spi_chipSelect(BCM2835_SPI_CS_NONE);
+        bcm2835_gpio_write(idx.pin, LOW); // write low to send before we do anything
+    }
 
     // Send 3 bytes to the slave and simultaneously read bytes back from the slave
     // If you tie MISO to MOSI, you should read back what was sent
     bcm2835_spi_transfernb(writeb, readb, 3);
+
+    if (idx.pin != SPI_CS_0 && idx.pin != SPI_CS_1) {
+        bcm2835_gpio_write(idx.pin, HIGH); // write high to end the transfer.
+    }
     //Copy the middle two bytes into out_value:
     readb[2] = (char)(((readb[2] >> 2) | ((readb[1] & 0x03) << 6)) & 0xFF); //Since we left shifted writeb earlier
     readb[1] = (char)((readb[1] >> 2) & 0x0F);
@@ -63,7 +76,7 @@ uint16_t adc_block::read_item(adc_info idx) {
 //just use the other one
 uint16_t adc_block::read_item(uint8_t adc_num, bool single_channel, uint8_t channel) {
     struct adc_info info {};
-    info.adc_num = adc_num;
+    info.pin = this->adcs[adc_num];
     info.pad = 0;
     info.single_channel = single_channel;
     info.channel = channel;

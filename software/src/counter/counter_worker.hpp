@@ -15,10 +15,10 @@
 #include "../server/worker.hpp"
 #include "../util/circular_buffer.hpp"
 
-class echo_worker : public worker {
+class counter_worker : public worker {
     public:
         circular_buffer &buff;
-        echo_worker(safe_queue<network_queue_item> &my_qn, safe_queue<work_queue_item> &my_qw,
+        counter_worker(safe_queue<network_queue_item> &my_qn, safe_queue<work_queue_item> &my_qw,
                            circular_buffer &buff)
                 : worker(my_qn, my_qw)
                 , buff(buff)
