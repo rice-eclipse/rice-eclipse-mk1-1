@@ -31,6 +31,8 @@ void main_worker::worker_method() {
             case (wq_process): {
                 c = wqi.data[0];
 
+                std::cout << "Processing request on worker: " << c << std::endl;
+
                 switch (c) {
                     case '0': {
                         wqi.action = wq_start;
