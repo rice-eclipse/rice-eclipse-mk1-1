@@ -15,6 +15,71 @@ work_queue_item null_wqi = {wq_none}; //An object with the non-matching type to 
 
 adc_reading adcd = {};
 
+static int ti_count = 0;
+static timed_item ti_list[MAX_TIMED_LIST_LEN] = {};
+
+static void add_timed_item(timed_item &ti) {
+    int i;
+    for (i = 0; i < MAX_TIMED_LIST_LEN; i++) {
+        if (ti_list[i].a == wq_none) {
+            ti_list[i] = ti;
+            ti_count++;
+            return;
+        }
+    }
+}
+
+static void check_ti_list(timestamp_t t, safe_queue<work_queue_item> &qw) {
+    int i, ti_seen = 0;
+    work_queue_item wqi;
+    for (i = 0; i < MAX_TIMED_LIST_LEN && ti_seen < ti_count; i++) {
+        if (ti_list[i].a != wq_none) {
+            ti_seen++;
+            if (ti_list[i].enabled && t > ti_list[i].scheduled && t - ti_list[i].scheduled > ti_list[i].delay) {
+                // Add this to the list of items to process:
+                wqi.action = wq_timed;
+                wqi.extra_datap = (void *) &ti_list[i];
+                qw.enqueue(wqi);
+            }
+        }
+    }
+    return;
+}
+
+static void enable_ti_item(timed_item *ti, timestamp_t now) {
+    ti->scheduled = now;
+    ti->enabled = true;
+}
+
+static void disable_ti_item(timed_item *ti) {
+    ti->enabled = false;
+}
+
+static timed_item lc1_ti = {
+        0,
+        LC1_T,
+        NULL,
+        {
+                RPI_BPLUS_GPIO_J8_03, // TODO replace with something else. Fuck.
+                0, //dummy pad
+                true, //use single channel (always true right now)
+                0 //the channel number
+        },
+        lc1,
+        true,
+};
+
+
+void init_timed_items() {
+    timestamp_t now = get_time();
+    size_t buff_size = 2 << 18;
+
+
+    ti_list[0] = lc1_ti;
+    lc1_ti.b = new circular_buffer(buff_size);
+    lc1_ti.scheduled = now;
+}
+
 void main_worker::worker_method() {
     network_queue_item nqi;
     work_queue_item wqi;
@@ -23,10 +88,14 @@ void main_worker::worker_method() {
     size_t last_send = 0;
     uint16_t count = 0;
 
+
+    init_timed_items();
+
     while (1) {
         //std::cout << "Backworker entering loop:\n";
         wqi = qw.poll();
         //std::cout << "Backworker got item:\n";
+        timestamp_t now = get_time();
         switch (wqi.action) {
             case (wq_process): {
                 c = wqi.data[0];
@@ -81,53 +150,29 @@ void main_worker::worker_method() {
                 sending = true;
                 break;
             }
-            case (wq_none): {
-                /*
-                 * Nothing in the work queue so do some work, such as reading sensors.
-                 */
-                if (sending) {
-                    //adcd.count = count;
-                    adcd.dat = adcs.read_item(0, true, 0);
-                    adcd.t = get_time();
-                    buff.add_data(&adcd, sizeof(adc_reading));
+            case (wq_timed): {
+                // Get the timed item that added this:
+                timed_item *ti = (timed_item *) wqi.extra_datap;
 
-                    //adcd.count = count;
-                    adcd.dat = adcs.read_item(0, true, 1);
-                    adcd.t = get_time();
-                    buff.add_data(&adcd, sizeof(adc_reading));
+                ti->scheduled = now;
+                if (ti->b != NULL) {
 
-                    adcd.dat = adcs.read_item(1, true, 0);
-                    adcd.t = get_time();
-                    buff.add_data(&adcd, sizeof(adc_reading));
-
-                    adcd.dat = adcs.read_item(2, true, 0);
-                    adcd.t = get_time();
-                    buff.add_data(&adcd, sizeof(adc_reading));
-
-                    if (usleep(1000) != 0) {
-                        perror("sleep");
-                    }
-
-                    //Check if it's been a while since we sent some data:
-                    size_t bw = buff.bytes_written.load();
-                    if (bw > last_send + COUNT_PER_SEND * sizeof(adc_reading)) {
-                        //Send some data:
-                        nqi.type = nq_send;
-                        nqi.nbytes = bw - last_send;
-                        nqi.total_bytes = last_send;
-                        nqi.buff = &buff;
-
-                        qn.enqueue(nqi);
-                        //std::cout << "Sending 200 bytes" << std::endl;
-                        last_send = bw;
-                        //TODO this carries a risk of missing some data. Fine on single worker thread, but bad.
-                        usleep(1000);
-                    }
-                    break;
+                } else {
+                    // Handle the case of using ignition stuff.
+                    if ()
                 }
-                //TODO update send data periodically instead of this way.
-
+                break;
             }
+            case (wq_none): {
+                check_ti_list(now, qw);
+                break;
+            }
+
+            default: {
+                std::cerr << "Work queue item not hanlded." << std::endl;
+                break;
+            }
+
         }
     }
 

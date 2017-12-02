@@ -24,10 +24,25 @@ struct network_queue_item {
 };
 
 enum wqi_type {
-    wq_none,
+    wq_none = 0,
     wq_process,
     wq_start,
-    wq_stop
+    wq_stop,
+    wq_timed, // Do some timed item with a given datap.
+    // Items used for timed items:
+    lc_main,
+    lc1,
+    lc2,
+    lc3,
+    pt_feed,
+    pt_inje,
+    pt_comb,
+    tc1,
+    tc2,
+    tc3,
+    ign1,
+    ign2,
+    ign3,
 };
 
 struct work_queue_item {
@@ -45,7 +60,8 @@ enum send_code {
     unset_valve = 4,
     set_valve = 5,
     unset_ignition = 6,
-    set_ignition = 7
+    set_ignition = 7,
+    ign_normal = 8,
 };
 
 struct send_header_t {
