@@ -4,7 +4,6 @@
 import socket
 import sys
 
-
 class ServerInfo:
     """
     A class that contains all the configuration info, like if we're connected to a pi or not.
@@ -44,6 +43,10 @@ class ServerInfo:
     ACK_VALUE = bytes([1])
     PAYLOAD = bytes([2])
     TEXT = bytes([3])
+    UNSET_VALVE = bytes([4])
+    SET_VALVE = bytes([5])
+    SET_IGNITION = bytes([6])
+    UNSET_IGNITION = bytes([7])
 
     class PiInfo:
         byteorder='little'
