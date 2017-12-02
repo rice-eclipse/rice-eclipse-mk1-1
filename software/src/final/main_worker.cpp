@@ -5,6 +5,7 @@
 #include "unistd.h"
 #include "main_worker.hpp"
 #include "../util/timestamps.hpp"
+#include "pins.hpp"
 
 #define COUNT_PER_SEND 2000
 
@@ -27,7 +28,34 @@ void main_worker::worker_method() {
         //std::cout << "Backworker got item:\n";
         switch (wqi.action) {
             case (wq_process): {
+                c = wqi.data[0];
 
+                switch (c) {
+                    case '0': {
+                        wqi.action = wq_start;
+                    }
+                    case '1': {
+                        wqi.action = wq_stop;
+                    }
+                    case unset_valve: {
+                        bcm2835_gpio_write(MAIN_VALVE, LOW);
+                    }
+                    case set_valve: {
+                        bcm2835_gpio_write(MAIN_VALVE, HIGH);
+                    }
+                    case unset_ignition: {
+                        bcm2835_gpio_write(MAIN_VALVE, LOW);
+                    }
+                    case set_ignition: {
+                        bcm2835_gpio_write(MAIN_VALVE, HIGH);
+                    }
+                    default: {
+                        wqi.action = wq_none;
+                    }
+                }
+
+                qw.enqueue(wqi);
+                break;
             }
 
             case (wq_stop) :{

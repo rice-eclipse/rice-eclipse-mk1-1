@@ -24,13 +24,8 @@ bool main_network_worker::process_nqi(network_queue_item &nqi) {
              * If we get a '1' then stop processing stuff.
              * Otherwise ignore the message.
              */
-            if (c == '0') {
-                wqi.action = wq_start;
-            } else if (c == '1') {
-                wqi.action = wq_stop;
-            } else {
-                wqi.action = wq_none;
-            }
+            wqi.action = wq_process;
+            wqi.data[0] = c;
             qw.enqueue(wqi);
             break;
         }

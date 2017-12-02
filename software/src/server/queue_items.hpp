@@ -42,6 +42,10 @@ enum send_code {
     ack = 1,
     payload = 2, // TODO this payload needs to be something like load cell, etc. etc.
     text = 3,
+    unset_valve = 4,
+    set_valve = 5,
+    unset_ignition = 6,
+    set_ignition = 7
 };
 
 struct send_header_t {
