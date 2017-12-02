@@ -7,7 +7,7 @@
 #include "initialization.hpp"
 #include "pins.hpp"
 
-int initialize_pins() {
+void initialize_pins() {
     // Set all the ADC chip selects to HIGH so that they don't interfere.
     bcm2835_gpio_fsel(ADC_0_CS, BCM2835_GPIO_FSEL_OUTP);
     bcm2835_gpio_write(ADC_0_CS, HIGH);
@@ -33,7 +33,7 @@ int initialize_pins() {
 
     // Setup all the SPI stuff:
 
-    return 0;
+    return;
 }
 
 int initialize_spi() {

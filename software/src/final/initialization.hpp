@@ -9,7 +9,7 @@
  * Sets all pins and to the default state.
  * @return 0 unless an error occurs.
  */
-int initialize_pins();
+void initialize_pins();
 
 /**
  * Initializes all the SPI stuff and ADC stuff.

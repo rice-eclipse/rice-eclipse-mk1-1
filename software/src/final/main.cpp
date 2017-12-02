@@ -28,7 +28,7 @@ circular_buffer buff(CIRC_SIZE);
  */
 int main(int argc, char **argv) {
     // Validate the arguments. TODO use a real argparse library
-    int port;
+    int port, result;
     if (argc != 2) {
         std::cerr << "Incorrect number of arguments. Usage final <port>" << std::endl;
         return 1;
@@ -46,15 +46,18 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if (initialize_pins() != 0) {
-        std::cerr << "Could not initialize hardware." << std::endl;
-        return 1;
-    };
+    initialize_pins();
 
     if (initialize_spi() != 0) {
         std::cerr << "Could not initialize SPI." << std::endl;
         return 1;
     };
+
+    result = atexit(initialize_pins);
+    if (result != 0) {
+        std::cerr << "Could not register exit function." << std::endl;
+        return 1;
+    } 
 
     adc_block adcs = adc_block(3);
     adcs.register_pin(0, ADC_0_CS);
