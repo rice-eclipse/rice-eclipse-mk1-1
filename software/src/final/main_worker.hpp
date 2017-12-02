@@ -9,8 +9,9 @@
 #include "../server/worker.hpp"
 #include "../adc/lib/adc_block.hpp"
 #include "../util/timestamps.hpp"
+#include "main_network_worker.hpp"
 
-extern main_network_worker
+extern main_network_worker &nw_ref;
 
 struct adc_reading {
     uint16_t dat;

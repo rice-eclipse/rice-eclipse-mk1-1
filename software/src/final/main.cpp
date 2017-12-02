@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
 
     main_worker cw(qn, qw, buff, adcs);
     main_network_worker nw(qn, qw, port, buff);
+    nw_ref = nw; // FML TODO UNFUCK THIS CODE.
 
     nw.start();
     cw.start();
