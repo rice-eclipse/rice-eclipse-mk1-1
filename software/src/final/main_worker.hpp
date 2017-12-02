@@ -11,8 +11,6 @@
 #include "../util/timestamps.hpp"
 #include "main_network_worker.hpp"
 
-extern main_network_worker &nw_ref;
-
 struct adc_reading {
     uint16_t dat;
     uint64_t t;
@@ -23,11 +21,13 @@ class main_worker : public worker {
     public:
         circular_buffer &buff;
         adc_block &adcs;
+        main_network_worker *nw_ref;
         main_worker(safe_queue<network_queue_item> &my_qn, safe_queue<work_queue_item> &my_qw,
-                       circular_buffer &buff, adc_block &adcs)
+                       circular_buffer &buff, adc_block &adcs, main_network_worker *nw_ref)
                 : worker(my_qn, my_qw)
                 , buff(buff)
                 , adcs(adcs)
+                , nw_ref(nw_ref)
         {
         };
 

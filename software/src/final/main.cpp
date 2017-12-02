@@ -77,9 +77,9 @@ int main(int argc, char **argv) {
 
     qn.enqueue(initial);
 
-    main_worker cw(qn, qw, buff, adcs);
+
     main_network_worker nw(qn, qw, port, buff);
-    nw_ref = nw; // FML TODO UNFUCK THIS CODE.
+    main_worker cw(qn, qw, buff, adcs, &nw);
 
     nw.start();
     cw.start();

@@ -459,7 +459,7 @@ void main_worker::worker_method() {
                         ti->last_send = now;
 
                         // TODO only enqueue if the nw is connected:
-                        if (!nw_ref.connected) {
+                        if (!nw_ref->connected) {
                             break;
                         }
                         qn.enqueue(nqi);
