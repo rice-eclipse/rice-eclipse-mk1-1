@@ -336,6 +336,12 @@ void main_worker::worker_method() {
                         bcm2835_gpio_write(IGN_START, HIGH);
                         break;
                     }
+                    case ign_normal: {
+                        std::cout << "Beginning timed ignition process" << std::endl;
+                        wqi.action = ign1;
+                        qw.enqueue(wqi);
+                        break;
+                    }
                     default: {
                         wqi.action = wq_none;
                         qw.enqueue(wqi);
@@ -371,6 +377,7 @@ void main_worker::worker_method() {
                         nqi.type = nq_send;
                         nqi.nbytes = bw - ti->nbytes_last_send;
                         nqi.total_bytes = ti->nbytes_last_send;
+                        nqi.data[0] = ti->a; // Include info on which buffer this is from.
                         ti->nbytes_last_send = bw;
                         ti->last_send = now;
 

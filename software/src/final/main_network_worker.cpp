@@ -45,8 +45,10 @@ bool main_network_worker::process_nqi(network_queue_item &nqi) {
             }
             circular_buffer &buff = *nqi.buff;
 
+            send_code h = (send_code) nqi.data[0];
+
             // TODO this header should correspond to something from the nqi data.
-            network_worker::send_header(payload, nqi.nbytes);
+            network_worker::send_header(h, nqi.nbytes);
 
             std::cout << "Writing data" << std::endl;
             if (buff.write_data(connfd, nqi.nbytes, nqi.total_bytes) != 0) {

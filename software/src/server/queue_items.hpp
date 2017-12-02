@@ -30,16 +30,16 @@ enum wqi_type {
     wq_stop,
     wq_timed, // Do some timed item with a given datap.
     // Items used for timed items:
-    lc_main,
-    lc1,
-    lc2,
-    lc3,
-    pt_feed,
-    pt_inje,
-    pt_comb,
-    tc1,
-    tc2,
-    tc3,
+    lc_main = 9,
+    lc1 = 10,
+    lc2 = 11,
+    lc3 = 12,
+    pt_feed = 13,
+    pt_inje = 14,
+    pt_comb = 15,
+    tc1 = 16,
+    tc2 = 17,
+    tc3 = 18,
     ign1,
     ign2,
     ign3,
@@ -62,6 +62,18 @@ enum send_code {
     unset_ignition = 6,
     set_ignition = 7,
     ign_normal = 8,
+
+    // Send codes used for dealing with this stuff.
+    lc_mains = 9,
+    lc1s = 10,
+    lc2s = 11,
+    lc3s = 12,
+    pt_feeds = 13,
+    pt_injes = 14,
+    pt_combs = 15,
+    tc1s = 16,
+    tc2s = 17,
+    tc3s = 18
 };
 
 struct send_header_t {
