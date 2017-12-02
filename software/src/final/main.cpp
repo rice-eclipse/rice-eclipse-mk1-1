@@ -31,12 +31,14 @@ int main(int argc, char **argv) {
     int port;
     if (argc != 2) {
         std::cerr << "Incorrect number of arguments. Usage final <port>" << std::endl;
+        return 1;
     }
 
     port = atoi(argv[1]);
 
     if (port <= 0) {
         std::cerr << "Port must be larger than zero." << std::endl;
+        return 1;
     }
 
     if (!bcm2835_init()) {

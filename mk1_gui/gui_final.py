@@ -68,6 +68,7 @@ class GUIBackend:
 
             if mtype == ServerInfo.ACK_VALUE:
                 pass
+                #self.nw.send()
             elif mtype == ServerInfo.PAYLOAD:
                 # This means we have a byte array of multiple possible readings from the sensor.
                 # First make sure we have a multiple of the size we expect:
