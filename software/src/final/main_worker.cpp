@@ -445,10 +445,10 @@ void main_worker::worker_method() {
                     adcd.dat = adcs.read_item(ti->ai);
                     adcd.t = now;
                     ti->b->add_data(&adcd, sizeof(adcd));
-                    std::cout << "Considering sending" << now - ti->last_send << std::endl;
                     // Now see if it has been long enough that we should send data:
                     if (now - ti->last_send > SEND_TIME) {
                         size_t bw = buff.bytes_written.load();
+                        //std::cout << "Will do sending" << std::endl;
 
                         //Send some data:
                         nqi.type = nq_send;
@@ -458,6 +458,10 @@ void main_worker::worker_method() {
                         ti->nbytes_last_send = bw;
                         ti->last_send = now;
 
+                        // TODO only enqueue if the nw is connected:
+                        if (!nw.connected) {
+                            break;
+                        }
                         qn.enqueue(nqi);
                     }
                 } else {

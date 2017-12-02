@@ -10,6 +10,8 @@
 #include "../adc/lib/adc_block.hpp"
 #include "../util/timestamps.hpp"
 
+extern main_network_worker
+
 struct adc_reading {
     uint16_t dat;
     uint64_t t;
