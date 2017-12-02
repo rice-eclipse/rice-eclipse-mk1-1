@@ -14,4 +14,8 @@ extern RPiGPIOPin MAIN_VALVE;
 extern RPiGPIOPin VALVE_2;
 extern RPiGPIOPin VALVE_3;
 extern RPiGPIOPin IGN_START;
+
+extern RPiGPIOPin LC_ADC;
+extern RPiGPIOPin PT_ADC;
+extern RPiGPIOPin TC_ADC;
 #endif //SOFTWARE_PINS_HPP

@@ -59,6 +59,10 @@ int main(int argc, char **argv) {
         return 1;
     } 
 
+
+    // Set the base time so that we have no risk of overflow.
+    set_base_time();
+
     adc_block adcs = adc_block(3);
     adcs.register_pin(0, ADC_0_CS);
     adcs.register_pin(1, ADC_1_CS);
