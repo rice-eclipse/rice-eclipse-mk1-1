@@ -70,7 +70,7 @@ void main_worker::worker_method() {
                         break;
                     }
                 }
-                return;
+                break;
             }
 
             case (wq_stop) :{
@@ -123,7 +123,7 @@ void main_worker::worker_method() {
                         //TODO this carries a risk of missing some data. Fine on single worker thread, but bad.
                         usleep(1000);
                     }
-                    return;
+                    break;
                 }
                 //TODO update send data periodically instead of this way.
 
