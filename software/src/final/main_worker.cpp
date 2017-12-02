@@ -2,6 +2,7 @@
 // Created by rjcunningham on 12/1/17.
 //
 
+#include <iostream>
 #include "unistd.h"
 #include "main_worker.hpp"
 #include "../util/timestamps.hpp"
@@ -33,29 +34,42 @@ void main_worker::worker_method() {
                 switch (c) {
                     case '0': {
                         wqi.action = wq_start;
+                        qw.enqueue(wqi);
+                        break;
                     }
                     case '1': {
                         wqi.action = wq_stop;
+                        qw.enqueue(wqi);
+                        break;
                     }
                     case unset_valve: {
+                        std::cout << "Writing main valve off" << std::endl;
                         bcm2835_gpio_write(MAIN_VALVE, LOW);
+                        break;
                     }
                     case set_valve: {
+                        std::cout << "Writing main valve on" << std::endl;
                         bcm2835_gpio_write(MAIN_VALVE, HIGH);
+                        break;
                     }
                     case unset_ignition: {
-                        bcm2835_gpio_write(MAIN_VALVE, LOW);
+                        std::cout << "Writing ignition off" << std::endl;
+                        bcm2835_gpio_write(IGN_START, LOW);
+                        break;
                     }
                     case set_ignition: {
-                        bcm2835_gpio_write(MAIN_VALVE, HIGH);
+                        std::cout << "Writing ignition on" << std::endl;
+                        bcm2835_gpio_write(IGN_START, HIGH);
+                        break;
                     }
                     default: {
                         wqi.action = wq_none;
+                        qw.enqueue(wqi);
+                        break;
                     }
                 }
 
-                qw.enqueue(wqi);
-                break;
+                return true;
             }
 
             case (wq_stop) :{
@@ -108,6 +122,7 @@ void main_worker::worker_method() {
                         //TODO this carries a risk of missing some data. Fine on single worker thread, but bad.
                         usleep(1000);
                     }
+                    return true;
                 }
                 //TODO update send data periodically instead of this way.
 
