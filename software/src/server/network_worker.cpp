@@ -130,10 +130,24 @@ void network_worker::open_connection() {
     last_recv = get_time();
 }
 
-void network_worker::send_header(send_code h, size_t nbytes) {
+ssize_t network_worker::send_header(send_code h, size_t nbytes) {
     send_header_t sh;
     sh.code = h;
     sh.nbytes = nbytes;
-
-    write(connfd, &sh, sizeof(sh));
+   
+    ssize_t result = write(connfd, &sh, sizeof(sh));
 }
+
+ssize_t rwrite(int fd, void *b, size_t n) {
+    if (n == 0) {
+        return 0;
+    }
+    ssize_t result = write(fd, b, n);
+
+    if (result <= 0) {
+        std::cerr << "Error while writing?" << std::endl;
+        perror("help me please");
+    }
+
+    return result + rwrite(fd, ((char *)b ) + result, n - result);
+} 

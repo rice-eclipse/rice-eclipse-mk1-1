@@ -75,7 +75,9 @@ class network_worker : public worker {
         void open_connection();
 
 
-        void send_header(send_code h, size_t nbytes);
+        ssize_t send_header(send_code h, size_t nbytes);
+
+        ssize_t rwrite(int fd, void *b, size_t n);
 
     protected:
         /**

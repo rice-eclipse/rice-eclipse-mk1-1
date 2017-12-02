@@ -30,32 +30,36 @@ void circular_buffer::add_data(void *p, size_t n) {
 }
 
 ssize_t circular_buffer::write_data(int fd, size_t n, size_t offset) {
+    if (n == 0) {
+        return 0;
+    }
     size_t bw = bytes_written.load();
     if ((long) offset <  (long) (bw - this->nbytes)) {
         std::cerr << "Bytes already overwritten before sending: Num_to_write:" << n
                   << " Offset:" << offset
                   << " Total bytes written into buffer" << bw
                   << " Total buffer size: " << nbytes << std::endl;
-        return -1; //TODO don't collide with write error?
+        //return -1; //TODO don't collide with write error?
     }
     size_t to_send = nbytes - offset % this->nbytes; // The distance between start and the end of the buffer.
     to_send = to_send > n ? n : to_send; //Take the minimum value of n and to_send.
 #ifdef DEBUG_CIRC_SEND
     if (to_send > 4 * 16) {
         size_t temp_offset = offset % this->nbytes;
-        /*
+        
         fprintf(stdout, "Offset %#u \n", (uint16_t) temp_offset);
-        fprintf(stdout, "Sending Bytes: %X %llX %X %llX %X %llX %X %llX \n",
+        fprintf(stdout, "Sending Bytes: %X %lld %X %lld %X %lld %X %lld \n",
             *((uint16_t *)(data + temp_offset)), *((uint64_t *)(data + temp_offset + 8)),
             *((uint16_t *)(data + temp_offset + 16)), *((uint64_t *)(data + temp_offset + 24)),
             *((uint16_t *)(data + temp_offset + 32)), *((uint64_t *)(data + temp_offset + 40)),
             *((uint16_t *)(data + temp_offset + 48)), *((uint64_t *)(data + temp_offset + 56)));
-            * */
     }
 #endif
     ssize_t result;
     result = write(fd, data + offset % this->nbytes, to_send);
     if (result <= 0) {
+        perror("help?");
+        std::cerr << "Error while writing." << std::endl;
         return result;
     } else {
         //Need to send slightly less data now:

@@ -50,7 +50,7 @@ bool main_network_worker::process_nqi(network_queue_item &nqi) {
             // TODO this header should correspond to something from the nqi data.
             network_worker::send_header(h, nqi.nbytes);
 
-            std::cout << "Writing data" << std::endl;
+            std::cout << "Writing data: Nbytes:" << nqi.nbytes << "Type:" << h << std::endl;
             if (buff->write_data(connfd, nqi.nbytes, nqi.total_bytes) != 0) {
                 std::cerr << "Connection Closed" << std::endl;
                 //exit(0);
