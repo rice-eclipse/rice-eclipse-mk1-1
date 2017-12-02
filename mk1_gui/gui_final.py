@@ -19,10 +19,13 @@ matplotlib.use("TKAgg")
 
 
 class GUIBackend:
-    def __init__(self, queue_out):
+    def __init__(self, queue_out, queue_adc1, queue_adc2, queue_adc3):
         self.nw_queue = Queue()
         self.nw = Networker(queue=self.nw_queue, loglevel=LogLevel.DEBUGV)
         self.queue_out = queue_out
+        self.queue_adc1 = queue_adc1
+        self.queue_adc2 = queue_adc2
+        self.queue_adc3 = queue_adc3
         self.logger = Logger(name='GUI', level=LogLevel.DEBUG, outfile='gui.log')
         self._periodic_process_recv()
 
@@ -60,11 +63,27 @@ class GUIBackend:
         while self.nw_queue.qsize() > 0:
             mtype, nbytes, message = self.nw_queue.get()
 
-            self.logger.debug("Processing message: Type:" + str(mtype) +
-                              " Nbytes:" + str(nbytes))
+            self.logger.debug("Processing message: Type:" + str(mtype) +" Nbytes:" + str(nbytes))
 
+            # todo add multiple payload outputs
             if mtype == ServerInfo.ACK_VALUE:
                 pass
+            elif mtype == ServerInfo.LC1S:
+                if nbytes % self.nw.server_info.info.payload_bytes != 0:
+                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
+                    return
+                self.nw.server_info.read_payload(message, nbytes, self.queue_adc1)
+
+            elif mtype == ServerInfo.LC2S:
+                if nbytes % self.nw.server_info.info.payload_bytes != 0:
+                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
+                    return
+                self.nw.server_info.read_payload(message, nbytes, self.queue_adc2)
+            elif mtype == ServerInfo.LC3S:
+                if nbytes % self.nw.server_info.info.payload_bytes != 0:
+                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
+                    return
+                self.nw.server_info.read_payload(message, nbytes, self.queue_adc3)
             elif mtype == ServerInfo.PAYLOAD:
                 # This means we have a byte array of multiple possible readings from the sensor.
                 # First make sure we have a multiple of the size we expect:
@@ -73,7 +92,10 @@ class GUIBackend:
                     return
 
                 # TODO this code is shit.
+
                 self.nw.server_info.read_payload(message, nbytes, self.queue_out)
+
+
                 # bytes_read = 0
                 # while bytes_read < nbytes:
                 #     dat = message[bytes_read: bytes_read + payload_bytes]
@@ -116,26 +138,28 @@ class Plotter:
         self.filename = filename
 
     def redraw(self):
+        print ("redrawing")
         self.axes.clear()
         self.axes.plot(self.xlist, self.ylist)
 
     def animate(self, i):
 
-        if random.random() > .5:
-        # while self.queue_in.qsize() > 1:
+        #if random.random() > .5:
+         while self.queue_in.qsize() > 1:
             # first_byte = self.queue_in.get()
             # second_byte = queue1.get()
             # pullData = int.from_bytes(first_byte, byteorder="big", signed=True)
-            # adc_data, t = self.queue_in.get()
+            adc_data, t = self.queue_in.get()
 
             # self.xlist.append(self.xcnt)
-            # self.xlist.append(t) #todo check that x is time
-            self.xlist = [x for x in range(10)]
-            # self.ylist.append(adc_data)
-            self.ylist = [random.random() for x in range(10)]
+            self.xlist.append(t) #todo check that x is time
+            #self.xlist = [x for x in range(10)]
+            self.ylist.append(adc_data)
+            #self.ylist = [random.random() for x in range(10)]
 
             # print ("xlist", self.xlist)
             # print ("ylist", self.ylist)
+            print (self.filename, "Avg of last 5 values: ", sum(self.ylist[-5:])/5.0)
 
             # append all our input data (what we're plotting on the axes) to a csv file
             # todo
@@ -157,7 +181,7 @@ class GUIFrontend(tk.Tk):
 
         tk.Tk.__init__(self,*args,**kwargs)
 
-        background_frame = tk.Frame(self)
+        background_frame = tk.Frame(self, width=1280, height=800)
         background_frame.pack(side="top", fill="both", expand=True)
         background_frame.grid_rowconfigure(0, weight=1)
         background_frame.grid_columnconfigure(0, weight=1)
@@ -207,37 +231,42 @@ class StartPage(tk.Frame):
         axes_30 = self.figure.add_subplot(222)
         axes_10 = self.figure.add_subplot(223)
         axes_1 = self.figure.add_subplot(224)
-        self.graph_60 = Plotter("plot_60", axes_60, self.controller.backend.queue_out)
-        self.graph_30 = Plotter("plot_30", axes_30, self.controller.backend.queue_out)
-        self.graph_10 = Plotter("plot_10", axes_10, self.controller.backend.queue_out)
+        # todo these show load cells for now
+        self.graph_60 = Plotter("adc1", axes_60, self.controller.backend.queue_adc1)
+        self.graph_30 = Plotter("adc2", axes_30, self.controller.backend.queue_adc2)
+        self.graph_10 = Plotter("adc3", axes_10, self.controller.backend.queue_adc3)
         self.graph_1 = Plotter("plot_1", axes_1, self.controller.backend.queue_out)
 
         tk.Frame.__init__(self, parent)
         ip_label = tk.Label(self, text="IP")
-        ip_label.grid(row=0, column=10)
+        ip_label.place(relx=.25, rely=0)
         ip_entry = tk.Entry(self)
-        ip_entry.grid(row=0, column=11)
+        ip_entry.place(relx=.3, rely=0)
         ip_entry.insert(tk.END, '127.0.0.1')
 
         port_label = tk.Label(self, text="port")
-        port_label.grid(row=1, column=10)
+        port_label.place(relx=.7, rely=0)
         port_entry = tk.Entry(self)
         port_entry.insert(tk.END, '1234')
-        port_entry.grid(row=1, column=11)
+        port_entry.place(relx=.75, rely=0)
 
-        connect_button = tk.Button(self, text="Connect",
-                            command=lambda:controller.backend.connect(ip_entry.get(), port_entry.get()))
-        connect_button.grid(row=1, column=12)
+        # Connect and disconnect buttons
+        connect_button = tk.Button(self, text="Connect", command=lambda: controller.backend.connect(ip_entry.get(), port_entry.get()))
+        connect_button.grid(row=1, column=11)
+
+        disconnect_button = tk.Button(self, text="Disconnect",
+                                      command=lambda: controller.backend.disconnect())
+        disconnect_button.place(relx=.55, rely=0)
 
         send_string_button = tk.Button(self, text="send as string",
                             command=lambda:controller.backend.send_text(send_entry.get() + "\n"))
         send_byte_button = tk.Button(self, text="send as byte",
                             command=lambda:controller.backend.send_byte(int(send_entry.get())))
-        send_string_button.grid(row=100, column=11)
-        send_byte_button.grid(row=100, column=12)
+        send_string_button.place(relx=.25, rely=1)
+        send_byte_button.place(relx=.7, rely=1)
 
         send_entry = tk.Entry(self)
-        send_entry.grid(row=101, column=11)
+        send_entry.place(relx=.5, rely=1)
 
         # Buttons for actuating the valve
         set_valve_button = tk.Button(self, text="Set Valve",
@@ -245,12 +274,12 @@ class StartPage(tk.Frame):
         unset_valve_button = tk.Button(self, text="Unset Valve",
                             command=lambda:controller.backend.send_byte(ServerInfo.UNSET_VALVE))
 
-        set_valve_button.grid(row=105, column = 10)
-        unset_valve_button.grid(row=105, column=11)
+        set_valve_button.grid(row=3, column = 13)
+        unset_valve_button.grid(row=10, column=14)
 
         # Calibration buttons and entry boxes
         calibration_entry = tk.Entry(self)
-        calibration_entry.grid(row=101, column=12)
+        calibration_entry.grid(row=101, column=13)
 
         # Input a single int representing the sensor #
         load_calibration_button = tk.Button(self, text="Load Calibration",
@@ -261,11 +290,6 @@ class StartPage(tk.Frame):
 
         load_calibration_button.grid(row=108, column=11)
         set_calibration_button.grid(row=108, column=12)
-
-        # Disconnect button
-        disconnect_button = tk.Button(self, text="Disconnect",
-                                      command=lambda:controller.backend.disconnect())
-        disconnect_button.grid(row=108, column=10)
 
         # todo ignition button
         set_ignition_button = tk.Button(self,
@@ -282,6 +306,7 @@ class StartPage(tk.Frame):
         unset_ignition_button.image = unset_ignition_image
         unset_ignition_button.grid(row=115, column=5)
 
+        # This configures where the graphs are on the canvas
         canvas = FigureCanvasTkAgg(self.figure, self)
         canvas.show()
         # todo configure these
@@ -319,5 +344,5 @@ class StartPage(tk.Frame):
         file.close()
 
 
-frontend = GUIFrontend(GUIBackend(Queue()))
+frontend = GUIFrontend(GUIBackend(Queue(), Queue(), Queue(), Queue()))
 frontend.run()
