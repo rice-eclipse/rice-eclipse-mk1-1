@@ -27,7 +27,7 @@ bool main_network_worker::process_nqi(network_queue_item &nqi) {
             wqi.action = wq_process;
             wqi.data[0] = c;
             qw.enqueue(wqi);
-            break;
+            return true;
         }
         case (nq_send_ack): {
             // Don't actually send an ack. Just don't timeout for now.
