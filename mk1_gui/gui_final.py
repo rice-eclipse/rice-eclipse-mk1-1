@@ -138,12 +138,9 @@ class Plotter:
 
         # TODO make queue_in ints
         self.queue_in = queue_in
-        # self.queue_in = [int(q_item) for q_item in queue_in]
         self.xlist = []  # new data to plot on x
         self.ylist = []  # new data to plot on y
-        # TODO plot by time instead:
         self.axes = axes
-        # TODO clear old data.
         self.filename = filename
 
     def redraw(self):
@@ -152,26 +149,31 @@ class Plotter:
         self.axes.plot(self.xlist, self.ylist)
 
     def log(self):
+        print (self.filename, "logging")
         # log all our input data (what we're plotting on the axes) to a csv file
         with open(self.filename, 'a') as save_file:  # append
-            writer = csv.writer(save_file, delimiter=" ")
-            data = zip(self.xlist, self.ylist)
-            for datum in data:
-                writer.writerow(str(datum[0]) + str(datum[1]))  # outputs in the format timestamp: data
+            writer = csv.writer(save_file)
+            #todo format this correctly
+            writer.writerow(str(self.xlist[-1:]) + str(self.ylist[-1:]))  # outputs in the format timestamp: data
 
     def animate(self, i):
          while self.queue_in.qsize() > 1:
             #print ("animating")
             adc_data, t = self.queue_in.get()
-            self.xlist.append(t) #todo check that x is time
+            self.xlist.append(t) # todo set amounts of data
             self.ylist.append(adc_data)
 
-            #print ("xlist", self.xlist)
-            #print ("ylist", self.ylist)
+            if len(self.xlist) > 100:
+                self.xlist.pop(0)
+            if len(self.ylist) > 100:
+                self.ylist.pop(0)
+
+            # print ("xlist", self.xlist)
+            # print ("ylist", self.ylist)
 
          print(self.filename, "Avg of last 5 values: ", sum(self.ylist[-5:]) / 5.0)
          self.log()
-         #print("y-list", self.ylist)
+         # print("y-list", self.ylist)
          self.redraw()
 
 
@@ -201,10 +203,10 @@ class GUIFrontend(tk.Tk):
 
         # Setup the animation. FIXME, should this be in the frame?:
         # I'm disgusted that this works.
-        #self.anim_60 = animation.FuncAnimation(frame.figure, frame.graph1.animate, interval=500)
-        #self.anim_30 = animation.FuncAnimation(frame.figure, frame.graph2.animate, interval=500)
+        self.anim_60 = animation.FuncAnimation(frame.figure, frame.graph1.animate, interval=500)
+        self.anim_30 = animation.FuncAnimation(frame.figure, frame.graph2.animate, interval=500)
         self.anim_10 = animation.FuncAnimation(frame.figure, frame.graph3.animate, interval=500)
-        #self.anim_1 = animation.FuncAnimation(frame.figure, frame.graph4.animate, interval=500)
+        self.anim_1 = animation.FuncAnimation(frame.figure, frame.graph4.animate, interval=500)
 
         # todo make this cleaner
         self.plotters = [frame.graph1, frame.graph2, frame.graph3, frame.graph4,
@@ -251,18 +253,18 @@ class StartPage(tk.Frame):
         axes3 = self.figure.add_subplot(223)
         axes4 = self.figure.add_subplot(224)
         # add axes selection for plots
-        self.graph1 = Plotter("adc1", axes1, self.controller.backend.queue_pt1)
-        self.graph2 = Plotter("adc2", axes2, self.controller.backend.queue_pt2)
+        self.graph1 = Plotter("pt1", axes1, self.controller.backend.queue_pt1)
+        self.graph2 = Plotter("pt2", axes2, self.controller.backend.queue_pt2)
         self.graph3 = Plotter("tc1", axes3, self.controller.backend.queue_tc1)
         self.graph4 = Plotter("lcm", axes4, self.controller.backend.queue_lcm)
 
         # axes don't matter since we won't be animating these plots
-        self.pt1 = Plotter("adc1", axes1, self.controller.backend.queue_lc1)
-        self.pt2 = Plotter("adc2", axes1, self.controller.backend.queue_lc2)
-        self.pt3 = Plotter("adc3", axes1, self.controller.backend.queue_lc3)
-        self.tc1 = Plotter("plot_1", axes1, self.controller.backend.queue_tc1)
-        self.tc2 = Plotter("adc1", axes1, self.controller.backend.queue_tc2)
-        self.tc3 = Plotter("adc2", axes1, self.controller.backend.queue_tc3)
+        self.pt1 = Plotter("lc1", axes1, self.controller.backend.queue_lc1)
+        self.pt2 = Plotter("lc2", axes1, self.controller.backend.queue_lc2)
+        self.pt3 = Plotter("lc3", axes1, self.controller.backend.queue_lc3)
+        self.tc1 = Plotter("tc1", axes1, self.controller.backend.queue_tc1)
+        self.tc2 = Plotter("tc2", axes1, self.controller.backend.queue_tc2)
+        self.tc3 = Plotter("tc3", axes1, self.controller.backend.queue_tc3)
 
         tk.Frame.__init__(self, parent)
         ip_label = tk.Label(self, text="IP")
