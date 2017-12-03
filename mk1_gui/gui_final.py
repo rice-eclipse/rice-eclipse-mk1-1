@@ -1,28 +1,31 @@
-import socket
-import threading
-from queue import Queue
-import serial
+import csv
+import json
+from tkinter import PhotoImage
+import time
+from sklearn import linear_model
 import matplotlib
-
-from concurrency import async
-from networking import *
-
-matplotlib.use("TKAgg")
+from scipy import random
 import tkinter as tk
-from tkinter import ttk
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg,NavigationToolbar2TkAgg
+from concurrency import async
+from networking import*
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import matplotlib.animation as animation
-from  matplotlib import style
+from mk1_gui.server_info import ServerInfo
 
+matplotlib.use("TKAgg")
 
 # Backend things for the GUI
 
+
 class GUIBackend:
-    def __init__(self, queue_out):
+    def __init__(self, queue_out, queue_adc1, queue_adc2, queue_adc3):
         self.nw_queue = Queue()
-        self.nw = Networker(queue=self.nw_queue, loglevel=LogLevel.DEBUG)
+        self.nw = Networker(queue=self.nw_queue, loglevel=LogLevel.DEBUGV)
         self.queue_out = queue_out
+        self.queue_adc1 = queue_adc1
+        self.queue_adc2 = queue_adc2
+        self.queue_adc3 = queue_adc3
         self.logger = Logger(name='GUI', level=LogLevel.DEBUG, outfile='gui.log')
         self._periodic_process_recv()
 
@@ -34,9 +37,7 @@ class GUIBackend:
 
     def send_byte(self, b):
         """
-        Sends a single byte.
-        :param b: A number from 0 to 255
-        :return: None
+        Sends a single byte from 0 to 255
         """
         self.nw.send(bytes([b]))
 
@@ -46,7 +47,7 @@ class GUIBackend:
     @async
     def _periodic_process_recv(self):
         while True:
-            serial.time.sleep(0.1)
+            time.sleep(0.1)
             if not self.nw.connected:
                 continue
 
@@ -54,8 +55,7 @@ class GUIBackend:
 
     def _process_recv_message(self):
         """
-        A method that pulls new messages from the nw_queue and processes them and appropriately gives them to
-        the GUI thread.
+        Pulls/processes new messages from the nw_queue and gives them to the appropriate GUI thread.
         :return:
         """
         if self.nw_queue.qsize() > 0:
@@ -63,12 +63,27 @@ class GUIBackend:
         while self.nw_queue.qsize() > 0:
             mtype, nbytes, message = self.nw_queue.get()
 
-            self.logger.debug("Processing message: Type:" + str(mtype) +
-                              " Nbytes:" + str(nbytes))
+            self.logger.debug("Processing message: Type:" + str(mtype) +" Nbytes:" + str(nbytes))
 
+            # todo add multiple payload outputs
             if mtype == ServerInfo.ACK_VALUE:
                 pass
-                #self.nw.send()
+            elif mtype == ServerInfo.LC1S:
+                if nbytes % self.nw.server_info.info.payload_bytes != 0:
+                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
+                    return
+                self.nw.server_info.read_payload(message, nbytes, self.queue_adc1)
+
+            elif mtype == ServerInfo.LC2S:
+                if nbytes % self.nw.server_info.info.payload_bytes != 0:
+                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
+                    return
+                self.nw.server_info.read_payload(message, nbytes, self.queue_adc2)
+            elif mtype == ServerInfo.LC3S:
+                if nbytes % self.nw.server_info.info.payload_bytes != 0:
+                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
+                    return
+                self.nw.server_info.read_payload(message, nbytes, self.queue_adc3)
             elif mtype == ServerInfo.PAYLOAD:
                 # This means we have a byte array of multiple possible readings from the sensor.
                 # First make sure we have a multiple of the size we expect:
@@ -77,7 +92,10 @@ class GUIBackend:
                     return
 
                 # TODO this code is shit.
+
                 self.nw.server_info.read_payload(message, nbytes, self.queue_out)
+
+
                 # bytes_read = 0
                 # while bytes_read < nbytes:
                 #     dat = message[bytes_read: bytes_read + payload_bytes]
@@ -95,14 +113,13 @@ class GUIBackend:
             else:
                 self.logger.error("Received incorrect message header type")
 
-
 #######################################
 
-# The GUI frontend
+# The Plotter for our data display
 
 
 class Plotter:
-    def __init__(self, axes, queue_in):
+    def __init__(self, filename, axes, queue_in):
         """
         A class for simplifying plotting:
         :param axes: The axes on which to plot.
@@ -112,109 +129,220 @@ class Plotter:
 
         # TODO make queue_in ints
         self.queue_in = queue_in
-        self.xlist = []
-        self.ylist = []
+        # self.queue_in = [int(q_item) for q_item in queue_in]
+        self.xlist = []  # new data to plot on x
+        self.ylist = []  # new data to plot on y
         # TODO plot by time instead:
-        self.xcnt = 0
         self.axes = axes
         # TODO clear old data.
+        self.filename = filename
 
     def redraw(self):
-        #print("Redrawing")
-        #print(len(self.xlist))
-        #print(self.ylist)
+        print ("redrawing")
         self.axes.clear()
         self.axes.plot(self.xlist, self.ylist)
 
-    # animation for live plot
     def animate(self, i):
-        while self.queue_in.qsize() > 1:
+
+        #if random.random() > .5:
+         while self.queue_in.qsize() > 1:
             # first_byte = self.queue_in.get()
-            # # second_byte = queue1.get()
+            # second_byte = queue1.get()
             # pullData = int.from_bytes(first_byte, byteorder="big", signed=True)
-            adc_data,t = self.queue_in.get()
+            adc_data, t = self.queue_in.get()
 
-            self.xlist.append(self.xcnt)
+            # self.xlist.append(self.xcnt)
+            self.xlist.append(t) #todo check that x is time
+            #self.xlist = [x for x in range(10)]
             self.ylist.append(adc_data)
-            self.xcnt += 1
+            #self.ylist = [random.random() for x in range(10)]
 
-        self.redraw()
+            # print ("xlist", self.xlist)
+            # print ("ylist", self.ylist)
+            print (self.filename, "Avg of last 5 values: ", sum(self.ylist[-5:])/5.0)
+
+            # append all our input data (what we're plotting on the axes) to a csv file
+            # todo
+            with open(self.filename, 'a') as save_file:
+                writer = csv.writer(save_file, delimiter=" ")
+                data = zip(self.xlist, self.ylist)
+                for datum in data:
+                    writer.writerow(str(datum[0]) + str(datum[1]))  #outputs in the format timestamp: data
+
+            self.redraw()
+
+# A front end that handles buttons and drawings. Has an associated backend.
 
 
 class GUIFrontend(tk.Tk):
 
     def __init__(self, backend, *args, **kwargs):
         self.backend = backend
-        assert isinstance(self.backend, GUIBackend)
 
         tk.Tk.__init__(self,*args,**kwargs)
 
-        frame1=tk.Frame(self)
-        frame1.pack(side="top", fill="both",expand=True)
-        frame1.grid_rowconfigure(0, weight=1)
-        frame1.grid_columnconfigure(0, weight=1)
+        background_frame = tk.Frame(self, width=1280, height=800)
+        background_frame.pack(side="top", fill="both", expand=True)
+        background_frame.grid_rowconfigure(0, weight=1)
+        background_frame.grid_columnconfigure(0, weight=1)
 
-        self.frames={}
-        frame=StartPage(frame1,self)
-        self.frames['StartPage']=frame
-        frame.grid(row=0,column=0,sticky="nesw")
+        # todo is background_frame necessary here?
+        self.frames = {}
+        frame = StartPage(background_frame, self)
+        self.frames['StartPage'] = frame
+        frame.grid(row=0, column=0, sticky="nesw")
         self.show_frame('StartPage')
 
         # Setup the animation. FIXME, should this be in the frame?:
-        self.animation = animation.FuncAnimation(frame.f,frame.graph1.animate, interval=500)
+        # I'm disgusted that this works.
+        self.anim_60 = animation.FuncAnimation(frame.figure, frame.graph_60.animate, interval=500)
+        self.anim_30 = animation.FuncAnimation(frame.figure, frame.graph_30.animate, interval=500)
+        self.anim_10 = animation.FuncAnimation(frame.figure, frame.graph_10.animate, interval=500)
+        self.anim_1 = animation.FuncAnimation(frame.figure, frame.graph_1.animate, interval=500)
 
     def run(self):
-        # self.frames[StartPage].updateGui()
         self.mainloop()
 
     def show_frame(self,cont):
         frame=self.frames[cont]
         frame.tkraise()
 
-
 # The main frame for the gui.
+
+
 class StartPage(tk.Frame):
+    # Initial calibration values. Each sensor # is mapped to a tuple containing the y-int and slope for its linear fit
+    sensor_calibration = {1: (1, 1), 2: (1, 1),
+                          3: (1, 1), 4: (1, 1),
+                          5: (1, 1), 6: (1, 1),
+                          7: (1, 1), 8: (1, 1)}
+
     def __init__(self, parent, controller):
+
         assert isinstance(controller, GUIFrontend)
-        # potential for multipage gui
+        # Potential for multi-page gui
         self.controller=controller
 
-        # configure the plot
-        self.f = Figure(figsize=(5, 5), dpi=100)
-        a = self.f.add_subplot(111)
-        self.graph1 = Plotter(a, self.controller.backend.queue_out)
+        # Configure the plots
+        self.figure = Figure(figsize=(10, 5), dpi=100)
 
-        tk.Frame.__init__(self,parent)
-        label1=tk.Label(self,text="IP")
-        label1.grid(row=0,column=10)
-        entry2 = tk.Entry(self)
-        entry2.grid(row=0, column=11)
-        entry2.insert(tk.END, '127.0.0.1')
+        # Create 4 graphs in a 2 by 2 grid
+        axes_60 = self.figure.add_subplot(221)
+        axes_30 = self.figure.add_subplot(222)
+        axes_10 = self.figure.add_subplot(223)
+        axes_1 = self.figure.add_subplot(224)
+        # todo these show load cells for now
+        self.graph_60 = Plotter("adc1", axes_60, self.controller.backend.queue_adc1)
+        self.graph_30 = Plotter("adc2", axes_30, self.controller.backend.queue_adc2)
+        self.graph_10 = Plotter("adc3", axes_10, self.controller.backend.queue_adc3)
+        self.graph_1 = Plotter("plot_1", axes_1, self.controller.backend.queue_out)
 
+        tk.Frame.__init__(self, parent)
+        ip_label = tk.Label(self, text="IP")
+        ip_label.place(relx=.25, rely=0)
+        ip_entry = tk.Entry(self)
+        ip_entry.place(relx=.3, rely=0)
+        ip_entry.insert(tk.END, '127.0.0.1')
 
-        label2 = tk.Label(self, text="port")
-        label2.grid(row=1, column=10)
-        entry3 = tk.Entry(self)
-        entry3.insert(tk.END, '1234')
-        entry3.grid(row=1, column=11)
-        button4 = tk.Button(self, text="Connect",command=lambda:controller.backend.connect(entry2.get(),entry3.get()))
-        button4.grid(row=1, column=12)
+        port_label = tk.Label(self, text="port")
+        port_label.place(relx=.7, rely=0)
+        port_entry = tk.Entry(self)
+        port_entry.insert(tk.END, '1234')
+        port_entry.place(relx=.75, rely=0)
 
-        #more buttons can be added,as well as text boxes
-        #the third arguement is gonna be the function the button need to bind
-        button1=tk.Button(self,text="Button1")
-        button2 = tk.Button(self, text="send as string", command=lambda:controller.backend.send_text(entry1.get() + "\n"))
-        button3 = tk.Button(self, text="send as byte",command=lambda:controller.backend.send_byte(int(entry1.get())))
-        button1.grid(row=100,column=10)
-        button2.grid(row=100, column=11)
-        button3.grid(row=100, column=12)
-        entry1=tk.Entry(self)
-        entry1.grid(row=101, column=11)
+        # Connect and disconnect buttons
+        connect_button = tk.Button(self, text="Connect", command=lambda: controller.backend.connect(ip_entry.get(), port_entry.get()))
+        connect_button.grid(row=1, column=11)
 
-        canvas=FigureCanvasTkAgg(self.f,self)
+        disconnect_button = tk.Button(self, text="Disconnect",
+                                      command=lambda: controller.backend.disconnect())
+        disconnect_button.place(relx=.55, rely=0)
+
+        send_string_button = tk.Button(self, text="send as string",
+                            command=lambda:controller.backend.send_text(send_entry.get() + "\n"))
+        send_byte_button = tk.Button(self, text="send as byte",
+                            command=lambda:controller.backend.send_byte(int(send_entry.get())))
+        send_string_button.place(relx=.25, rely=1)
+        send_byte_button.place(relx=.7, rely=1)
+
+        send_entry = tk.Entry(self)
+        send_entry.place(relx=.5, rely=1)
+
+        # Buttons for actuating the valve
+        set_valve_button = tk.Button(self, text="Set Valve",
+                            command=lambda:controller.backend.send_byte(ServerInfo.SET_VALVE))
+        unset_valve_button = tk.Button(self, text="Unset Valve",
+                            command=lambda:controller.backend.send_byte(ServerInfo.UNSET_VALVE))
+
+        set_valve_button.grid(row=3, column = 13)
+        unset_valve_button.grid(row=10, column=14)
+
+        # Calibration buttons and entry boxes
+        calibration_entry = tk.Entry(self)
+        calibration_entry.grid(row=101, column=13)
+
+        # Input a single int representing the sensor #
+        load_calibration_button = tk.Button(self, text="Load Calibration",
+                                            command=lambda:self.load_calibration(calibration_entry.get))
+        # Input 2n + 1 numbers: sensor # and n xy-pairs, all comma separated
+        set_calibration_button = tk.Button(self, text="Set Calibration",
+                                           command=lambda: self.set_calibration(calibration_entry.get()))
+
+        load_calibration_button.grid(row=108, column=11)
+        set_calibration_button.grid(row=108, column=12)
+
+        # todo ignition button
+        set_ignition_button = tk.Button(self,
+                                        command=lambda:controller.backend.send_byte(ServerInfo.SET_IGNITION))
+        set_ignition_image = PhotoImage(file="nut.png")
+        set_ignition_button.config(image=set_ignition_image)
+        set_ignition_button.image = set_ignition_image
+        set_ignition_button.grid(row=115, column=11)
+
+        unset_ignition_button = tk.Button(self,
+                                          command=lambda: controller.backend.send_byte(ServerInfo.UNSET_IGNITION))
+        unset_ignition_image = PhotoImage(file="abort.gif")
+        unset_ignition_button.config(image=unset_ignition_image)
+        unset_ignition_button.image = unset_ignition_image
+        unset_ignition_button.grid(row=115, column=5)
+
+        # This configures where the graphs are on the canvas
+        canvas = FigureCanvasTkAgg(self.figure, self)
         canvas.show()
-        canvas.get_tk_widget().grid(row=2,column=10,columnspan=3, rowspan=1,padx=5, pady=5,sticky="WENS")
+        # todo configure these
+        canvas.get_tk_widget().grid(row=2, column=10, columnspan=3, rowspan=1, padx=5, pady=5, sticky="WENS")
 
-front = GUIFrontend(GUIBackend(Queue()))
+    # todo now that we have calibration, actually use it when plotting
+    def load_calibration(self, input):
+        file = open('calibration.txt', 'r')
 
-front.run()
+        # Read in the JSON object that has sensor # mapped to another json object mapping x to y
+        calibration_json = json.loads(file.read())
+
+        # First input is the sensor #
+        # Update the calibration based on the value in the json object
+        sensor_num = int(input[0:1])
+        data = json.loads(calibration_json[sensor_num])
+        self.sensor_calibration[sensor_num] = data
+
+        file.close()
+
+    def set_calibration(self, input):
+        values = input.split(",")
+        sensor_num = int(values[0])
+        x_values = [int(values[i]) for i in range(1, len(values)) if i % 2 == 1]
+        y_values = [int(values[i]) for i in range(1, len(values)) if i % 2 == 0]
+
+        # Fit the data and update the calibration
+        regr = linear_model.LinearRegression()
+        regr.fit(x_values, y_values)
+        self.sensor_calibration[sensor_num] = (regr.intercept_, regr.coef_)
+
+        # Save the calibration to file
+        file = open('calibration.txt', 'w')
+        file.write(json.dumps(self.sensor_calibration))
+        file.close()
+
+
+frontend = GUIFrontend(GUIBackend(Queue(), Queue(), Queue(), Queue()))
+frontend.run()

@@ -6,8 +6,7 @@ from queue import Queue
 import sys
 
 from logger import LogLevel, Logger
-from server_info import *
-
+from server_info import*
 
 # MAJOR TODO move this networker to processing requests on its own thread and then let it attempt reconnection.
 class Networker:
