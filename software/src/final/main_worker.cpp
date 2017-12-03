@@ -62,10 +62,7 @@ static timed_item lc_main_ti = {
         LC_MAIN_T,
         NULL,
         {
-                LC_ADC,
-                0, //dummy pad
-                true, //use single channel (always true right now)
-                0 //the channel number
+
         },
         lc_main,
         true,
@@ -76,10 +73,7 @@ static timed_item lc1_ti = {
         LC1_T,
         NULL,
         {
-                LC_ADC,
-                0, //dummy pad
-                true, //use single channel (always true right now)
-                1 //the channel number
+
         },
         lc1,
         true,
@@ -90,10 +84,7 @@ static timed_item lc2_ti = {
         LC2_T,
         NULL,
         {
-                LC_ADC,
-                0, //dummy pad
-                true, //use single channel (always true right now)
-                2 //the channel number
+
         },
         lc2,
         true,
@@ -104,10 +95,7 @@ static timed_item lc3_ti = {
         LC3_T,
         NULL,
         {
-                LC_ADC,
-                0, //dummy pad
-                true, //use single channel (always true right now)
-                3 //the channel number
+
         },
         lc3,
         true,
@@ -118,10 +106,7 @@ static timed_item pt_feed_ti = {
         PT_FEED_T,
         NULL,
         {
-                PT_ADC,
-                0, //dummy pad
-                true, //use single channel (always true right now)
-                0 //the channel number
+
         },
         pt_feed,
         true,
@@ -132,10 +117,7 @@ static timed_item pt_inje_ti = {
         PT_INJE_T,
         NULL,
         {
-                PT_ADC,
-                0, //dummy pad
-                true, //use single channel (always true right now)
-                1 //the channel number
+
         },
         pt_inje,
         true,
@@ -146,10 +128,7 @@ static timed_item pt_comb_ti = {
         PT_COMB_T,
         NULL,
         {
-                PT_ADC,
-                0, //dummy pad
-                true, //use single channel (always true right now)
-                2 //the channel number
+
         },
         pt_comb,
         true,
@@ -160,10 +139,7 @@ static timed_item tc1_ti = {
         TC1_T,
         NULL,
         {
-                TC_ADC,
-                0, //dummy pad
-                true, //use single channel (always true right now)
-                4 //the channel number
+
         },
         tc1,
         true,
@@ -174,10 +150,7 @@ static timed_item tc2_ti = {
         TC2_T,
         NULL,
         {
-                TC_ADC,
-                0, //dummy pad
-                true, //use single channel (always true right now)
-                5 //the channel number
+
         },
         tc2,
         true,
@@ -188,10 +161,7 @@ static timed_item tc3_ti = {
         TC3_T,
         NULL,
         {
-                TC_ADC,
-                0, //dummy pad
-                true, //use single channel (always true right now)
-                6 //the channel number
+
         },
         tc3,
         true,
@@ -248,46 +218,73 @@ void main_worker::worker_method() {
     lc1_ti.b = new circular_buffer(buff_size);
     lc1_ti.scheduled = now;
     lc1_ti.last_send = now;
+    lc1_ti.ai.pin = LC_ADC;
+    lc1_ti.ai.single_channel = true;
+    lc1_ti.ai.channel = 1;
     ti_list[1] = lc1_ti;
 
     lc2_ti.b = new circular_buffer(buff_size);
     lc2_ti.scheduled = now;
     lc2_ti.last_send = now;
+    lc2_ti.ai.pin = LC_ADC;
+    lc2_ti.ai.single_channel = true;
+    lc2_ti.ai.channel = 2;
     ti_list[2] = lc2_ti;
 
     lc3_ti.b = new circular_buffer(buff_size);
     lc3_ti.scheduled = now;
     lc3_ti.last_send = now;
+    lc3_ti.ai.pin = LC_ADC;
+    lc3_ti.ai.single_channel = true;
+    lc3_ti.ai.channel = 3;
     ti_list[3] = lc3_ti;
 
     pt_inje_ti.b = new circular_buffer(buff_size);
     pt_inje_ti.scheduled = now;
     pt_inje_ti.last_send = now;
+    pt_inje_ti.ai.pin = PT_ADC;
+    pt_inje_ti.ai.single_channel = true;
+    pt_inje_ti.ai.channel = 1;
     ti_list[4] = pt_inje_ti;
 
     pt_comb_ti.b = new circular_buffer(buff_size);
     pt_comb_ti.scheduled = now;
     pt_comb_ti.last_send = now;
+    pt_comb_ti.ai.pin = PT_ADC;
+    pt_comb_ti.ai.single_channel = true;
+    pt_comb_ti.ai.channel = 2;
     ti_list[5] = pt_comb_ti;
 
     pt_feed_ti.b = new circular_buffer(buff_size);
     pt_feed_ti.scheduled = now;
     pt_feed_ti.last_send = now;
+    pt_feed_ti.ai.pin = PT_ADC;
+    pt_feed_ti.ai.single_channel = true;
+    pt_feed_ti.ai.channel = 0;
     ti_list[6] = pt_feed_ti;
 
     tc1_ti.b = new circular_buffer(buff_size);
     tc1_ti.scheduled = now;
     tc1_ti.last_send = now;
+    tc1_ti.ai.pin = TC_ADC;
+    tc1_ti.ai.single_channel = true;
+    tc1_ti.ai.channel = 4;
     ti_list[7] = tc1_ti;
 
     tc2_ti.b = new circular_buffer(buff_size);
     tc2_ti.scheduled = now;
     tc2_ti.last_send = now;
+    tc2_ti.ai.pin = TC_ADC;
+    tc2_ti.ai.single_channel = true;
+    tc2_ti.ai.channel = 5;
     ti_list[8] = tc2_ti;
 
     tc3_ti.b = new circular_buffer(buff_size);
     tc3_ti.scheduled = now;
     tc3_ti.last_send = now;
+    tc3_ti.ai.pin = TC_ADC;
+    tc3_ti.ai.single_channel = true;
+    tc3_ti.ai.channel = 6;
     ti_list[9] = tc3_ti;
 
     ign2_ti.b = NULL;
