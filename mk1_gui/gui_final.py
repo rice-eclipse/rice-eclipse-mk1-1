@@ -75,7 +75,7 @@ class GUIBackend:
             # todo add multiple payload outputs
             if mtype == ServerInfo.ACK_VALUE:
                 pass
-            elif mtype == ServerInfo.TC1S:
+            elif mtype == ServerInfo.TC2S:
                 self.logger.debug("Processing message: Type:" + str(mtype) + " Nbytes:" + str(nbytes))
                 if nbytes % self.nw.server_info.info.payload_bytes != 0:
                     self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
