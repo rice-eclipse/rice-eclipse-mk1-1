@@ -35,7 +35,7 @@ class Networker:
     def make_socket():
         sock = socket.socket()
         # 10ms timeout, with the intent of giving just a bit of time if receiving.
-        sock.settimeout(0.01)
+        sock.settimeout(1)
 
         return sock
 
@@ -161,13 +161,13 @@ class Networker:
         else:
             message = self._recv(nbytes)
 
-        if (message is not None):
-            if (nbytes <= 64):
-                self.logger.debug("Received Full Message: Type:" + str(htype) +
-                           " Nbytes:" + str(nbytes) + " message" + str(message))
-            else:
-                self.logger.debug("Received Full Message: Type:" + str(htype) +
-                                  " Nbytes:" + str(nbytes))
+        # if (message is not None):
+        #     if (nbytes <= 64):
+        #         self.logger.debug("Received Full Message: Type:" + str(htype) +
+        #                    " Nbytes:" + str(nbytes) + " message" + str(message))
+        #     else:
+        #         self.logger.debug("Received Full Message: Type:" + str(htype) +
+        #                           " Nbytes:" + str(nbytes))
 
         return htype, nbytes, message
 
