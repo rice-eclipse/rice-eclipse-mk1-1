@@ -64,7 +64,12 @@ int main(int argc, char **argv) {
     adcs.register_pin(0, ADC_0_CS);
     adcs.register_pin(1, ADC_1_CS);
     adcs.register_pin(2, ADC_2_CS);
-
+/*
+    adc_info fuck = {RPI_V2_GPIO_P1_26, 1, true, 0};
+    while (true) {
+        adcs.read_item(fuck);
+    }
+*/
     // Set the base time so that we have no risk of overflow.
     set_base_time();
 
