@@ -5,6 +5,8 @@ from queue import Queue
 # A class used to handle all the networking:
 import sys
 
+import time
+
 from logger import LogLevel, Logger
 from server_info import*
 
@@ -28,6 +30,7 @@ class Networker:
 
                 # Try to receive a message:
                 t,nb,m = self.nw.read_message()
+                #print(t)
                 if (t is not None):
                     self.nw.out_queue.put((t, nb, m))
 
@@ -155,6 +158,7 @@ class Networker:
             raise Exception("Not connected. Cannot read.")
 
         htype, nbytes = self.read_header()
+        #print(htype)
 
         if nbytes is None or nbytes == 0:
             message = None
@@ -169,6 +173,8 @@ class Networker:
                 self.logger.debug("Received Full Message: Type:" + str(htype) +
                                   " Nbytes:" + str(nbytes))
 
+        time.sleep(0.01)
+
         return htype, nbytes, message
 
     def read_header(self):
@@ -181,6 +187,7 @@ class Networker:
             return None, None
 
         htype, nbytes = self.server_info.decode_header(b)
+        #print(htype)
 
         self.logger.debugv("Received message header: Type:" + str(htype) + " Nbytes:" + str(nbytes))
 

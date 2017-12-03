@@ -1,6 +1,7 @@
 # A file used to store information related to the information sent by the server on the PI:
 
 # Information on the values of headers sent:
+import csv
 import socket
 import sys
 
@@ -47,18 +48,58 @@ class ServerInfo:
     SET_VALVE = bytes([5])
     SET_IGNITION = bytes([6])
     UNSET_IGNITION = bytes([7])
-    LC_MAINS = bytes([9]),
-    LC1S = bytes([10]),
-    LC2S = bytes([11]),
-    LC3S = bytes([12]),
-    PT_FEEDS = bytes([13]),
-    PT_INJES = bytes([14]),
-    PT_COMBS = bytes([15]),
-    TC1S = bytes([16]),
-    TC2S = bytes([17]),
+    NORM_IGNITE = bytes([8])
+    LC_MAINS = bytes([9])
+    LC1S = bytes([10])
+    LC2S = bytes([11])
+    LC3S = bytes([12])
+    PT_FEEDS = bytes([13])
+    PT_INJES = bytes([14])
+    PT_COMBS = bytes([15])
+    TC1S = bytes([16])
+    TC2S = bytes([17])
     TC3S = bytes([18])
 
+    filenames = {
+        LC1S : 'logs/LC1.log',
+        LC_MAINS : 'logs/LC_MAIN.log',
+        LC2S : 'logs/LC2.log',
+        LC3S : 'logs/LC3.log',
+        PT_FEEDS : 'logs/PT_FEED.log',
+        PT_COMBS : 'logs/PT_COMB.log',
+        PT_INJES : 'logs/PT_INJE.log',
+        TC1S : 'logs/TC1.log',
+        TC2S : 'logs/TC2.log',
+        TC3S : 'logs/TC3.log'
+    }
 
+    averages = {
+        LC1S: 0,
+        LC_MAINS: 0,
+        LC2S: 0,
+        LC3S: 0,
+        PT_FEEDS: 0,
+        PT_COMBS: 0,
+        PT_INJES: 0,
+        TC1S: 0,
+        TC2S: 0,
+        TC3S: 0
+    }
+
+    calibrations = {
+        LC1S: (1, 0),
+        LC_MAINS: (0.1371, -66.115),
+        LC2S: (1, 0),
+        LC3S: (1, 0),
+        PT_FEEDS: (1, 0),
+        PT_COMBS: (1, 0),
+        PT_INJES: (1, 0),
+        TC1S: (1, 0),
+        TC2S: (1, 0),
+        TC3S: (1, 0)
+    }
+
+    print(TC1S)
     class PiInfo:
         byteorder='little'
 
@@ -100,19 +141,47 @@ class ServerInfo:
 
         return data, t
 
-    def read_payload(self, b, nbytes, out_queue):
+    def read_payload(self, b, nbytes, out_queue, mtype = None):
         assert nbytes % self.info.payload_bytes == 0
+
+        #print(mtype, mtype in ServerInfo.filenames.keys())
+        #print(ServerInfo.filenames.keys())
+
+        if (mtype != None and mtype in ServerInfo.filenames.keys()):
+            save_file = open(ServerInfo.filenames[mtype], 'a')
+            writer = csv.writer(save_file, delimiter=" ")
+            #print("Starting logger for message")
+        else:
+            save_file = None
+            writer = None
 
         bcount = 0
         while bcount < nbytes:
             d, t = self.payload_from_bytes(b[bcount: bcount + self.info.payload_bytes])
             bcount += self.info.payload_bytes
             # TODO handle multiple out queues
-            out_queue.put((d, t))
+
+            if (mtype in ServerInfo.averages.keys()):
+                ServerInfo.averages[mtype] = 0.5 * ServerInfo.averages[mtype] + 0.5 * d
+
+            if (mtype in ServerInfo.calibrations.keys()):
+                calib = ServerInfo.calibrations[mtype]
+                cal = d * calib[0] + calib[1]
+            else:
+                cal = 0
+
+            if (save_file != None):
+                writer.writerow([str(t), str(d), str(cal)])
+            if (out_queue is not None):
+                out_queue.put((cal, t))
+
+        if (save_file is not None):
+            save_file.close()
 
     def decode_header(self, b):
         htype = b[:self.info.header_type_bytes]
 
+        #print(htype)
         nbytesb = b[self.info.header_nbytes_offset: self.info.header_nbytes_offset + self.info.header_nbytes_info]
 
         return htype, self.int_from_net_bytes(nbytesb)
