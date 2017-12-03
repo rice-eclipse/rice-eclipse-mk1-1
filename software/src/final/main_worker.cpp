@@ -236,6 +236,9 @@ void main_worker::worker_method() {
     lc_main_ti.b = new circular_buffer(buff_size);
     lc_main_ti.scheduled = now;
     lc_main_ti.last_send = now;
+    lc_main_ti.ai.pin = LC_ADC;
+    lc_main_ti.ai.single_channel = true;
+    lc_main_ti.ai.channel = 0;
     ti_list[0] = lc_main_ti;
 
     //if (lc_main_ti.b != NULL) {
