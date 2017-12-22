@@ -99,7 +99,6 @@ class ServerInfo:
         TC3S: (0.1611, -250)
     }
 
-    print(TC1S)
     class PiInfo:
         byteorder='little'
 
@@ -141,7 +140,7 @@ class ServerInfo:
 
         return data, t
 
-    def read_payload(self, b, nbytes, out_queue, mtype = None):
+    def read_payload(self, b, nbytes, out_queue, mtype=None):
         assert nbytes % self.info.payload_bytes == 0
 
         #print(mtype, mtype in ServerInfo.filenames.keys())

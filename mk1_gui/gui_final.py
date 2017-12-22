@@ -1,39 +1,51 @@
-import csv
-import json
+from collections import deque
 from tkinter import PhotoImage
-import time
-from sklearn import linear_model
-import matplotlib
 from scipy import random
 import tkinter as tk
 from concurrency import async
 from networking import*
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.figure import Figure
 import matplotlib.animation as animation
 from server_info import ServerInfo
-
-matplotlib.use("TKAgg")
-
-# Backend things for the GUI
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+import matplotlib
+matplotlib.use('TkAgg')
 
 
 class GUIBackend:
     def __init__(self, queue_lc1s, queue_lc2s, queue_lc3s, queue_lc_mains, queue_tc1s, queue_tc2s, queue_tc3s,
-                 queue_feeds, queue_injes, queue_comb):
+                 queue_feeds, queue_injes, queue_combs):
+
         self.nw_queue = Queue()
         self.nw = Networker(queue=self.nw_queue, loglevel=LogLevel.INFO)
-        self.LC1S = queue_lc1s
-        self.LC2S = queue_adc2
-        self.LC3S = queue_adc3
-        self.LC1S = queue_lc1s
-        self.LC1S = queue_lc1s
-        self.LC2S = queue_adc2
-        self.LC3S = queue_adc3
-        self.LC1S = queue_lc1s
-        self.LC2S = queue_adc2
-        self.LC3S = queue_adc3
-        
+
+        self.Q_LC1S = queue_lc1s
+        self.Q_LC2S = queue_lc2s
+        self.Q_LC3S = queue_lc3s
+        self.Q_LCMAINS = queue_lc_mains
+
+        self.Q_TC1S = queue_tc1s
+        self.Q_TC2S = queue_tc2s
+        self.Q_TC3S = queue_tc3s
+
+        self.Q_FEEDS = queue_feeds
+        self.Q_INJES = queue_injes
+        self.Q_COMBS = queue_combs
+
+        # A dictionary to match received info to queues (see _process_recv_message)
+        self.queue_dict = {
+            ServerInfo.LC1S: self.Q_LC1S,
+            ServerInfo.LC2S: self.Q_LC2S,
+            ServerInfo.LC3S: self.Q_LC3S,
+            ServerInfo.LC_MAINS: self.Q_LCMAINS,
+            ServerInfo.TC1S: self.Q_TC1S,
+            ServerInfo.TC2S: self.Q_TC2S,
+            ServerInfo.TC3S: self.Q_TC3S,
+            ServerInfo.PT_FEEDS: self.Q_FEEDS,
+            ServerInfo.PT_COMBS: self.Q_COMBS,
+            ServerInfo.PT_INJES: self.Q_INJES
+        }
+
         self.logger = Logger(name='GUI', level=LogLevel.INFO, outfile='gui.log')
         self._periodic_process_recv()
 
@@ -44,9 +56,6 @@ class GUIBackend:
         self.nw.send(int.to_bytes(i, byteorder='big', length=4))
 
     def send_byte(self, b):
-        """
-        Sends a single byte from 0 to 255
-        """
         self.nw.send(bytes([b]))
 
     def send(self, b):
@@ -55,7 +64,7 @@ class GUIBackend:
     def connect(self, address, port):
         self.nw.connect(addr=address, port=port)
 
-    def do_ignite(self):
+    def ignite(self):
         self.nw.send(ServerInfo.NORM_IGNITE)
 
     @async
@@ -69,90 +78,62 @@ class GUIBackend:
 
     def _process_recv_message(self):
         """
-        Pulls/processes new messages from the nw_queue and gives them to the appropriate GUI thread.
-        :return:
+        Processes new messages from nw_queue and give them to the appropriate GUI thread.
         """
         if self.nw_queue.qsize() > 0:
             self.logger.debug("Processing Messages")
+
         while self.nw_queue.qsize() > 0:
             mtype, nbytes, message = self.nw_queue.get()
             self.logger.debug("Processing message: Type:" + str(mtype) + " Nbytes:" + str(nbytes))
 
-            # self.logger.debug("Comparing" + str(mtype) + "asdf" + str(ServerInfo.LC1S) + "fuck" + str(bytes([10])))
-            # todo add multiple payload outputs
-            if mtype == ServerInfo.ACK_VALUE:
-                pass
-            elif mtype == ServerInfo.TC2S:
-                self.logger.debug("Processing message: Type:" + str(mtype) + " Nbytes:" + str(nbytes))
-                if nbytes % self.nw.server_info.info.payload_bytes != 0:
-                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
-                    return
-                self.nw.server_info.read_payload(message, nbytes, self.queue_adc1, mtype=mtype)
-
-            elif mtype == ServerInfo.LC_MAINS:
-                if nbytes % self.nw.server_info.info.payload_bytes != 0:
-                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
-                    return
-                self.nw.server_info.read_payload(message, nbytes, self.queue_adc2, mtype=mtype)
-            elif mtype == ServerInfo.PT_COMBS:
-                if nbytes % self.nw.server_info.info.payload_bytes != 0:
-                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
-                    return
-                self.nw.server_info.read_payload(message, nbytes, self.queue_adc3, mtype=mtype)
-            elif mtype == ServerInfo.PAYLOAD:
-                # This means we have a byte array of multiple possible readings from the sensor.
-                # First make sure we have a multiple of the size we expect:
-                if nbytes % self.nw.server_info.info.payload_bytes != 0:
-                    self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
-                    return
-
-                # TODO this code is shit.
-
-                self.nw.server_info.read_payload(message, nbytes, self.queue_out)
-
-                # bytes_read = 0
-                # while bytes_read < nbytes:
-                #     dat = message[bytes_read: bytes_read + payload_bytes]
-                #     adc_read = dat[0:payload_bytes]
-                #     adc_read = int.from_bytes(adc_read, byteorder=sys.byteorder)
-                #     adc_read = socket.ntohs(adc_read)
-                #
-                #     # TODO use the time to plot stuff
-                #     read_time = dat[payload_time_offset:payload_time_offset + payload_bytes]
-
-                #     self.nw.out_queue.put(adc_read)
-            elif mtype == ServerInfo.TEXT:
-                print(message.decode('utf-8'))
-                # sys.stdout.write(message.decode('utf-8'))
-            elif mtype in ServerInfo.filenames.keys():
-                self.nw.server_info.read_payload(message, nbytes, None, mtype=mtype)
-            else:
-                self.logger.error("Received incorrect message header type" + str(mtype))
+            # If the data size isn't what we expect, do nothing
+            if nbytes % self.nw.server_info.info.payload_bytes != 0:
+                self.logger.error("Received PAYLOAD message with improper number of bytes:" + str(nbytes))
+                return
+            else: # Check mtype to determine what to do
+                if mtype == ServerInfo.ACK_VALUE:
+                    pass
+                elif mtype in ServerInfo.filenames.keys():
+                    self.nw.server_info.read_payload(message, nbytes, self.queue_dict[mtype], mtype)
+                elif mtype == ServerInfo.TEXT:
+                    print(message.decode('utf-8'))
+                    # sys.stdout.write(message.decode('utf-8'))
+                else:
+                    self.logger.error("Received incorrect message header type" + str(mtype))
 
 
 class Plotter:
-    def __init__(self, name, xlabel, ylabel, axes, queue_in):
-        """
-        A class for simplifying plotting:
-        :param axes: The data to plot on the axes.
-        :param queue_in: A queue of new data to add to the axes.
-        """
+    def __init__(self, name, xlabel, ylabel, axes, queue_in, data_length):
 
         self.queue_in = queue_in
-        self.xlist = []  # new data to plot on x
-        self.ylist = []  # new data to plot on y
+        self.data_length = data_length
+        self.xlist = deque(maxlen=data_length)  # new data to plot on x
+        self.xlist.append(0)
+        self.ylist = deque(maxlen=data_length)  # new data to plot on y
+        self.ylist.append(0)
         self.axes = axes
-        # TODO clear old data.
+
         self.name = name
-        self.axes.set_title(self.name)
-        self.axes.set_xlabel(xlabel)
-        self.axes.set_ylabel(ylabel)
+        self.xlabel = xlabel
+        self.ylabel = ylabel
 
     def redraw(self):
-        self.axes.clear()
+        # Clearing is slow but we don't have to manually rescale axes this way
+        self.axes.cla()
+
+        # Resetting the axes titles every time is annoying
+        self.axes.set_title(self.name)
+        self.axes.set_xlabel(self.xlabel)
+        self.axes.set_ylabel(self.ylabel)
         self.axes.plot(self.xlist, self.ylist)
 
-    def animate(self):
+    def animate(self, *fargs):
+
+        # Randomly generate some data to plot
+        for i in range(10):
+            self.queue_in.put((i, self.xlist[-1] + i))
+
         while self.queue_in.qsize() > 1:
             adc_data, t = self.queue_in.get()
 
@@ -164,173 +145,93 @@ class Plotter:
             # print (self.filename, "Avg of last 5 values: ", sum(self.ylist[-5:])/5.0)
         self.redraw()
 
-# A front end that handles buttons and drawings. Has an associated backend.
 
+class GUIFrontend():
 
-class GUIFrontend(tk.Tk):
-
-    def __init__(self, backend, *args, **kwargs):
+    def __init__(self, backend):
         self.backend = backend
+        self.root = tk.Tk()
+        self.root.resizable(False, False)
+        self.root.wm_title("Rice Eclipse Mk-1.1 GUI")
 
-        tk.Tk.__init__(self, *args, **kwargs)
+        # This figure contains everything to do with matplotlib on the left hand side
+        self.figure = Figure(figsize=(8, 6), dpi=100)
 
-        background_frame = tk.Frame(self, background = "bisque", width=1280, height=800)
-        background_frame.pack(fill="both", expand=True)
-        background_frame.config(bg='black')
-
-        # todo is background_frame necessary here?
-        self.frames = {}
-        frame = StartPage(background_frame, self)
-        self.frames['StartPage'] = frame
-        frame.grid(row=0, column=0, sticky="nesw")
-        self.show_frame('StartPage')
-
-        self.top_left_anim = animation.FuncAnimation(frame.figure, frame.top_left.animate, interval=100)
-        self.top_right_anim = animation.FuncAnimation(frame.figure, frame.top_right.animate, interval=100)
-        self.bot_left_anim = animation.FuncAnimation(frame.figure, frame.bot_left.animate, interval=100)
-        self.bot_right_anim = animation.FuncAnimation(frame.figure, frame.bot_right.animate, interval=100)
-
-    def run(self):
-        self.mainloop()
-
-    def show_frame(self,cont):
-        frame = self.frames[cont]
-        frame.tkraise()
-
-# The main frame for the gui.
-
-
-class StartPage(tk.Frame):
-    def do_ignite(self):
-        # if self.can_ignite:
-        self.controller.backend.do_ignite()
-
-    def __init__(self, parent, controller):
-
-        self.controller=controller
-
-        # Configure the plots
-        self.figure = Figure(figsize=(10, 5.625), dpi=100)
-
-        self.can_ignite = False
-
-        # self.check_ignite_button = tk.Checkbutton(self.controller, text="Expand", variable=self.can_ignite)
-        # self.check_ignite_button.grid(row=1, column=12)
-        # self.check_ignite_button.pack()
+        canvas = FigureCanvasTkAgg(self.figure, master=self.root)
+        canvas.get_tk_widget().grid(row=1, column=1, sticky="NW")
+        canvas.show()
 
         # Create 4 graphs in a 2 by 2 grid
         top_left = self.figure.add_subplot(221)
         top_right = self.figure.add_subplot(222)
         bot_left = self.figure.add_subplot(223)
         bot_right = self.figure.add_subplot(224)
-        self.figure.subplots_adjust(top = .95, bottom=.05, left=.08, wspace=.2, hspace=.5)
+        self.figure.subplots_adjust(top=.9, bottom=.1, left=.08, right=.95, wspace=.3, hspace=.5)
 
-        self.top_left = Plotter("adc1", "Time (ms)", "Force (N)", top_left, self.controller.backend.queue_adc1)
-        self.top_right = Plotter("adc2", "Time (ms)", "Force (N)", top_right, self.controller.backend.queue_adc2)
-        self.bot_left = Plotter("adc3", "Time (ms)", "Force (N)", bot_left, self.controller.backend.queue_adc3)
-        self.bot_right = Plotter("plot_1", "Time (ms)", "Pressure (PSI)", bot_right, self.controller.backend.queue_out)
+        # Configure the plotters for matplotlib
+        self.top_left = Plotter("Load Cell 1", "Time (ms)", "Force (N)", top_left, self.backend.Q_LC1S, 100)
+        self.top_right = Plotter("Load Cell 2", "Time (ms)", "Force (N)", top_right, self.backend.Q_LC2S, 50)
+        self.bot_left = Plotter("PT Feed", "Time (ms)", "Pressure (PSI)", bot_left, self.backend.Q_FEEDS, 25)
+        self.bot_right = Plotter("Thermocouple 2", "Time (ms)", "Temperature (C)", bot_right, self.backend.Q_TC2S, 10)
 
-        tk.Frame.__init__(self, parent)
-        ip_label = tk.Label(self, text="IP")
-        ip_label.pack(relx=1, rely=1)
-        ip_entry = tk.Entry(self)
-        #ip_entry.place(relx=.3, rely=0)
+        self.top_left_anim = animation.FuncAnimation(self.figure, self.top_left.animate, interval=100)
+        self.top_right_anim = animation.FuncAnimation(self.figure, self.top_right.animate, interval=100)
+        self.bot_left_anim = animation.FuncAnimation(self.figure, self.bot_left.animate, interval=100)
+        self.bot_right_anim = animation.FuncAnimation(self.figure, self.bot_right.animate, interval=100)
+
+        # This frame contains everything to do with buttons and entry boxes on the right hand side
+        # TODO there's plenty of space left over for stuff like calibration, ignite time, etc.
+        frame = tk.Frame(background="AliceBlue", width=350, height=600)
+        frame.grid(row=1, column=2, sticky="NE")
+
+        ip_label = tk.Label(frame, text="IP", background="AliceBlue")
+        ip_label.place(relx=.15, rely=.05)
+
+        ip_entry = tk.Entry(frame)
+        ip_entry.config(width=15)
+        ip_entry.place(relx=.2, rely=.05)
         ip_entry.insert(tk.END, '192.168.1.137')
 
-        port_label = tk.Label(self, text="port")
-        #port_label.place(relx=.7, rely=0)
-        port_entry = tk.Entry(self)
+        port_label = tk.Label(frame, text="port", background="AliceBlue")
+        port_label.place(relx=.6, rely=.05)
+
+        port_entry = tk.Entry(frame)
+        port_entry.config(width=5)
         port_entry.insert(tk.END, '1234')
-        #port_entry.place(relx=.75, rely=0)
+        port_entry.place(relx=.7, rely=.05)
 
         # Connect and disconnect buttons
-        connect_button = tk.Button(self, text="Connect", command=lambda: controller.backend.connect(ip_entry.get(), port_entry.get()))
-        # connect_button.grid(row=1, column=11)
+        connect_button = tk.Button(frame, text="Connect",
+                                   command=lambda:backend.connect(ip_entry.get(), port_entry.get()))
+        connect_button.place(relx=.25, rely=.1)
 
-        disconnect_button = tk.Button(self, text="Disconnect",
-                                      command=lambda: controller.backend.nw.disconnect())
-
-        send_string_button = tk.Button(self, text="send as string",
-                            command=lambda:controller.backend.send_text(send_entry.get() + "\n"))
-        send_byte_button = tk.Button(self, text="send as byte",
-                            command=lambda:controller.backend.send(int(send_entry.get())))
-
-        send_entry = tk.Entry(self)
+        disconnect_button = tk.Button(frame, text="Disconnect",
+                                      command=lambda:backend.nw.disconnect())
+        disconnect_button.place(relx=.6, rely=.1)
 
         # Buttons for actuating the valve
-        set_valve_button = tk.Button(self, text="Set Valve",
-                            command=lambda:controller.backend.send(ServerInfo.SET_VALVE))
-        unset_valve_button = tk.Button(self, text="Unset Valve",
-                            command=lambda:controller.backend.send(ServerInfo.UNSET_VALVE))
+        set_valve_button = tk.Button(frame, text="Set Valve",
+                            command=lambda:backend.send(ServerInfo.SET_VALVE))
+        unset_valve_button = tk.Button(frame, text="Unset Valve",
+                            command=lambda:backend.send(ServerInfo.UNSET_VALVE))
 
-        # set_valve_button.grid(row=3, column=13)
-        # unset_valve_button.grid(row=10, column=14)
+        set_valve_button.place(relx=.25, rely=.45)
+        unset_valve_button.place(relx=.5, rely=.45)
 
-        # Calibration buttons and entry boxes
-        calibration_entry = tk.Entry(self)
-        # calibration_entry.grid(row=101, column=13)
+        set_ignition_button = tk.Button(frame, text="IGNITE",
+                                        command=lambda:backend.send(ServerInfo.SET_IGNITION))
+        set_ignition_image = PhotoImage(file="ignite.gif")
+        set_ignition_button.config(image=set_ignition_image)
+        set_ignition_button.image = set_ignition_image
+        set_ignition_button.place(relx=.15, rely=.75)
 
-        # Input a single int representing the sensor #
-        load_calibration_button = tk.Button(self, text="Load Calibration",
-                                            command=lambda:self.load_calibration(calibration_entry.get))
-        # Input 2n + 1 numbers: sensor # and n xy-pairs, all comma separated
-        set_calibration_button = tk.Button(self, text="Set Calibration",
-                                           command=lambda: self.set_calibration(calibration_entry.get()))
+        unset_ignition_button = tk.Button(frame, text="UNIGNITE",
+                                          command=lambda: backend.send(ServerInfo.UNSET_IGNITION))
+        unset_ignition_image = PhotoImage(file="unignite.gif")
+        unset_ignition_button.config(image=unset_ignition_image)
+        unset_ignition_button.image = unset_ignition_image
+        unset_ignition_button.place(relx=.55, rely=.75)
 
-        # load_calibration_button.grid(row=108, column=11)
-        # set_calibration_button.grid(row=108, column=12)
-
-        # todo ignition button
-        set_ignition_button = tk.Button(self, text="IGNITE",
-                                        command=lambda:self.do_ignite())
-        # set_ignition_image = PhotoImage(file="nut.png")
-        # set_ignition_button.config(image=set_ignition_image)
-        # set_ignition_button.image = set_ignition_image
-        # set_ignition_button.grid(row=115, column=11)
-
-        unset_ignition_button = tk.Button(self, text="UNIGNITE",
-                                          command=lambda: controller.backend.send(ServerInfo.UNSET_IGNITION))
-        # unset_ignition_image = PhotoImage(file="abort.gif")
-        # unset_ignition_button.config(image=unset_ignition_image)
-        # unset_ignition_button.image = unset_ignition_image
-        # unset_ignition_button.grid(row=115, column=5)
-
-        # This configures where the graphs are on the canvas
-        canvas = FigureCanvasTkAgg(self.figure, self)
-        canvas.show()
-        # todo configure these
-        canvas.get_tk_widget().grid(row=2, column=10, columnspan=3, rowspan=1, padx=5, pady=5, sticky="WENS")
-
-    # todo now that we have calibration, actually use it when plotting
-    def load_calibration(self, input):
-        file = open('calibration.txt', 'r')
-
-        # Read in the JSON object that has sensor # mapped to another json object mapping x to y
-        calibration_json = json.loads(file.read())
-
-        # First input is the sensor #
-        # Update the calibration based on the value in the json object
-        sensor_num = int(input[0:1])
-        data = json.loads(calibration_json[sensor_num])
-        self.sensor_calibration[sensor_num] = data
-
-        file.close()
-
-    def set_calibration(self, input):
-        values = input.split(",")
-        sensor_num = int(values[0])
-        x_values = [int(values[i]) for i in range(1, len(values)) if i % 2 == 1]
-        y_values = [int(values[i]) for i in range(1, len(values)) if i % 2 == 0]
-
-        # Fit the data and update the calibration
-        regr = linear_model.LinearRegression()
-        regr.fit(x_values, y_values)
-        self.sensor_calibration[sensor_num] = (regr.intercept_, regr.coef_)
-
-        # Save the calibration to file
-        file = open('calibration.txt', 'w')
-        file.write(json.dumps(self.sensor_calibration))
-        file.close()
-
-frontend = GUIFrontend(GUIBackend(Queue(), Queue(), Queue(), Queue()))
-frontend.run()
+frontend = GUIFrontend(GUIBackend(Queue(), Queue(), Queue(), Queue(), Queue(),
+                                  Queue(), Queue(), Queue(), Queue(), Queue()))
+frontend.root.mainloop()
