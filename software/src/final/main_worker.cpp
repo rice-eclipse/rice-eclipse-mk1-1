@@ -297,7 +297,7 @@ void main_worker::worker_method() {
     ign3_ti.last_send = now;
     ti_list[11] = ign3_ti;
 
-    // TODO should be using TI add for this. stupid me.
+    // TODO should be using TI add for this. Make this into a C++ object with initialization.
     ti_count = 12;
 
     while (1) {
@@ -406,7 +406,7 @@ void main_worker::worker_method() {
                 } else {
                     // Handle the case of using ignition stuff.
                     if (ti->a == ign2) {
-                        //TODO this is fucked.
+                        //TODO allow it to enable without just some magic number for list entry.
                         disable_ti_item(&ti_list[10]);
                         //enable_ti_item(&ign3_ti, now);
                         enable_ti_item(&ti_list[11], now);
