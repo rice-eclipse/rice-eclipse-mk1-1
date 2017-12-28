@@ -61,16 +61,16 @@ class ServerInfo:
     TC3S = bytes([18])
 
     filenames = {
-        LC1S : 'logs/LC1.log',
-        LC_MAINS : 'logs/LC_MAIN.log',
-        LC2S : 'logs/LC2.log',
-        LC3S : 'logs/LC3.log',
-        PT_FEEDS : 'logs/PT_FEED.log',
-        PT_COMBS : 'logs/PT_COMB.log',
-        PT_INJES : 'logs/PT_INJE.log',
-        TC1S : 'logs/TC1.log',
-        TC2S : 'logs/TC2.log',
-        TC3S : 'logs/TC3.log'
+        LC1S: 'LC1',
+        LC_MAINS: 'LC_MAIN',
+        LC2S: 'LC2',
+        LC3S: 'LC3',
+        PT_FEEDS: 'PT_FEED',
+        PT_COMBS: 'PT_COMB',
+        PT_INJES: 'PT_INJE',
+        TC1S: 'TC1',
+        TC2S: 'TC2',
+        TC3S: 'TC3'
     }
 
     averages = {
@@ -147,7 +147,7 @@ class ServerInfo:
         #print(ServerInfo.filenames.keys())
 
         if (mtype != None and mtype in ServerInfo.filenames.keys()):
-            save_file = open(ServerInfo.filenames[mtype], 'a')
+            save_file = open('logs/' + ServerInfo.filenames[mtype] + '.log', 'a')
             writer = csv.writer(save_file, delimiter=" ")
             #print("Starting logger for message")
         else:

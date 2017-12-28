@@ -8,6 +8,7 @@ from concurrency import async
 from networking import*
 import matplotlib.animation as animation
 from server_info import ServerInfo
+from graph_constants import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib
 matplotlib.use('TkAgg')
@@ -15,11 +16,12 @@ matplotlib.use('TkAgg')
 
 class GUIBackend:
     def __init__(self, queue_lc1s, queue_lc2s, queue_lc3s, queue_lc_mains, queue_tc1s, queue_tc2s, queue_tc3s,
-                 queue_feeds, queue_injes, queue_combs):
+                 queue_feed, queue_inje, queue_comb):
 
         self.nw_queue = Queue()
         self.nw = Networker(queue=self.nw_queue, loglevel=LogLevel.INFO)
 
+        self.queues = [queue_lc1s, queue_lc2s, queue_lc3s, queue_lc_mains]
         self.Q_LC1S = queue_lc1s
         self.Q_LC2S = queue_lc2s
         self.Q_LC3S = queue_lc3s
@@ -29,9 +31,9 @@ class GUIBackend:
         self.Q_TC2S = queue_tc2s
         self.Q_TC3S = queue_tc3s
 
-        self.Q_FEEDS = queue_feeds
-        self.Q_INJES = queue_injes
-        self.Q_COMBS = queue_combs
+        self.Q_FEED = queue_feed
+        self.Q_INJE = queue_inje
+        self.Q_COMB = queue_comb
 
         # A dictionary to match received info to queues (see _process_recv_message)
         self.queue_dict = {
@@ -42,9 +44,9 @@ class GUIBackend:
             ServerInfo.TC1S: self.Q_TC1S,
             ServerInfo.TC2S: self.Q_TC2S,
             ServerInfo.TC3S: self.Q_TC3S,
-            ServerInfo.PT_FEEDS: self.Q_FEEDS,
-            ServerInfo.PT_COMBS: self.Q_COMBS,
-            ServerInfo.PT_INJES: self.Q_INJES
+            ServerInfo.PT_FEEDS: self.Q_FEED,
+            ServerInfo.PT_COMBS: self.Q_COMB,
+            ServerInfo.PT_INJES: self.Q_INJE
         }
 
         self.logger = Logger(name='GUI', level=LogLevel.INFO, outfile='gui.log')
@@ -104,60 +106,6 @@ class GUIBackend:
                     self.logger.error("Received incorrect message header type" + str(mtype))
 
 
-class Plotter:
-    def __init__(self, name, xlabel, ylabel, axes, queue_in, data_length):
-        self.queue_in = queue_in
-        self.data_length = data_length
-        self.xlist = deque(maxlen=data_length)  # new data to plot on x
-        self.xlist.append(0)
-        self.ylist = deque(maxlen=data_length)  # new data to plot on y
-        self.ylist.append(0)
-
-        self.axes = axes
-        # The line we're plotting. We were previously drawing a new line every time
-        self.line = self.axes.plot(self.xlist, self.ylist)[0]
-
-        self.name = name
-        self.xlabel = xlabel
-        self.ylabel = ylabel
-
-    def redraw(self):
-        # This is annoying, but we redraw the axes when we rescale so we have to set these again
-        self.axes.set_title(self.name)
-        self.axes.set_xlabel(self.xlabel)
-        self.axes.set_ylabel(self.ylabel)
-
-        # Update the data in our graph instead of drawing a new graph
-        self.line.set_xdata(self.xlist)
-        self.line.set_ydata(self.ylist)
-
-        # Recalculate the x and y ranges. x will always change because it is time, but
-        # only change y if we have new data that is out of bounds.
-        self.axes.relim()
-        if min(self.ylist) < self.axes.get_ylim()[0] or max(self.ylist) > self.axes.get_ylim()[1]:
-            self.axes.autoscale_view(scalex=True, scaley=True)
-        else:
-            self.axes.autoscale_view(scalex=True, scaley=False)
-
-    def animate(self, *fargs):
-
-        # Randomly generate some data to plot
-        for i in range(1, 11):
-            self.queue_in.put((random.randint(0, 1000), self.xlist[-1] + i))
-
-        while self.queue_in.qsize() > 1:
-            adc_data, t = self.queue_in.get()
-
-            self.xlist.append(t)
-            self.ylist.append(adc_data)
-
-        # print ("name", self.name)
-        # print ("xlist", self.xlist)
-        # print ("ylist", self.ylist)
-        # print (self.filename, "Avg of last 5 values: ", sum(self.ylist[-5:])/5.0)
-        self.redraw()
-
-
 class GUIFrontend():
 
     def __init__(self, backend):
@@ -166,103 +114,191 @@ class GUIFrontend():
         self.root.resizable(False, False)
         self.root.wm_title("Rice Eclipse Mk-1.1 GUI")
 
-        # Create a notebook to manage tabs
+        # Create a notebook and the tabs
         notebook = ttk.Notebook(self.root)
         default = ttk.Frame(notebook)
-        loads = ttk.Frame(notebook)
-        pressures = ttk.Frame(notebook)
-        thermos = ttk.Frame(notebook)
         logging = ttk.Frame(notebook)
+        calibration = ttk.Frame(notebook)
 
         notebook.add(default, text='Default')
-        notebook.add(loads, text='Load Cells')
-        notebook.add(pressures, text='Pressure Transducers')
-        notebook.add(thermos, text='Thermocouples')
         notebook.add(logging, text='Logging')
+        notebook.add(calibration, text='Calibration')
         notebook.grid(row=1, column=1, sticky='NW')
 
         # Potential to add styles
         s = ttk.Style()
-        s.theme_use('default')
+
+        s.theme_create("BlueTabs", parent="default", settings={
+            "TNotebook": {
+                "configure": {"background": "#f0f8ff"},}})
+
+        s.theme_use("default")
 
         # This figure contains everything to do with matplotlib on the left hand side
-        self.figure, self.axes_list = plt.subplots(nrows=2, ncols=2)
-        self.figure.subplots_adjust(top=.9, bottom=.1, left=.12, right=.95, wspace=.3, hspace=.5)
-        self.figure.set_size_inches(8, 6)
-        self.figure.set_dpi(100)
+        figure, axes_list = plt.subplots(nrows=2, ncols=2)
+        self.axes_list = list(axes_list[0]).append(axes_list[1])
+        figure.subplots_adjust(top=.9, bottom=.1, left=.12, right=.95, wspace=.3, hspace=.5)
+        figure.set_size_inches(8, 6)
+        figure.set_dpi(100)
 
         # Create a canvas to show this figure under the default tab
-        canvas = FigureCanvasTkAgg(self.figure, master=default)
-        canvas.get_tk_widget().grid(row=1, column=1, sticky="NW")
-        canvas.show()
+        default_canvas = FigureCanvasTkAgg(figure, master=default)
+        default_canvas.get_tk_widget().grid(row=1, column=1, sticky="NW")
 
-        # Configure the plotters for matplotlib. Change plots and labels here.
-        self.top_left = Plotter("Load Cell 1", "Time (ms)", "Force (N)", self.axes_list[0][0], self.backend.Q_LC1S, 500)
-        self.top_right = Plotter("Load Cell 2", "Time (ms)", "Force (N)", self.axes_list[0][1], self.backend.Q_LC2S, 250)
-        self.bot_left = Plotter("PT Feed", "Time (ms)", "Pressure (PSI)", self.axes_list[1][0], self.backend.Q_FEEDS, 100)
-        self.bot_right = Plotter("Thermocouple 2", "Time (ms)", "Temperature (C)", self.axes_list[1][1], self.backend.Q_TC2S, 10)
+        self.plots = [axes_list[0][0].plot([0], [0]),
+                      axes_list[0][1].plot([0], [0]),
+                      axes_list[1][0].plot([0], [0]),
+                      axes_list[1][1].plot([0], [0])]
+
+        self.plot_selections = ["LC_MAINS", "LC1S", "TC2S", "PT_INJE"]
+
+        self.plot_datax = [deque(maxlen=1000), deque(maxlen=1000), deque(maxlen=10), deque(maxlen=100)]
+        self.plot_datay = [deque(maxlen=1000), deque(maxlen=1000), deque(maxlen=10), deque(maxlen=100)]
+        self.plot_points = [Queue(), Queue(), Queue(), Queue()]
 
         # NOTE: the graphs aren't synchronized right now because new data is generated every time the graph
         # is updated, and the graphs with less data update faster.
         # This shouldn't be a problem when we plot our actual data.
-        self.top_left_anim = animation.FuncAnimation(self.figure, self.top_left.animate, interval=10)
-        self.top_right_anim = animation.FuncAnimation(self.figure, self.top_right.animate, interval=10)
-        self.bot_left_anim = animation.FuncAnimation(self.figure, self.bot_left.animate, interval=10)
-        self.bot_right_anim = animation.FuncAnimation(self.figure, self.bot_right.animate, interval=10)
+        self.animation = animation.FuncAnimation(figure, self.animate, interval=10)
 
         # This frame contains everything to do with buttons and entry boxes on the right hand side
-        # TODO there's plenty of space left over for stuff like calibration, ignite time, etc.
-        frame = tk.Frame(background="AliceBlue", width=350, height=600)
-        frame.grid(row=1, column=2, sticky="NE")
+        control_panel = tk.Frame(background="AliceBlue", width=350, height=625)
+        control_panel.grid(row=1, column=2, sticky="NE")
 
-        ip_label = tk.ttk.Label(frame, text="IP", background="AliceBlue")
-        ip_label.place(relx=.15, rely=.05)
+        network_frame = tk.LabelFrame(control_panel, text="Network", background="AliceBlue")
 
-        ip_entry = tk.ttk.Entry(frame)
-        ip_entry.config(width=15)
-        ip_entry.place(relx=.2, rely=.05)
+        tk.ttk.Label(network_frame, text="IP", background="AliceBlue").grid(row=1 ,column=1, sticky="w", padx=15)
+        tk.ttk.Label(network_frame, text="port", background="AliceBlue").grid(row=1, column=2, sticky="w", padx=15)
+
+        ip_entry = tk.ttk.Entry(network_frame, width=15)
         ip_entry.insert(tk.END, '192.168.1.137')
+        ip_entry.grid(row=2, column=1, padx=15)
 
-        port_label = tk.ttk.Label(frame, text="port", background="AliceBlue")
-        port_label.place(relx=.6, rely=.05)
-
-        port_entry = tk.ttk.Entry(frame)
-        port_entry.config(width=5)
+        port_entry = tk.ttk.Entry(network_frame, width=5)
         port_entry.insert(tk.END, '1234')
-        port_entry.place(relx=.7, rely=.05)
+        port_entry.grid(row=2, column=2, padx=15, sticky="w")
+
+        network_frame.grid(row=1, column=1, pady=(15, 20))
 
         # Connect and disconnect buttons
-        connect_button = tk.ttk.Button(frame, text="Connect",
-                                   command=lambda:backend.connect(ip_entry.get(), port_entry.get()))
-        connect_button.place(relx=.25, rely=.1)
+        tk.ttk.Button(network_frame, text="Connect", command=lambda:backend.connect(ip_entry.get(), port_entry.get()))\
+            .grid(row=3, column=1, pady=(15,10), padx=15, sticky="w")
 
-        disconnect_button = tk.ttk.Button(frame, text="Disconnect",
-                                      command=lambda:backend.nw.disconnect())
-        disconnect_button.place(relx=.6, rely=.1)
+        tk.ttk.Button(network_frame, text="Disconnect", command=lambda:backend.nw.disconnect())\
+            .grid(row=3, column=2, pady=(15,10), padx=15)
+
+        valve_frame = tk.LabelFrame(control_panel, text="Valve", background="AliceBlue")
 
         # Buttons for actuating the valve
-        set_valve_button = tk.ttk.Button(frame, text="Set Valve",
-                            command=lambda:backend.send(ServerInfo.SET_VALVE))
-        unset_valve_button = tk.ttk.Button(frame, text="Unset Valve",
-                            command=lambda:backend.send(ServerInfo.UNSET_VALVE))
+        tk.ttk.Button(valve_frame, text="Set Valve", command=lambda:backend.send(ServerInfo.SET_VALVE))\
+            .grid(row=1, column=1, padx=15, pady=10)
 
-        set_valve_button.place(relx=.25, rely=.45)
-        unset_valve_button.place(relx=.5, rely=.45)
+        tk.ttk.Button(valve_frame, text="Unset Valve", command=lambda:backend.send(ServerInfo.UNSET_VALVE))\
+            .grid(row=1, column=2, padx=15, pady=10)
 
-        set_ignition_button = tk.ttk.Button(frame, text="IGNITE",
+        valve_frame.grid(row=3, column=1, pady=25)
+
+        ignition_frame = tk.LabelFrame(control_panel, text="Ignition", background="AliceBlue")
+
+        tk.ttk.Label(ignition_frame, text="Burn Time", background="AliceBlue").grid(row=1, column=1, sticky="w", padx=15)
+        tk.ttk.Label(ignition_frame, text="Delay", background="AliceBlue").grid(row=1, column=2, sticky="w", padx=15)
+
+        burn_entry = tk.ttk.Entry(ignition_frame, width=6)
+        burn_entry.insert(tk.END, '3')
+        burn_entry.grid(row=2, column=1, padx=15, sticky="w")
+
+        delay_entry = tk.ttk.Entry(ignition_frame, width=6)
+        delay_entry.insert(tk.END, '0.5')
+        delay_entry.grid(row=2, column=2, padx=15, sticky="w")
+
+        # TODO send the ignition length to the backend when we press the button
+        set_ignition_button = tk.ttk.Button(ignition_frame, text="IGNITE",
                                         command=lambda:backend.send(ServerInfo.SET_IGNITION))
         set_ignition_image = PhotoImage(file="ignite.gif")
         set_ignition_button.config(image=set_ignition_image)
         set_ignition_button.image = set_ignition_image
-        set_ignition_button.place(relx=.15, rely=.75)
+        set_ignition_button.grid(row=3, column=1, padx=15, pady=10)
 
-        unset_ignition_button = tk.ttk.Button(frame, text="UNIGNITE",
+        unset_ignition_button = tk.ttk.Button(ignition_frame, text="UNIGNITE",
                                           command=lambda: backend.send(ServerInfo.UNSET_IGNITION))
         unset_ignition_image = PhotoImage(file="unignite.gif")
         unset_ignition_button.config(image=unset_ignition_image)
         unset_ignition_button.image = unset_ignition_image
-        unset_ignition_button.place(relx=.55, rely=.75)
+        unset_ignition_button.grid(row=3, column=2, padx=15, pady=10)
 
+        ignition_frame.grid(row=4, column=1, pady=20)
+
+        graph_frame = tk.LabelFrame(control_panel, text="Graphs", background="AliceBlue")
+
+        choices = ["LC1S", "LC2S", "LC3S", "LC_MAINS", "PT_FEED", "PT_INJE", "PT_COMB", "TC1S", "TC2S", "TC3S"]
+        self.graph_variables = [tk.StringVar(graph_frame), tk.StringVar(graph_frame),
+                           tk.StringVar(graph_frame), tk.StringVar(graph_frame)]
+        option_menus = []
+
+        for i in range(4):
+            option_menus.append(tk.ttk.OptionMenu(graph_frame, self.graph_variables[i], choices[0], *choices))
+            option_menus[i].config(width=10)
+            option_menus[i].grid(row=2 + 2 * int(i < 2), column=i % 2 + 1,  padx=15, pady=(0, 10))
+
+        tk.Label(graph_frame, text="Top Left", background="AliceBlue").grid(row=1, column=1, sticky="w", padx=15)
+        tk.Label(graph_frame, text="Top Right", background="AliceBlue").grid(row=1, column=2, sticky="w", padx=15)
+        tk.Label(graph_frame, text="Bot Left", background="AliceBlue").grid(row=3, column=1, sticky="w", padx=15)
+        tk.Label(graph_frame, text="Bot Right", background="AliceBlue").grid(row=3, column=2, sticky="w", padx=15)
+
+        graph_frame.grid(row=2, column=1, pady=20)
+
+    def animate(self, *fargs):
+        # The backend logs and inserts data into queues after receiving stuff
+        # Here we display what the user has selected
+        for i in range(4):
+            graph_selection = self.graph_variables[i].get()
+            graph_selection_byte = str_to_byte[graph_selection]
+            if (graph_selection == self.plot_selections[i]): # If the selection hasn't changed, just add the new points
+                # Randomly generate some data to plot
+                for j in range(1, 11):
+                    self.plot_points[i].put((random.randint(0, 1000), self.plot_datax[i][-1] + j))
+
+                while self.plot_points[i].qsize() > 1:
+                    adc_data, t = self.plot_points[i].get()
+
+                    self.plot_datax[i].append(t)
+                    self.plot_datay[i].append(adc_data)
+
+                # print ("name", self.name)
+                # print ("xlist", self.xlist)
+                # print ("ylist", self.ylist)
+                # print (self.filename, "Avg of last 5 values: ", sum(self.ylist[-5:])/5.0)
+
+            else: #Otherwise we need to reset all the data we're going to plot
+                data_length = data_lengths[graph_selection]
+                self.plot_datax[i] = deque(maxlen=data_length)
+                self.plot_datay[i] = deque(maxlen=data_length)
+
+                #todo maybe we should just update datax and datay constantly.
+                for index in range(data_length):
+                    adc_data, t = self.backend.queue_dict[graph_selection_byte].get()
+                    self.plot_datax[i].append(t)
+                    self.plot_datay[i].append(adc_data)
+
+                # This is annoying, but we redraw the axes when we rescale so we have to set these again
+                self.axes_list[i].set_title(graph_selection)
+                self.axes_list[i].set_xlabel(labels[graph_selection][0])
+                self.axes_list[i].set_ylabel(labels[graph_selection][1])
+
+                # Update the data in our graph instead of drawing a new graph
+                self.plots[i].set_xdata(self.plot_datax[i])
+                self.plots[i].set_ydata(self.plot_datay[i])
+
+                # Recalculate the x and y ranges. x will always change because it is time, but
+                # only change y if we have new data that is out of bounds.
+                self.axes_list[i].relim()
+                if min(self.plot_datay[i]) < self.axes_list[i].get_ylim()[0] or \
+                        max(self.plot_datay[i]) > self.axes_list[i].get_ylim()[1]:
+                    self.axes_list[i].autoscale_view(scalex=True, scaley=True)
+                else:
+                    self.axes_list[i].autoscale_view(scalex=True, scaley=False)
+
+            self.graph_variables[i] = graph_selection
 
 frontend = GUIFrontend(GUIBackend(Queue(), Queue(), Queue(), Queue(), Queue(),
                                   Queue(), Queue(), Queue(), Queue(), Queue()))
