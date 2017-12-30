@@ -172,7 +172,8 @@ class ServerInfo:
             if (save_file != None):
                 writer.writerow([str(t), str(d), str(cal)])
             if (out_queue is not None):
-                out_queue.put((cal, t))
+                out_queue.append(cal, t)
+                # out_queue.put((cal, t))
 
         if (save_file is not None):
             save_file.close()
