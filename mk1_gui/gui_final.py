@@ -124,7 +124,7 @@ class GUIFrontend:
         logging = ttk.Frame(notebook)
         calibration = ttk.Frame(notebook)
 
-        notebook.add(mission_control, text='Default')
+        notebook.add(mission_control, text='Mission Control')
         notebook.add(logging, text='Logging')
         notebook.add(calibration, text='Calibration')
         notebook.grid(row=1, column=1, sticky='NW')
@@ -276,9 +276,11 @@ class GUIFrontend:
             self.plots[i].set_ydata([cal for cal, t in data_queue[-data_length::data_ratio]])
 
             self.axes_list[i].relim()
+
             # Rescaling the axes is apparently very expensive, so only do it if the data is out of bounds
-            if min(self.plots[i].get_ydata()) < self.axes_list[i].get_ylim()[0] or \
-                    max(self.plots[i].get_xdata()) > self.axes_list[i].get_ylim()[1]:
+            all_y_data = [cal for cal, t in data_queue[-data_length:]]
+            if min(all_y_data) < self.axes_list[i].get_ylim()[0] or \
+                    max(all_y_data) > self.axes_list[i].get_ylim()[1]:
                 self.axes_list[i].autoscale_view(scalex=True, scaley=True)
             else:
                 self.axes_list[i].autoscale_view(scalex=True, scaley=False)
