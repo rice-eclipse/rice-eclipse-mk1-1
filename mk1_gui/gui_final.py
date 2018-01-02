@@ -3,6 +3,9 @@ from tkinter import PhotoImage
 import matplotlib.pyplot as plt
 from scipy import random
 import tkinter as tk
+import math
+from tkinter import scrolledtext
+import Pmw
 import tkinter.ttk as ttk
 from concurrency import async
 from networking import*
@@ -118,16 +121,18 @@ class GUIFrontend:
         self.root.resizable(False, False)
         self.root.wm_title("Rice Eclipse Mk-1.1 GUI")
 
-        # Create a notebook and the tabs
-        notebook = ttk.Notebook(self.root)
-        mission_control = ttk.Frame(notebook)
-        logging = ttk.Frame(notebook)
-        calibration = ttk.Frame(notebook)
+        Pmw.initialise(self.root)
 
-        notebook.add(mission_control, text='Mission Control')
-        notebook.add(logging, text='Logging')
-        notebook.add(calibration, text='Calibration')
-        notebook.grid(row=1, column=1, sticky='NW')
+        # Create a notebook and the tabs
+        self.notebook = ttk.Notebook(self.root)
+        mission_control = ttk.Frame(self.notebook)
+        logging = ttk.Frame(self.notebook)
+        calibration = ttk.Frame(self.notebook)
+
+        self.notebook.add(mission_control, text='Mission Control')
+        self.notebook.add(logging, text='Logging')
+        self.notebook.add(calibration, text='Calibration')
+        self.notebook.grid(row=1, column=1, sticky='NW')
 
         # Potential to add styles
         s = ttk.Style()
@@ -158,7 +163,7 @@ class GUIFrontend:
 
         self.plot_selections = ["LC_MAIN", "LC1S", "TC2S", "PT_INJE"]
 
-        self.animation = animation.FuncAnimation(figure, self.animate, interval=1)
+        self.animation = animation.FuncAnimation(figure, self.animate, interval=10)
 
         # This frame contains everything to do with buttons and entry boxes on the right hand side
         control_panel = tk.Frame(background="AliceBlue", width=350, height=625)
@@ -182,12 +187,12 @@ class GUIFrontend:
         tk.ttk.Button(network_frame, text="Disconnect", command=lambda: backend.nw.disconnect()) \
             .grid(row=3, column=2, pady=(15, 10), padx=15)
 
-        network_frame.grid(row=1, column=1, pady=(15, 20))
+        network_frame.grid(row=1, column=1, pady=(7 , 20))
 
         # Frame for selection of graphs
         graph_frame = tk.LabelFrame(control_panel, text="Graphs", background="AliceBlue")
 
-        choices = ["LC1S", "LC2S", "LC3S", "LC_MAIN", "PT_FEED", "PT_INJE", "PT_COMB", "TC1S", "TC2S", "TC3S"]
+        self.choices = ["LC1S", "LC2S", "LC3S", "LC_MAIN", "PT_FEED", "PT_INJE", "PT_COMB", "TC1S", "TC2S", "TC3S"]
         self.graph_variables = [tk.StringVar(graph_frame), tk.StringVar(graph_frame),
                                 tk.StringVar(graph_frame), tk.StringVar(graph_frame)]
         self.fine_control = tk.BooleanVar(graph_frame)
@@ -195,7 +200,7 @@ class GUIFrontend:
 
         for i in range(4):
             option_menus.append(
-                tk.ttk.OptionMenu(graph_frame, self.graph_variables[i], self.plot_selections[i], *choices))
+                tk.ttk.OptionMenu(graph_frame, self.graph_variables[i], self.plot_selections[i], *self.choices))
             option_menus[i].config(width=10)
             option_menus[i].grid(row=2 + 2 * int(i > 1), column=i % 2 + 1, padx=10, pady=(0, 10))
 
@@ -205,9 +210,9 @@ class GUIFrontend:
         tk.Label(graph_frame, text="Bot Right", background="AliceBlue").grid(row=3, column=2, sticky="w", padx=10)
 
         tk.ttk.Checkbutton(graph_frame, text="Show All Data", variable=self.fine_control)\
-            .grid(row=5, column=1, sticky="w", pady=(5, 15))
+            .grid(row=5, column=1, sticky="w", padx=15, pady=(5, 15))
 
-        graph_frame.grid(row=2, column=1, pady=20)
+        graph_frame.grid(row=2, column=1, pady=15)
 
         # Frame for controlling the valves
         valve_frame = tk.LabelFrame(control_panel, text="Valve", background="AliceBlue")
@@ -218,7 +223,7 @@ class GUIFrontend:
         tk.ttk.Button(valve_frame, text="Unset Valve", command=lambda: backend.send(ServerInfo.UNSET_VALVE))\
             .grid(row=1, column=2, padx=15, pady=10)
 
-        valve_frame.grid(row=3, column=1, pady=25)
+        valve_frame.grid(row=3, column=1, pady=15)
 
         # Frame for ignition
         ignition_frame = tk.LabelFrame(control_panel, text="Ignition", background="AliceBlue")
@@ -252,14 +257,46 @@ class GUIFrontend:
 
         ignition_frame.grid(row=4, column=1, pady=(20, 10))
 
+        self.st = Pmw.ScrolledText(logging,
+                                   columnheader=1,
+                                   usehullsize=1,
+                                   hull_width=800,
+                                   hull_height=500,
+                                   text_wrap='none',
+                                   Header_foreground='blue',
+                                   Header_padx=4,
+                                   hscrollmode="none",
+                                   vscrollmode="none",
+                                   )
+
+        # Create the column headers
+        headerLine = ''
+        for column in range(len(self.choices)):
+            headerLine = headerLine + ('%-7s   ' % (self.choices[column],))
+        headerLine = headerLine[:-3]
+        self.st.component('columnheader').insert('0.0', headerLine)
+
+        self.st.tag_configure('yellow', background='yellow')
+
+        self.st.grid(row=1, column=1)
+
     def animate(self, *fargs):
         # Randomly generate some data to plot
         for queue in self.backend.queues:
             length = len(queue) - 1
             for j in range(1, 11):
                 queue.append((random.randint(0, 1000), queue[length][1] + j))
+                # queue.append((queue[length][1] + j, queue[length][1] + j))
             # print (queue)
+        # print (self.backend.queues[0][-10:])
 
+        # Only graph if we are on the mission control tab
+        if self.notebook.index(self.notebook.select()) == 0:
+            self.update_graphs()
+        elif self.notebook.index(self.notebook.select()) == 1:
+           self.update_log_displays()
+
+    def update_graphs(self):
         for i in range(4):
             # Get which graph the user has selected and get the appropriate queue from the backend
             graph_selection = self.graph_variables[i].get()
@@ -269,7 +306,7 @@ class GUIFrontend:
             if self.fine_control.get():
                 data_ratio = 1
             else:
-                data_ratio = int(data_lengths[graph_selection]/samples_to_keep[graph_selection])
+                data_ratio = int(data_lengths[graph_selection] / samples_to_keep[graph_selection])
             # print (data_ratio)
 
             self.plots[i].set_xdata([t for cal, t in data_queue[-data_length::data_ratio]])
@@ -291,6 +328,45 @@ class GUIFrontend:
             self.axes_list[i].set_ylabel(labels[graph_selection][1])
 
             self.plot_selections[i] = graph_selection
+
+    def update_log_displays(self):
+        self.st.clear()
+        # Create the data rows and the row headers
+        numRows = 20
+        tagList = []
+        for row in range(1, numRows):
+            dataLine = ''
+            x = row / 5.0
+            for column in range(len(self.choices)):
+                data_queue = self.backend.queue_dict[str_to_byte[self.choices[column]]]
+                value = data_queue[max(-len(data_queue) + 1, -numRows + row)][0]
+                # print ("value", value)
+                data = str(value)[:9]
+                if value < 500:
+                    tag1 = '%d.%d' % (row, len(dataLine))
+                    tag2 = '%d.%d' % (row, len(dataLine) + len(data))
+                    tagList.append(tag1)
+                    tagList.append(tag2)
+                data = '%-7s' % (data,)
+                dataLine = dataLine + data + '   '
+
+            dataLine = dataLine + '\n'
+            self.st.insert('end', dataLine)
+            # print ("data", dataLine)
+            # print ("tags", tuple(tagList))
+
+        averages = ''
+        for column in range(len(self.choices)):
+            data_queue = self.backend.queue_dict[str_to_byte[self.choices[column]]]
+            average = sum([cal for cal, t in data_queue[-10:]]) / 10.0
+            data = str(average)[:9]
+            data = '%-7s' % (data,)
+            averages = averages + data + '   '
+        self.st.insert('end', averages)
+
+        self.st.tag_add(("yellow"), '20.0', '20.' + str(len(averages) - 4))
+        # print ('20.' + str(len(averages)))
+
 
 
 frontend = GUIFrontend(GUIBackend([], [], [], [], [], [], [], [], [], []))
