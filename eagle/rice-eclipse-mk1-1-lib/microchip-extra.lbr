@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.3.1">
+<eagle version="8.4.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="yes" active="yes"/>
@@ -126,6 +126,35 @@
 <smd name="15" x="-3.175" y="2.6" dx="0.6" dy="2.2" layer="1"/>
 <smd name="16" x="-4.445" y="2.6" dx="0.6" dy="2.2" layer="1"/>
 </package>
+<package name="SO-8">
+<description>&lt;b&gt;8-Lead Small Outline IC&lt;/b&gt; (SO-8)&lt;p&gt;
+Source: http://www.analog.com/UploadedFiles/Data_Sheets/703465986AD8611_2_0.pdf</description>
+<wire x1="2.4" y1="1.9" x2="2.4" y2="-1.4" width="0.2032" layer="51"/>
+<wire x1="2.4" y1="-1.4" x2="2.4" y2="-1.9" width="0.2032" layer="51"/>
+<wire x1="2.4" y1="-1.9" x2="-2.4" y2="-1.9" width="0.2032" layer="51"/>
+<wire x1="-2.4" y1="-1.9" x2="-2.4" y2="-1.4" width="0.2032" layer="51"/>
+<wire x1="-2.4" y1="-1.4" x2="-2.4" y2="1.9" width="0.2032" layer="51"/>
+<wire x1="-2.4" y1="1.9" x2="2.4" y2="1.9" width="0.2032" layer="51"/>
+<wire x1="2.4" y1="-1.4" x2="-2.4" y2="-1.4" width="0.2032" layer="51"/>
+<smd name="2" x="-0.635" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="7" x="-0.635" y="2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="1" x="-1.905" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="3" x="0.635" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="4" x="1.905" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="8" x="-1.905" y="2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="6" x="0.635" y="2.6" dx="0.6" dy="2.2" layer="1"/>
+<smd name="5" x="1.905" y="2.6" dx="0.6" dy="2.2" layer="1"/>
+<text x="-3.175" y="-1.905" size="1.27" layer="25" rot="R90">&gt;NAME</text>
+<text x="4.445" y="-1.905" size="1.27" layer="27" rot="R90">&gt;VALUE</text>
+<rectangle x1="-2.1501" y1="-3.1001" x2="-1.6599" y2="-2" layer="51"/>
+<rectangle x1="-0.8801" y1="-3.1001" x2="-0.3899" y2="-2" layer="51"/>
+<rectangle x1="0.3899" y1="-3.1001" x2="0.8801" y2="-2" layer="51"/>
+<rectangle x1="1.6599" y1="-3.1001" x2="2.1501" y2="-2" layer="51"/>
+<rectangle x1="1.6599" y1="2" x2="2.1501" y2="3.1001" layer="51"/>
+<rectangle x1="0.3899" y1="2" x2="0.8801" y2="3.1001" layer="51"/>
+<rectangle x1="-0.8801" y1="2" x2="-0.3899" y2="3.1001" layer="51"/>
+<rectangle x1="-2.1501" y1="2" x2="-1.6599" y2="3.1001" layer="51"/>
+</package>
 </packages>
 <symbols>
 <symbol name="MCP3208">
@@ -151,6 +180,26 @@
 <pin name="AGND" x="25.4" y="-10.16" length="short" rot="R180"/>
 <pin name="DGND" x="0" y="-25.4" length="short"/>
 <pin name="CLK" x="25.4" y="-15.24" length="short" rot="R180"/>
+</symbol>
+<symbol name="MCP6N11">
+<wire x1="-5.08" y1="15.24" x2="-5.08" y2="-15.24" width="0.254" layer="94"/>
+<wire x1="-5.08" y1="-15.24" x2="10.16" y2="0" width="0.254" layer="94"/>
+<wire x1="10.16" y1="0" x2="-5.08" y2="15.24" width="0.254" layer="94"/>
+<text x="8.89" y="6.35" size="1.778" layer="95">&gt;NAME</text>
+<text x="8.89" y="-7.62" size="1.778" layer="96">&gt;VALUE</text>
+<text x="-1.524" y="7.62" size="1.27" layer="91">+V</text>
+<text x="-1.016" y="-9.144" size="1.27" layer="91">-V</text>
+<rectangle x1="-3.81" y1="9.652" x2="-3.556" y2="10.922" layer="94"/>
+<rectangle x1="-4.318" y1="10.16" x2="-3.048" y2="10.414" layer="94"/>
+<rectangle x1="-4.318" y1="-10.16" x2="-3.048" y2="-9.906" layer="94"/>
+<pin name="+" x="-7.62" y="10.16" visible="pad" length="short" direction="in"/>
+<pin name="-" x="-7.62" y="-10.16" visible="pad" length="short" direction="in"/>
+<pin name="-V" x="0" y="-15.24" visible="pad" length="middle" direction="pwr" rot="R90"/>
+<pin name="+V" x="0" y="15.24" visible="pad" length="middle" direction="pwr" rot="R270"/>
+<pin name="OUT" x="12.7" y="0" visible="pad" length="short" direction="out" rot="R180"/>
+<pin name="FG" x="-10.16" y="5.08" length="middle" direction="in"/>
+<pin name="ENCAL" x="5.08" y="10.16" length="middle" direction="in" rot="R270"/>
+<pin name="REF" x="-10.16" y="-5.08" length="middle" direction="in"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -186,6 +235,35 @@ Source: http://ww1.microchip.com/downloads/en/DeviceDoc/21034D.pdf</description>
 <attribute name="MPN" value="MCP3202-CI/SN" constant="no"/>
 <attribute name="OC_FARNELL" value="1196803" constant="no"/>
 <attribute name="OC_NEWARK" value="19C7207" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="MCP6N11" prefix="IC">
+<description>&lt;b&gt;Low Cost, Low Power, Instrumentation Amplifier&lt;/b&gt;&lt;p&gt;
+Source: http://www.analog.com/UploadedFiles/Data_Sheets/37793330023930AD620_e.pdf</description>
+<gates>
+<gate name="G$1" symbol="MCP6N11" x="0" y="0"/>
+</gates>
+<devices>
+<device name="R" package="SO-8">
+<connects>
+<connect gate="G$1" pin="+" pad="3"/>
+<connect gate="G$1" pin="+V" pad="7"/>
+<connect gate="G$1" pin="-" pad="2"/>
+<connect gate="G$1" pin="-V" pad="4"/>
+<connect gate="G$1" pin="ENCAL" pad="8"/>
+<connect gate="G$1" pin="FG" pad="1"/>
+<connect gate="G$1" pin="OUT" pad="6"/>
+<connect gate="G$1" pin="REF" pad="5"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="AD620AR" constant="no"/>
+<attribute name="OC_FARNELL" value="1464424" constant="no"/>
+<attribute name="OC_NEWARK" value="05F7109" constant="no"/>
 </technology>
 </technologies>
 </device>
