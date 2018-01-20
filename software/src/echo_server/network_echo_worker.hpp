@@ -15,7 +15,7 @@ class network_echo_worker : public network_worker{
         {
         };
 
-        void process_nqi(network_queue_item &nqi);
+        bool process_nqi(network_queue_item &nqi);
 
 };
 

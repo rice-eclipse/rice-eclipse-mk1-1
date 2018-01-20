@@ -1,6 +1,5 @@
 # right now only one plot is gonna be displayed; just add more if necessary
 
-
 import socket
 import threading
 from queue import Queue
@@ -16,9 +15,7 @@ import matplotlib.animation as animation
 from  matplotlib import style
 
 s = socket.socket()
-
 # make it configurable in the gui (text input box and button)
-
 
 # data buffer
 queue1 = Queue()
@@ -34,7 +31,6 @@ a = f.add_subplot(111)
 xlist = []
 ylist = []
 
-
 def lshift(lst, number):
     for i in range(0, len(lst)):
         if i < len(lst) - number:
@@ -42,25 +38,21 @@ def lshift(lst, number):
         else:
             lst[i] = 0
 
-
 # animation for live plot
 def animate(i):
-    # could make it update a whole chunck of data instead
+    # could make it update a whole chunk of data instead
     n = 400
     m = 2000
     if queue1.qsize() >= n:
-
         if len(ylist) >= m:
             lshift(ylist, n)
             lshift(xlist, n)
             for i in range(0, n):
                 first_byte = queue1.get()
-                # second_byte = queue1.get()
                 pullData = int.from_bytes(first_byte, byteorder="little", signed=True)
-                # ylist[m - n + i] = pullData
 
-                second_bytes=queue1.get()
-                timestamp=int.from_bytes(second_bytes, byteorder="little", signed=True)
+                second_bytes = queue1.get()
+                timestamp = int.from_bytes(second_bytes, byteorder="little", signed=True)
 
                 index = x_index.get()
                 xlist[m - n + i] = index
@@ -70,12 +62,10 @@ def animate(i):
         else:
             for i in range(0, n):
                 first_byte = queue1.get()
-                # second_byte = queue1.get()
                 pullData = int.from_bytes(first_byte, byteorder="little", signed=True)
-                # ylist.append(pullData)
 
-                second_bytes=queue1.get()
-                timestamp=int.from_bytes(second_bytes, byteorder="little", signed=True)
+                second_bytes = queue1.get()
+                timestamp = int.from_bytes(second_bytes, byteorder="little", signed=True)
 
                 index = x_index.get()
                 xlist.append(index)
@@ -149,11 +139,9 @@ def test(entry):
     s.send(str.encode(entry))
     s.send(str.encode("\n"))
 
-
 def start_listen():
     thread1 = myThread1(1, "Thread-1", 1)
     thread1.start()
-
 
 # startpage
 class StartPage(tk.Frame):

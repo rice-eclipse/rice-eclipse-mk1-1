@@ -1,6 +1,7 @@
 import socket
 import time
-def Main():
+
+def Main(): #todo fix this to test on pc without C server
     host="127.0.0.1"
     port=1234
     s=socket.socket()
@@ -19,6 +20,7 @@ def Main():
         # data=str(data).upper()
         #
         # print("sending"+str(data))
+        print ("abcd")
         C.send(i.to_bytes(2, byteorder='big'))
         C.send(timestamp.to_bytes(8,byteorder='big'))
         i=(i+1)% 1000

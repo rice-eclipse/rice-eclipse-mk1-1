@@ -8,12 +8,15 @@
 #include <stdint.h>
 #include <bcm2835.h>
 
+extern RPiGPIOPin SPI_CS_0;
+extern RPiGPIOPin SPI_CS_1;
+
 /**
  * A simple structure that holds information on which ADC to read from.
  * Used to pair a sensor with an ADC and a channel
  */
 struct adc_info {
-    uint8_t adc_num;         //ADC to use
+    RPiGPIOPin pin;         //ADC to use
     int pad             :4; //Pad an extra four bits.
     bool single_channel :1; //The :1 means use one bit for this.
     uint8_t channel     :3; //The three bits to pick channel.

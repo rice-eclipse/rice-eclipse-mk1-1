@@ -34,7 +34,6 @@ xlist = []
 ylist = []
 
 
-
 #animation for live plot
 def animate(i):
     if queue1.qsize()>1:
@@ -61,7 +60,6 @@ def serialread(s, q):
         data = s.recv(2)
         if len(data) != 0:
             q.put(data)
-
 
 
 # thread for data acquisition

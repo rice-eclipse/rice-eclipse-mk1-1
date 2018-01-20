@@ -89,7 +89,7 @@ def animate(i):
 # called serialread, actually socket read though. rename if you want (be sure to change the name in other locations)
 def serialread(s, q):
     while 1:
-        data = s.recv(2)
+        data = s.recv(8)
         data1= s.recv(8)
         if len(data) != 0 and len(data1) != 0:
             q.put(data)
